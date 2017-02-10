@@ -1,4 +1,4 @@
-# [ doc = "System window watchdog" ]
+# [ doc = "Window watchdog" ]
 # [ repr ( C ) ]
 pub struct Wwdg {
     # [ doc = "0x00 - Control register" ]
@@ -15,6 +15,19 @@ pub struct Cr {
 }
 
 impl Cr {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&CrR, &'w mut CrW) -> &'w mut CrW
     {
@@ -65,7 +78,7 @@ pub struct CrW {
 impl CrW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        CrW { bits: 127u32 }
+        CrW { bits: 127 }
     }
     # [ doc = "Bit 7 - Activation bit" ]
     pub fn wdga(&mut self, value: bool) -> &mut Self {
@@ -93,6 +106,19 @@ pub struct Cfr {
 }
 
 impl Cfr {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&CfrR, &'w mut CfrW) -> &'w mut CfrW
     {
@@ -126,11 +152,15 @@ impl CfrR {
         const OFFSET: u8 = 9u8;
         self.bits & (1 << OFFSET) != 0
     }
-    # [ doc = "Bits 7:8 - Timer base" ]
-    pub fn wdgtb(&self) -> u8 {
-        const MASK: u32 = 3;
+    # [ doc = "Bit 8 - Timer base" ]
+    pub fn wdgtb1(&self) -> bool {
+        const OFFSET: u8 = 8u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 7 - Timer base" ]
+    pub fn wdgtb0(&self) -> bool {
         const OFFSET: u8 = 7u8;
-        ((self.bits >> OFFSET) & MASK) as u8
+        self.bits & (1 << OFFSET) != 0
     }
     # [ doc = "Bits 0:6 - 7-bit window value" ]
     pub fn w(&self) -> u8 {
@@ -149,7 +179,7 @@ pub struct CfrW {
 impl CfrW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        CfrW { bits: 127u32 }
+        CfrW { bits: 127 }
     }
     # [ doc = "Bit 9 - Early wakeup interrupt" ]
     pub fn ewi(&mut self, value: bool) -> &mut Self {
@@ -161,12 +191,24 @@ impl CfrW {
         }
         self
     }
-    # [ doc = "Bits 7:8 - Timer base" ]
-    pub fn wdgtb(&mut self, value: u8) -> &mut Self {
+    # [ doc = "Bit 8 - Timer base" ]
+    pub fn wdgtb1(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 8u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 7 - Timer base" ]
+    pub fn wdgtb0(&mut self, value: bool) -> &mut Self {
         const OFFSET: u8 = 7u8;
-        const MASK: u8 = 3;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
         self
     }
     # [ doc = "Bits 0:6 - 7-bit window value" ]
@@ -185,6 +227,19 @@ pub struct Sr {
 }
 
 impl Sr {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&SrR, &'w mut SrW) -> &'w mut SrW
     {
@@ -229,7 +284,7 @@ pub struct SrW {
 impl SrW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        SrW { bits: 0u32 }
+        SrW { bits: 0 }
     }
     # [ doc = "Bit 0 - Early wakeup interrupt flag" ]
     pub fn ewif(&mut self, value: bool) -> &mut Self {

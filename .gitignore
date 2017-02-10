@@ -1,4 +1,4 @@
 target
 Cargo.lock
 *.bk
-/STM32L4x6.svd
+/STM32F40x.svd

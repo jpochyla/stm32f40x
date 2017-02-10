@@ -27,31 +27,85 @@ pub struct OtgFsDevice {
     _reserved3: [u8; 200usize],
     # [ doc = "0x100 - OTG_FS device control IN endpoint 0 control register (OTG_FS_DIEPCTL0)" ]
     pub fs_diepctl0: FsDiepctl0,
-    _reserved4: [u8; 28usize],
+    _reserved4: [u8; 4usize],
+    # [ doc = "0x108 - device endpoint-x interrupt register" ]
+    pub diepint0: Diepint0,
+    _reserved5: [u8; 4usize],
+    # [ doc = "0x110 - device endpoint-0 transfer size register" ]
+    pub dieptsiz0: Dieptsiz0,
+    _reserved6: [u8; 4usize],
+    # [ doc = "0x118 - OTG_FS device IN endpoint transmit FIFO status register" ]
+    pub dtxfsts0: Dtxfsts0,
+    _reserved7: [u8; 4usize],
     # [ doc = "0x120 - OTG device endpoint-1 control register" ]
     pub diepctl1: Diepctl1,
-    _reserved5: [u8; 28usize],
+    _reserved8: [u8; 4usize],
+    # [ doc = "0x128 - device endpoint-1 interrupt register" ]
+    pub diepint1: Diepint1,
+    _reserved9: [u8; 4usize],
+    # [ doc = "0x130 - device endpoint-1 transfer size register" ]
+    pub dieptsiz1: Dieptsiz1,
+    _reserved10: [u8; 4usize],
+    # [ doc = "0x138 - OTG_FS device IN endpoint transmit FIFO status register" ]
+    pub dtxfsts1: Dtxfsts1,
+    _reserved11: [u8; 4usize],
     # [ doc = "0x140 - OTG device endpoint-2 control register" ]
     pub diepctl2: Diepctl2,
-    _reserved6: [u8; 28usize],
+    _reserved12: [u8; 4usize],
+    # [ doc = "0x148 - device endpoint-2 interrupt register" ]
+    pub diepint2: Diepint2,
+    _reserved13: [u8; 4usize],
+    # [ doc = "0x150 - device endpoint-2 transfer size register" ]
+    pub dieptsiz2: Dieptsiz2,
+    _reserved14: [u8; 4usize],
+    # [ doc = "0x158 - OTG_FS device IN endpoint transmit FIFO status register" ]
+    pub dtxfsts2: Dtxfsts2,
+    _reserved15: [u8; 4usize],
     # [ doc = "0x160 - OTG device endpoint-3 control register" ]
     pub diepctl3: Diepctl3,
-    _reserved7: [u8; 412usize],
+    _reserved16: [u8; 4usize],
+    # [ doc = "0x168 - device endpoint-3 interrupt register" ]
+    pub diepint3: Diepint3,
+    _reserved17: [u8; 4usize],
+    # [ doc = "0x170 - device endpoint-3 transfer size register" ]
+    pub dieptsiz3: Dieptsiz3,
+    _reserved18: [u8; 4usize],
+    # [ doc = "0x178 - OTG_FS device IN endpoint transmit FIFO status register" ]
+    pub dtxfsts3: Dtxfsts3,
+    _reserved19: [u8; 388usize],
     # [ doc = "0x300 - device endpoint-0 control register" ]
     pub doepctl0: Doepctl0,
-    _reserved8: [u8; 28usize],
+    _reserved20: [u8; 4usize],
+    # [ doc = "0x308 - device endpoint-0 interrupt register" ]
+    pub doepint0: Doepint0,
+    _reserved21: [u8; 4usize],
+    # [ doc = "0x310 - device OUT endpoint-0 transfer size register" ]
+    pub doeptsiz0: Doeptsiz0,
+    _reserved22: [u8; 12usize],
     # [ doc = "0x320 - device endpoint-1 control register" ]
     pub doepctl1: Doepctl1,
-    _reserved9: [u8; 28usize],
+    _reserved23: [u8; 4usize],
+    # [ doc = "0x328 - device endpoint-1 interrupt register" ]
+    pub doepint1: Doepint1,
+    _reserved24: [u8; 4usize],
+    # [ doc = "0x330 - device OUT endpoint-1 transfer size register" ]
+    pub doeptsiz1: Doeptsiz1,
+    _reserved25: [u8; 12usize],
     # [ doc = "0x340 - device endpoint-2 control register" ]
     pub doepctl2: Doepctl2,
-    _reserved10: [u8; 28usize],
+    _reserved26: [u8; 4usize],
+    # [ doc = "0x348 - device endpoint-2 interrupt register" ]
+    pub doepint2: Doepint2,
+    _reserved27: [u8; 4usize],
+    # [ doc = "0x350 - device OUT endpoint-2 transfer size register" ]
+    pub doeptsiz2: Doeptsiz2,
+    _reserved28: [u8; 12usize],
     # [ doc = "0x360 - device endpoint-3 control register" ]
     pub doepctl3: Doepctl3,
-    _reserved11: [u8; 4usize],
+    _reserved29: [u8; 4usize],
     # [ doc = "0x368 - device endpoint-3 interrupt register" ]
     pub doepint3: Doepint3,
-    _reserved12: [u8; 4usize],
+    _reserved30: [u8; 4usize],
     # [ doc = "0x370 - device OUT endpoint-3 transfer size register" ]
     pub doeptsiz3: Doeptsiz3,
 }
@@ -62,6 +116,19 @@ pub struct FsDcfg {
 }
 
 impl FsDcfg {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsDcfgR, &'w mut FsDcfgW) -> &'w mut FsDcfgW
     {
@@ -124,7 +191,7 @@ pub struct FsDcfgW {
 impl FsDcfgW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsDcfgW { bits: 35651584u32 }
+        FsDcfgW { bits: 35651584 }
     }
     # [ doc = "Bits 0:1 - Device speed" ]
     pub fn dspd(&mut self, value: u8) -> &mut Self {
@@ -168,6 +235,19 @@ pub struct FsDctl {
 }
 
 impl FsDctl {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsDctlR, &'w mut FsDctlW) -> &'w mut FsDctlW
     {
@@ -258,7 +338,7 @@ pub struct FsDctlW {
 impl FsDctlW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsDctlW { bits: 0u32 }
+        FsDctlW { bits: 0 }
     }
     # [ doc = "Bit 0 - Remote wakeup signaling" ]
     pub fn rwusig(&mut self, value: bool) -> &mut Self {
@@ -346,6 +426,9 @@ pub struct FsDsts {
 }
 
 impl FsDsts {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
     pub fn read(&self) -> FsDstsR {
         FsDstsR { bits: self.register.read() }
     }
@@ -382,61 +465,25 @@ impl FsDstsR {
     }
 }
 
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct FsDstsW {
-    bits: u32,
-}
-
-impl FsDstsW {
-    # [ doc = r" Reset value" ]
-    pub fn reset_value() -> Self {
-        FsDstsW { bits: 16u32 }
-    }
-    # [ doc = "Bit 0 - Suspend status" ]
-    pub fn suspsts(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 0u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bits 1:2 - Enumerated speed" ]
-    pub fn enumspd(&mut self, value: u8) -> &mut Self {
-        const OFFSET: u8 = 1u8;
-        const MASK: u8 = 3;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-    # [ doc = "Bit 3 - Erratic error" ]
-    pub fn eerr(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 3u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bits 8:21 - Frame number of the received SOF" ]
-    pub fn fnsof(&mut self, value: u16) -> &mut Self {
-        const OFFSET: u8 = 8u8;
-        const MASK: u16 = 16383;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-}
-
 # [ repr ( C ) ]
 pub struct FsDiepmsk {
     register: ::volatile_register::RW<u32>,
 }
 
 impl FsDiepmsk {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsDiepmskR, &'w mut FsDiepmskW) -> &'w mut FsDiepmskW
     {
@@ -506,7 +553,7 @@ pub struct FsDiepmskW {
 impl FsDiepmskW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsDiepmskW { bits: 0u32 }
+        FsDiepmskW { bits: 0 }
     }
     # [ doc = "Bit 0 - Transfer completed interrupt mask" ]
     pub fn xfrcm(&mut self, value: bool) -> &mut Self {
@@ -576,6 +623,19 @@ pub struct FsDoepmsk {
 }
 
 impl FsDoepmsk {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsDoepmskR, &'w mut FsDoepmskW) -> &'w mut FsDoepmskW
     {
@@ -635,7 +695,7 @@ pub struct FsDoepmskW {
 impl FsDoepmskW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsDoepmskW { bits: 0u32 }
+        FsDoepmskW { bits: 0 }
     }
     # [ doc = "Bit 0 - Transfer completed interrupt mask" ]
     pub fn xfrcm(&mut self, value: bool) -> &mut Self {
@@ -685,6 +745,9 @@ pub struct FsDaint {
 }
 
 impl FsDaint {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
     pub fn read(&self) -> FsDaintR {
         FsDaintR { bits: self.register.read() }
     }
@@ -711,41 +774,25 @@ impl FsDaintR {
     }
 }
 
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct FsDaintW {
-    bits: u32,
-}
-
-impl FsDaintW {
-    # [ doc = r" Reset value" ]
-    pub fn reset_value() -> Self {
-        FsDaintW { bits: 0u32 }
-    }
-    # [ doc = "Bits 0:15 - IN endpoint interrupt bits" ]
-    pub fn iepint(&mut self, value: u16) -> &mut Self {
-        const OFFSET: u8 = 0u8;
-        const MASK: u16 = 65535;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-    # [ doc = "Bits 16:31 - OUT endpoint interrupt bits" ]
-    pub fn oepint(&mut self, value: u16) -> &mut Self {
-        const OFFSET: u8 = 16u8;
-        const MASK: u16 = 65535;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-}
-
 # [ repr ( C ) ]
 pub struct FsDaintmsk {
     register: ::volatile_register::RW<u32>,
 }
 
 impl FsDaintmsk {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsDaintmskR, &'w mut FsDaintmskW) -> &'w mut FsDaintmskW
     {
@@ -797,7 +844,7 @@ pub struct FsDaintmskW {
 impl FsDaintmskW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsDaintmskW { bits: 0u32 }
+        FsDaintmskW { bits: 0 }
     }
     # [ doc = "Bits 0:15 - IN EP interrupt mask bits" ]
     pub fn iepm(&mut self, value: u16) -> &mut Self {
@@ -823,6 +870,19 @@ pub struct Dvbusdis {
 }
 
 impl Dvbusdis {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&DvbusdisR, &'w mut DvbusdisW) -> &'w mut DvbusdisW
     {
@@ -868,7 +928,7 @@ pub struct DvbusdisW {
 impl DvbusdisW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        DvbusdisW { bits: 6103u32 }
+        DvbusdisW { bits: 6103 }
     }
     # [ doc = "Bits 0:15 - Device VBUS discharge time" ]
     pub fn vbusdt(&mut self, value: u16) -> &mut Self {
@@ -886,6 +946,19 @@ pub struct Dvbuspulse {
 }
 
 impl Dvbuspulse {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&DvbuspulseR, &'w mut DvbuspulseW) -> &'w mut DvbuspulseW
     {
@@ -931,7 +1004,7 @@ pub struct DvbuspulseW {
 impl DvbuspulseW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        DvbuspulseW { bits: 1464u32 }
+        DvbuspulseW { bits: 1464 }
     }
     # [ doc = "Bits 0:11 - Device VBUS pulsing time" ]
     pub fn dvbusp(&mut self, value: u16) -> &mut Self {
@@ -949,6 +1022,19 @@ pub struct Diepempmsk {
 }
 
 impl Diepempmsk {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&DiepempmskR, &'w mut DiepempmskW) -> &'w mut DiepempmskW
     {
@@ -994,7 +1080,7 @@ pub struct DiepempmskW {
 impl DiepempmskW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        DiepempmskW { bits: 0u32 }
+        DiepempmskW { bits: 0 }
     }
     # [ doc = "Bits 0:15 - IN EP Tx FIFO empty interrupt mask bits" ]
     pub fn ineptxfem(&mut self, value: u16) -> &mut Self {
@@ -1012,6 +1098,19 @@ pub struct FsDiepctl0 {
 }
 
 impl FsDiepctl0 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsDiepctl0R, &'w mut FsDiepctl0W) -> &'w mut FsDiepctl0W
     {
@@ -1094,7 +1193,7 @@ pub struct FsDiepctl0W {
 impl FsDiepctl0W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsDiepctl0W { bits: 0u32 }
+        FsDiepctl0W { bits: 0 }
     }
     # [ doc = "Bits 0:1 - Maximum packet size" ]
     pub fn mpsiz(&mut self, value: u8) -> &mut Self {
@@ -1150,6 +1249,19 @@ pub struct Diepctl1 {
 }
 
 impl Diepctl1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Diepctl1R, &'w mut Diepctl1W) -> &'w mut Diepctl1W
     {
@@ -1237,7 +1349,7 @@ pub struct Diepctl1W {
 impl Diepctl1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Diepctl1W { bits: 0u32 }
+        Diepctl1W { bits: 0 }
     }
     # [ doc = "Bit 31 - EPENA" ]
     pub fn epena(&mut self, value: bool) -> &mut Self {
@@ -1351,6 +1463,19 @@ pub struct Diepctl2 {
 }
 
 impl Diepctl2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Diepctl2R, &'w mut Diepctl2W) -> &'w mut Diepctl2W
     {
@@ -1438,7 +1563,7 @@ pub struct Diepctl2W {
 impl Diepctl2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Diepctl2W { bits: 0u32 }
+        Diepctl2W { bits: 0 }
     }
     # [ doc = "Bit 31 - EPENA" ]
     pub fn epena(&mut self, value: bool) -> &mut Self {
@@ -1552,6 +1677,19 @@ pub struct Diepctl3 {
 }
 
 impl Diepctl3 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Diepctl3R, &'w mut Diepctl3W) -> &'w mut Diepctl3W
     {
@@ -1639,7 +1777,7 @@ pub struct Diepctl3W {
 impl Diepctl3W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Diepctl3W { bits: 0u32 }
+        Diepctl3W { bits: 0 }
     }
     # [ doc = "Bit 31 - EPENA" ]
     pub fn epena(&mut self, value: bool) -> &mut Self {
@@ -1753,6 +1891,19 @@ pub struct Doepctl0 {
 }
 
 impl Doepctl0 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Doepctl0R, &'w mut Doepctl0W) -> &'w mut Doepctl0W
     {
@@ -1829,7 +1980,7 @@ pub struct Doepctl0W {
 impl Doepctl0W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Doepctl0W { bits: 32768u32 }
+        Doepctl0W { bits: 32768 }
     }
     # [ doc = "Bit 31 - EPENA" ]
     pub fn epena(&mut self, value: bool) -> &mut Self {
@@ -1889,6 +2040,19 @@ pub struct Doepctl1 {
 }
 
 impl Doepctl1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Doepctl1R, &'w mut Doepctl1W) -> &'w mut Doepctl1W
     {
@@ -1975,7 +2139,7 @@ pub struct Doepctl1W {
 impl Doepctl1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Doepctl1W { bits: 0u32 }
+        Doepctl1W { bits: 0 }
     }
     # [ doc = "Bit 31 - EPENA" ]
     pub fn epena(&mut self, value: bool) -> &mut Self {
@@ -2091,6 +2255,19 @@ pub struct Doepctl2 {
 }
 
 impl Doepctl2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Doepctl2R, &'w mut Doepctl2W) -> &'w mut Doepctl2W
     {
@@ -2177,7 +2354,7 @@ pub struct Doepctl2W {
 impl Doepctl2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Doepctl2W { bits: 0u32 }
+        Doepctl2W { bits: 0 }
     }
     # [ doc = "Bit 31 - EPENA" ]
     pub fn epena(&mut self, value: bool) -> &mut Self {
@@ -2293,6 +2470,19 @@ pub struct Doepctl3 {
 }
 
 impl Doepctl3 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Doepctl3R, &'w mut Doepctl3W) -> &'w mut Doepctl3W
     {
@@ -2379,7 +2569,7 @@ pub struct Doepctl3W {
 impl Doepctl3W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Doepctl3W { bits: 0u32 }
+        Doepctl3W { bits: 0 }
     }
     # [ doc = "Bit 31 - EPENA" ]
     pub fn epena(&mut self, value: bool) -> &mut Self {
@@ -2495,6 +2685,19 @@ pub struct Diepint0 {
 }
 
 impl Diepint0 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Diepint0R, &'w mut Diepint0W) -> &'w mut Diepint0W
     {
@@ -2564,7 +2767,7 @@ pub struct Diepint0W {
 impl Diepint0W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Diepint0W { bits: 128u32 }
+        Diepint0W { bits: 128 }
     }
     # [ doc = "Bit 6 - INEPNE" ]
     pub fn inepne(&mut self, value: bool) -> &mut Self {
@@ -2624,6 +2827,19 @@ pub struct Diepint1 {
 }
 
 impl Diepint1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Diepint1R, &'w mut Diepint1W) -> &'w mut Diepint1W
     {
@@ -2693,7 +2909,7 @@ pub struct Diepint1W {
 impl Diepint1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Diepint1W { bits: 128u32 }
+        Diepint1W { bits: 128 }
     }
     # [ doc = "Bit 6 - INEPNE" ]
     pub fn inepne(&mut self, value: bool) -> &mut Self {
@@ -2753,6 +2969,19 @@ pub struct Diepint2 {
 }
 
 impl Diepint2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Diepint2R, &'w mut Diepint2W) -> &'w mut Diepint2W
     {
@@ -2822,7 +3051,7 @@ pub struct Diepint2W {
 impl Diepint2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Diepint2W { bits: 128u32 }
+        Diepint2W { bits: 128 }
     }
     # [ doc = "Bit 6 - INEPNE" ]
     pub fn inepne(&mut self, value: bool) -> &mut Self {
@@ -2882,6 +3111,19 @@ pub struct Diepint3 {
 }
 
 impl Diepint3 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Diepint3R, &'w mut Diepint3W) -> &'w mut Diepint3W
     {
@@ -2951,7 +3193,7 @@ pub struct Diepint3W {
 impl Diepint3W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Diepint3W { bits: 128u32 }
+        Diepint3W { bits: 128 }
     }
     # [ doc = "Bit 6 - INEPNE" ]
     pub fn inepne(&mut self, value: bool) -> &mut Self {
@@ -3011,6 +3253,19 @@ pub struct Doepint0 {
 }
 
 impl Doepint0 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Doepint0R, &'w mut Doepint0W) -> &'w mut Doepint0W
     {
@@ -3075,7 +3330,7 @@ pub struct Doepint0W {
 impl Doepint0W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Doepint0W { bits: 128u32 }
+        Doepint0W { bits: 128 }
     }
     # [ doc = "Bit 6 - B2BSTUP" ]
     pub fn b2bstup(&mut self, value: bool) -> &mut Self {
@@ -3135,6 +3390,19 @@ pub struct Doepint1 {
 }
 
 impl Doepint1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Doepint1R, &'w mut Doepint1W) -> &'w mut Doepint1W
     {
@@ -3199,7 +3467,7 @@ pub struct Doepint1W {
 impl Doepint1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Doepint1W { bits: 128u32 }
+        Doepint1W { bits: 128 }
     }
     # [ doc = "Bit 6 - B2BSTUP" ]
     pub fn b2bstup(&mut self, value: bool) -> &mut Self {
@@ -3259,6 +3527,19 @@ pub struct Doepint2 {
 }
 
 impl Doepint2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Doepint2R, &'w mut Doepint2W) -> &'w mut Doepint2W
     {
@@ -3323,7 +3604,7 @@ pub struct Doepint2W {
 impl Doepint2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Doepint2W { bits: 128u32 }
+        Doepint2W { bits: 128 }
     }
     # [ doc = "Bit 6 - B2BSTUP" ]
     pub fn b2bstup(&mut self, value: bool) -> &mut Self {
@@ -3383,6 +3664,19 @@ pub struct Doepint3 {
 }
 
 impl Doepint3 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Doepint3R, &'w mut Doepint3W) -> &'w mut Doepint3W
     {
@@ -3447,7 +3741,7 @@ pub struct Doepint3W {
 impl Doepint3W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Doepint3W { bits: 128u32 }
+        Doepint3W { bits: 128 }
     }
     # [ doc = "Bit 6 - B2BSTUP" ]
     pub fn b2bstup(&mut self, value: bool) -> &mut Self {
@@ -3507,6 +3801,19 @@ pub struct Dieptsiz0 {
 }
 
 impl Dieptsiz0 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Dieptsiz0R, &'w mut Dieptsiz0W) -> &'w mut Dieptsiz0W
     {
@@ -3558,7 +3865,7 @@ pub struct Dieptsiz0W {
 impl Dieptsiz0W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Dieptsiz0W { bits: 0u32 }
+        Dieptsiz0W { bits: 0 }
     }
     # [ doc = "Bits 19:20 - Packet count" ]
     pub fn pktcnt(&mut self, value: u8) -> &mut Self {
@@ -3584,6 +3891,19 @@ pub struct Doeptsiz0 {
 }
 
 impl Doeptsiz0 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Doeptsiz0R, &'w mut Doeptsiz0W) -> &'w mut Doeptsiz0W
     {
@@ -3640,7 +3960,7 @@ pub struct Doeptsiz0W {
 impl Doeptsiz0W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Doeptsiz0W { bits: 0u32 }
+        Doeptsiz0W { bits: 0 }
     }
     # [ doc = "Bits 29:30 - SETUP packet count" ]
     pub fn stupcnt(&mut self, value: u8) -> &mut Self {
@@ -3676,6 +3996,19 @@ pub struct Dieptsiz1 {
 }
 
 impl Dieptsiz1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Dieptsiz1R, &'w mut Dieptsiz1W) -> &'w mut Dieptsiz1W
     {
@@ -3733,7 +4066,7 @@ pub struct Dieptsiz1W {
 impl Dieptsiz1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Dieptsiz1W { bits: 0u32 }
+        Dieptsiz1W { bits: 0 }
     }
     # [ doc = "Bits 29:30 - Multi count" ]
     pub fn mcnt(&mut self, value: u8) -> &mut Self {
@@ -3767,6 +4100,19 @@ pub struct Dieptsiz2 {
 }
 
 impl Dieptsiz2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Dieptsiz2R, &'w mut Dieptsiz2W) -> &'w mut Dieptsiz2W
     {
@@ -3824,7 +4170,7 @@ pub struct Dieptsiz2W {
 impl Dieptsiz2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Dieptsiz2W { bits: 0u32 }
+        Dieptsiz2W { bits: 0 }
     }
     # [ doc = "Bits 29:30 - Multi count" ]
     pub fn mcnt(&mut self, value: u8) -> &mut Self {
@@ -3858,6 +4204,19 @@ pub struct Dieptsiz3 {
 }
 
 impl Dieptsiz3 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Dieptsiz3R, &'w mut Dieptsiz3W) -> &'w mut Dieptsiz3W
     {
@@ -3915,7 +4274,7 @@ pub struct Dieptsiz3W {
 impl Dieptsiz3W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Dieptsiz3W { bits: 0u32 }
+        Dieptsiz3W { bits: 0 }
     }
     # [ doc = "Bits 29:30 - Multi count" ]
     pub fn mcnt(&mut self, value: u8) -> &mut Self {
@@ -3949,6 +4308,9 @@ pub struct Dtxfsts0 {
 }
 
 impl Dtxfsts0 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
     pub fn read(&self) -> Dtxfsts0R {
         Dtxfsts0R { bits: self.register.read() }
     }
@@ -3969,33 +4331,15 @@ impl Dtxfsts0R {
     }
 }
 
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct Dtxfsts0W {
-    bits: u32,
-}
-
-impl Dtxfsts0W {
-    # [ doc = r" Reset value" ]
-    pub fn reset_value() -> Self {
-        Dtxfsts0W { bits: 0u32 }
-    }
-    # [ doc = "Bits 0:15 - IN endpoint TxFIFO space available" ]
-    pub fn ineptfsav(&mut self, value: u16) -> &mut Self {
-        const OFFSET: u8 = 0u8;
-        const MASK: u16 = 65535;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-}
-
 # [ repr ( C ) ]
 pub struct Dtxfsts1 {
     register: ::volatile_register::RO<u32>,
 }
 
 impl Dtxfsts1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
     pub fn read(&self) -> Dtxfsts1R {
         Dtxfsts1R { bits: self.register.read() }
     }
@@ -4016,33 +4360,15 @@ impl Dtxfsts1R {
     }
 }
 
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct Dtxfsts1W {
-    bits: u32,
-}
-
-impl Dtxfsts1W {
-    # [ doc = r" Reset value" ]
-    pub fn reset_value() -> Self {
-        Dtxfsts1W { bits: 0u32 }
-    }
-    # [ doc = "Bits 0:15 - IN endpoint TxFIFO space available" ]
-    pub fn ineptfsav(&mut self, value: u16) -> &mut Self {
-        const OFFSET: u8 = 0u8;
-        const MASK: u16 = 65535;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-}
-
 # [ repr ( C ) ]
 pub struct Dtxfsts2 {
     register: ::volatile_register::RO<u32>,
 }
 
 impl Dtxfsts2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
     pub fn read(&self) -> Dtxfsts2R {
         Dtxfsts2R { bits: self.register.read() }
     }
@@ -4063,33 +4389,15 @@ impl Dtxfsts2R {
     }
 }
 
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct Dtxfsts2W {
-    bits: u32,
-}
-
-impl Dtxfsts2W {
-    # [ doc = r" Reset value" ]
-    pub fn reset_value() -> Self {
-        Dtxfsts2W { bits: 0u32 }
-    }
-    # [ doc = "Bits 0:15 - IN endpoint TxFIFO space available" ]
-    pub fn ineptfsav(&mut self, value: u16) -> &mut Self {
-        const OFFSET: u8 = 0u8;
-        const MASK: u16 = 65535;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-}
-
 # [ repr ( C ) ]
 pub struct Dtxfsts3 {
     register: ::volatile_register::RO<u32>,
 }
 
 impl Dtxfsts3 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
     pub fn read(&self) -> Dtxfsts3R {
         Dtxfsts3R { bits: self.register.read() }
     }
@@ -4110,33 +4418,25 @@ impl Dtxfsts3R {
     }
 }
 
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct Dtxfsts3W {
-    bits: u32,
-}
-
-impl Dtxfsts3W {
-    # [ doc = r" Reset value" ]
-    pub fn reset_value() -> Self {
-        Dtxfsts3W { bits: 0u32 }
-    }
-    # [ doc = "Bits 0:15 - IN endpoint TxFIFO space available" ]
-    pub fn ineptfsav(&mut self, value: u16) -> &mut Self {
-        const OFFSET: u8 = 0u8;
-        const MASK: u16 = 65535;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-}
-
 # [ repr ( C ) ]
 pub struct Doeptsiz1 {
     register: ::volatile_register::RW<u32>,
 }
 
 impl Doeptsiz1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Doeptsiz1R, &'w mut Doeptsiz1W) -> &'w mut Doeptsiz1W
     {
@@ -4194,7 +4494,7 @@ pub struct Doeptsiz1W {
 impl Doeptsiz1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Doeptsiz1W { bits: 0u32 }
+        Doeptsiz1W { bits: 0 }
     }
     # [ doc = "Bits 29:30 - Received data PID/SETUP packet count" ]
     pub fn rxdpid_stupcnt(&mut self, value: u8) -> &mut Self {
@@ -4228,6 +4528,19 @@ pub struct Doeptsiz2 {
 }
 
 impl Doeptsiz2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Doeptsiz2R, &'w mut Doeptsiz2W) -> &'w mut Doeptsiz2W
     {
@@ -4285,7 +4598,7 @@ pub struct Doeptsiz2W {
 impl Doeptsiz2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Doeptsiz2W { bits: 0u32 }
+        Doeptsiz2W { bits: 0 }
     }
     # [ doc = "Bits 29:30 - Received data PID/SETUP packet count" ]
     pub fn rxdpid_stupcnt(&mut self, value: u8) -> &mut Self {
@@ -4319,6 +4632,19 @@ pub struct Doeptsiz3 {
 }
 
 impl Doeptsiz3 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Doeptsiz3R, &'w mut Doeptsiz3W) -> &'w mut Doeptsiz3W
     {
@@ -4376,7 +4702,7 @@ pub struct Doeptsiz3W {
 impl Doeptsiz3W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Doeptsiz3W { bits: 0u32 }
+        Doeptsiz3W { bits: 0 }
     }
     # [ doc = "Bits 29:30 - Received data PID/SETUP packet count" ]
     pub fn rxdpid_stupcnt(&mut self, value: u8) -> &mut Self {

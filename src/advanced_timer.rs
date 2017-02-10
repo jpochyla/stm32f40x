@@ -41,18 +41,6 @@ pub struct AdvancedTimer {
     pub dcr: Dcr,
     # [ doc = "0x4c - DMA address for full transfer" ]
     pub dmar: Dmar,
-    # [ doc = "0x50 - DMA address for full transfer" ]
-    pub or1: Or1,
-    # [ doc = "0x54 - capture/compare mode register 2 (output mode)" ]
-    pub ccmr3_output: Ccmr3Output,
-    # [ doc = "0x58 - capture/compare register 4" ]
-    pub ccr5: Ccr5,
-    # [ doc = "0x5c - capture/compare register 4" ]
-    pub ccr6: Ccr6,
-    # [ doc = "0x60 - DMA address for full transfer" ]
-    pub or2: Or2,
-    # [ doc = "0x64 - DMA address for full transfer" ]
-    pub or3: Or3,
 }
 
 # [ repr ( C ) ]
@@ -61,6 +49,19 @@ pub struct Cr1 {
 }
 
 impl Cr1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Cr1R, &'w mut Cr1W) -> &'w mut Cr1W
     {
@@ -142,7 +143,7 @@ pub struct Cr1W {
 impl Cr1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Cr1W { bits: 0u32 }
+        Cr1W { bits: 0 }
     }
     # [ doc = "Bits 8:9 - Clock division" ]
     pub fn ckd(&mut self, value: u8) -> &mut Self {
@@ -228,6 +229,19 @@ pub struct Cr2 {
 }
 
 impl Cr2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Cr2R, &'w mut Cr2W) -> &'w mut Cr2W
     {
@@ -328,7 +342,7 @@ pub struct Cr2W {
 impl Cr2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Cr2W { bits: 0u32 }
+        Cr2W { bits: 0 }
     }
     # [ doc = "Bit 14 - Output Idle state 4" ]
     pub fn ois4(&mut self, value: bool) -> &mut Self {
@@ -456,6 +470,19 @@ pub struct Smcr {
 }
 
 impl Smcr {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&SmcrR, &'w mut SmcrW) -> &'w mut SmcrW
     {
@@ -534,7 +561,7 @@ pub struct SmcrW {
 impl SmcrW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        SmcrW { bits: 0u32 }
+        SmcrW { bits: 0 }
     }
     # [ doc = "Bit 15 - External trigger polarity" ]
     pub fn etp(&mut self, value: bool) -> &mut Self {
@@ -606,6 +633,19 @@ pub struct Dier {
 }
 
 impl Dier {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&DierR, &'w mut DierW) -> &'w mut DierW
     {
@@ -720,7 +760,7 @@ pub struct DierW {
 impl DierW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        DierW { bits: 0u32 }
+        DierW { bits: 0 }
     }
     # [ doc = "Bit 14 - Trigger DMA request enable" ]
     pub fn tde(&mut self, value: bool) -> &mut Self {
@@ -880,6 +920,19 @@ pub struct Sr {
 }
 
 impl Sr {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&SrR, &'w mut SrW) -> &'w mut SrW
     {
@@ -979,7 +1032,7 @@ pub struct SrW {
 impl SrW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        SrW { bits: 0u32 }
+        SrW { bits: 0 }
     }
     # [ doc = "Bit 12 - Capture/Compare 4 overcapture flag" ]
     pub fn cc4of(&mut self, value: bool) -> &mut Self {
@@ -1109,61 +1162,15 @@ pub struct Egr {
 }
 
 impl Egr {
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn write<F>(&self, f: F)
         where F: FnOnce(&mut EgrW) -> &mut EgrW
     {
         let mut w = EgrW::reset_value();
         f(&mut w);
         self.register.write(w.bits);
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct EgrR {
-    bits: u32,
-}
-
-impl EgrR {
-    # [ doc = "Bit 7 - Break generation" ]
-    pub fn bg(&self) -> bool {
-        const OFFSET: u8 = 7u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 6 - Trigger generation" ]
-    pub fn tg(&self) -> bool {
-        const OFFSET: u8 = 6u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 5 - Capture/Compare control update generation" ]
-    pub fn comg(&self) -> bool {
-        const OFFSET: u8 = 5u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 4 - Capture/compare 4 generation" ]
-    pub fn cc4g(&self) -> bool {
-        const OFFSET: u8 = 4u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 3 - Capture/compare 3 generation" ]
-    pub fn cc3g(&self) -> bool {
-        const OFFSET: u8 = 3u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 2 - Capture/compare 2 generation" ]
-    pub fn cc2g(&self) -> bool {
-        const OFFSET: u8 = 2u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 1 - Capture/compare 1 generation" ]
-    pub fn cc1g(&self) -> bool {
-        const OFFSET: u8 = 1u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 0 - Update generation" ]
-    pub fn ug(&self) -> bool {
-        const OFFSET: u8 = 0u8;
-        self.bits & (1 << OFFSET) != 0
     }
 }
 
@@ -1176,7 +1183,7 @@ pub struct EgrW {
 impl EgrW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        EgrW { bits: 0u32 }
+        EgrW { bits: 0 }
     }
     # [ doc = "Bit 7 - Break generation" ]
     pub fn bg(&mut self, value: bool) -> &mut Self {
@@ -1266,6 +1273,19 @@ pub struct Ccmr1Output {
 }
 
 impl Ccmr1Output {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Ccmr1OutputR, &'w mut Ccmr1OutputW) -> &'w mut Ccmr1OutputW
     {
@@ -1359,7 +1379,7 @@ pub struct Ccmr1OutputW {
 impl Ccmr1OutputW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Ccmr1OutputW { bits: 0u32 }
+        Ccmr1OutputW { bits: 0 }
     }
     # [ doc = "Bit 15 - Output Compare 2 clear enable" ]
     pub fn oc2ce(&mut self, value: bool) -> &mut Self {
@@ -1461,6 +1481,19 @@ pub struct Ccmr1Input {
 }
 
 impl Ccmr1Input {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Ccmr1InputR, &'w mut Ccmr1InputW) -> &'w mut Ccmr1InputW
     {
@@ -1536,7 +1569,7 @@ pub struct Ccmr1InputW {
 impl Ccmr1InputW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Ccmr1InputW { bits: 0u32 }
+        Ccmr1InputW { bits: 0 }
     }
     # [ doc = "Bits 12:15 - Input capture 2 filter" ]
     pub fn ic2f(&mut self, value: u8) -> &mut Self {
@@ -1594,6 +1627,19 @@ pub struct Ccmr2Output {
 }
 
 impl Ccmr2Output {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Ccmr2OutputR, &'w mut Ccmr2OutputW) -> &'w mut Ccmr2OutputW
     {
@@ -1687,7 +1733,7 @@ pub struct Ccmr2OutputW {
 impl Ccmr2OutputW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Ccmr2OutputW { bits: 0u32 }
+        Ccmr2OutputW { bits: 0 }
     }
     # [ doc = "Bit 15 - Output compare 4 clear enable" ]
     pub fn oc4ce(&mut self, value: bool) -> &mut Self {
@@ -1789,6 +1835,19 @@ pub struct Ccmr2Input {
 }
 
 impl Ccmr2Input {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Ccmr2InputR, &'w mut Ccmr2InputW) -> &'w mut Ccmr2InputW
     {
@@ -1864,7 +1923,7 @@ pub struct Ccmr2InputW {
 impl Ccmr2InputW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Ccmr2InputW { bits: 0u32 }
+        Ccmr2InputW { bits: 0 }
     }
     # [ doc = "Bits 12:15 - Input capture 4 filter" ]
     pub fn ic4f(&mut self, value: u8) -> &mut Self {
@@ -1922,6 +1981,19 @@ pub struct Ccer {
 }
 
 impl Ccer {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&CcerR, &'w mut CcerW) -> &'w mut CcerW
     {
@@ -2031,7 +2103,7 @@ pub struct CcerW {
 impl CcerW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        CcerW { bits: 0u32 }
+        CcerW { bits: 0 }
     }
     # [ doc = "Bit 13 - Capture/Compare 3 output Polarity" ]
     pub fn cc4p(&mut self, value: bool) -> &mut Self {
@@ -2181,6 +2253,19 @@ pub struct Cnt {
 }
 
 impl Cnt {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&CntR, &'w mut CntW) -> &'w mut CntW
     {
@@ -2226,7 +2311,7 @@ pub struct CntW {
 impl CntW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        CntW { bits: 0u32 }
+        CntW { bits: 0 }
     }
     # [ doc = "Bits 0:15 - counter value" ]
     pub fn cnt(&mut self, value: u16) -> &mut Self {
@@ -2244,6 +2329,19 @@ pub struct Psc {
 }
 
 impl Psc {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&PscR, &'w mut PscW) -> &'w mut PscW
     {
@@ -2289,7 +2387,7 @@ pub struct PscW {
 impl PscW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        PscW { bits: 0u32 }
+        PscW { bits: 0 }
     }
     # [ doc = "Bits 0:15 - Prescaler value" ]
     pub fn psc(&mut self, value: u16) -> &mut Self {
@@ -2307,6 +2405,19 @@ pub struct Arr {
 }
 
 impl Arr {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&ArrR, &'w mut ArrW) -> &'w mut ArrW
     {
@@ -2352,7 +2463,7 @@ pub struct ArrW {
 impl ArrW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        ArrW { bits: 0u32 }
+        ArrW { bits: 0 }
     }
     # [ doc = "Bits 0:15 - Auto-reload value" ]
     pub fn arr(&mut self, value: u16) -> &mut Self {
@@ -2365,74 +2476,24 @@ impl ArrW {
 }
 
 # [ repr ( C ) ]
-pub struct Rcr {
-    register: ::volatile_register::RW<u32>,
-}
-
-impl Rcr {
-    pub fn modify<F>(&mut self, f: F)
-        where for<'w> F: FnOnce(&RcrR, &'w mut RcrW) -> &'w mut RcrW
-    {
-        let bits = self.register.read();
-        let r = RcrR { bits: bits };
-        let mut w = RcrW { bits: bits };
-        f(&r, &mut w);
-        self.register.write(w.bits);
-    }
-    pub fn read(&self) -> RcrR {
-        RcrR { bits: self.register.read() }
-    }
-    pub fn write<F>(&mut self, f: F)
-        where F: FnOnce(&mut RcrW) -> &mut RcrW
-    {
-        let mut w = RcrW::reset_value();
-        f(&mut w);
-        self.register.write(w.bits);
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct RcrR {
-    bits: u32,
-}
-
-impl RcrR {
-    # [ doc = "Bits 0:7 - Repetition counter value" ]
-    pub fn rep(&self) -> u8 {
-        const MASK: u32 = 255;
-        const OFFSET: u8 = 0u8;
-        ((self.bits >> OFFSET) & MASK) as u8
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct RcrW {
-    bits: u32,
-}
-
-impl RcrW {
-    # [ doc = r" Reset value" ]
-    pub fn reset_value() -> Self {
-        RcrW { bits: 0u32 }
-    }
-    # [ doc = "Bits 0:7 - Repetition counter value" ]
-    pub fn rep(&mut self, value: u8) -> &mut Self {
-        const OFFSET: u8 = 0u8;
-        const MASK: u8 = 255;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-}
-
-# [ repr ( C ) ]
 pub struct Ccr1 {
     register: ::volatile_register::RW<u32>,
 }
 
 impl Ccr1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Ccr1R, &'w mut Ccr1W) -> &'w mut Ccr1W
     {
@@ -2478,7 +2539,7 @@ pub struct Ccr1W {
 impl Ccr1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Ccr1W { bits: 0u32 }
+        Ccr1W { bits: 0 }
     }
     # [ doc = "Bits 0:15 - Capture/Compare 1 value" ]
     pub fn ccr1(&mut self, value: u16) -> &mut Self {
@@ -2496,6 +2557,19 @@ pub struct Ccr2 {
 }
 
 impl Ccr2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Ccr2R, &'w mut Ccr2W) -> &'w mut Ccr2W
     {
@@ -2541,7 +2615,7 @@ pub struct Ccr2W {
 impl Ccr2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Ccr2W { bits: 0u32 }
+        Ccr2W { bits: 0 }
     }
     # [ doc = "Bits 0:15 - Capture/Compare 2 value" ]
     pub fn ccr2(&mut self, value: u16) -> &mut Self {
@@ -2559,6 +2633,19 @@ pub struct Ccr3 {
 }
 
 impl Ccr3 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Ccr3R, &'w mut Ccr3W) -> &'w mut Ccr3W
     {
@@ -2604,7 +2691,7 @@ pub struct Ccr3W {
 impl Ccr3W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Ccr3W { bits: 0u32 }
+        Ccr3W { bits: 0 }
     }
     # [ doc = "Bits 0:15 - Capture/Compare value" ]
     pub fn ccr3(&mut self, value: u16) -> &mut Self {
@@ -2622,6 +2709,19 @@ pub struct Ccr4 {
 }
 
 impl Ccr4 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Ccr4R, &'w mut Ccr4W) -> &'w mut Ccr4W
     {
@@ -2667,7 +2767,7 @@ pub struct Ccr4W {
 impl Ccr4W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Ccr4W { bits: 0u32 }
+        Ccr4W { bits: 0 }
     }
     # [ doc = "Bits 0:15 - Capture/Compare value" ]
     pub fn ccr4(&mut self, value: u16) -> &mut Self {
@@ -2680,11 +2780,266 @@ impl Ccr4W {
 }
 
 # [ repr ( C ) ]
+pub struct Dcr {
+    register: ::volatile_register::RW<u32>,
+}
+
+impl Dcr {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
+    pub fn modify<F>(&mut self, f: F)
+        where for<'w> F: FnOnce(&DcrR, &'w mut DcrW) -> &'w mut DcrW
+    {
+        let bits = self.register.read();
+        let r = DcrR { bits: bits };
+        let mut w = DcrW { bits: bits };
+        f(&r, &mut w);
+        self.register.write(w.bits);
+    }
+    pub fn read(&self) -> DcrR {
+        DcrR { bits: self.register.read() }
+    }
+    pub fn write<F>(&mut self, f: F)
+        where F: FnOnce(&mut DcrW) -> &mut DcrW
+    {
+        let mut w = DcrW::reset_value();
+        f(&mut w);
+        self.register.write(w.bits);
+    }
+}
+
+# [ derive ( Clone , Copy ) ]
+# [ repr ( C ) ]
+pub struct DcrR {
+    bits: u32,
+}
+
+impl DcrR {
+    # [ doc = "Bits 8:12 - DMA burst length" ]
+    pub fn dbl(&self) -> u8 {
+        const MASK: u32 = 31;
+        const OFFSET: u8 = 8u8;
+        ((self.bits >> OFFSET) & MASK) as u8
+    }
+    # [ doc = "Bits 0:4 - DMA base address" ]
+    pub fn dba(&self) -> u8 {
+        const MASK: u32 = 31;
+        const OFFSET: u8 = 0u8;
+        ((self.bits >> OFFSET) & MASK) as u8
+    }
+}
+
+# [ derive ( Clone , Copy ) ]
+# [ repr ( C ) ]
+pub struct DcrW {
+    bits: u32,
+}
+
+impl DcrW {
+    # [ doc = r" Reset value" ]
+    pub fn reset_value() -> Self {
+        DcrW { bits: 0 }
+    }
+    # [ doc = "Bits 8:12 - DMA burst length" ]
+    pub fn dbl(&mut self, value: u8) -> &mut Self {
+        const OFFSET: u8 = 8u8;
+        const MASK: u8 = 31;
+        self.bits &= !((MASK as u32) << OFFSET);
+        self.bits |= ((value & MASK) as u32) << OFFSET;
+        self
+    }
+    # [ doc = "Bits 0:4 - DMA base address" ]
+    pub fn dba(&mut self, value: u8) -> &mut Self {
+        const OFFSET: u8 = 0u8;
+        const MASK: u8 = 31;
+        self.bits &= !((MASK as u32) << OFFSET);
+        self.bits |= ((value & MASK) as u32) << OFFSET;
+        self
+    }
+}
+
+# [ repr ( C ) ]
+pub struct Dmar {
+    register: ::volatile_register::RW<u32>,
+}
+
+impl Dmar {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
+    pub fn modify<F>(&mut self, f: F)
+        where for<'w> F: FnOnce(&DmarR, &'w mut DmarW) -> &'w mut DmarW
+    {
+        let bits = self.register.read();
+        let r = DmarR { bits: bits };
+        let mut w = DmarW { bits: bits };
+        f(&r, &mut w);
+        self.register.write(w.bits);
+    }
+    pub fn read(&self) -> DmarR {
+        DmarR { bits: self.register.read() }
+    }
+    pub fn write<F>(&mut self, f: F)
+        where F: FnOnce(&mut DmarW) -> &mut DmarW
+    {
+        let mut w = DmarW::reset_value();
+        f(&mut w);
+        self.register.write(w.bits);
+    }
+}
+
+# [ derive ( Clone , Copy ) ]
+# [ repr ( C ) ]
+pub struct DmarR {
+    bits: u32,
+}
+
+impl DmarR {
+    # [ doc = "Bits 0:15 - DMA register for burst accesses" ]
+    pub fn dmab(&self) -> u16 {
+        const MASK: u32 = 65535;
+        const OFFSET: u8 = 0u8;
+        ((self.bits >> OFFSET) & MASK) as u16
+    }
+}
+
+# [ derive ( Clone , Copy ) ]
+# [ repr ( C ) ]
+pub struct DmarW {
+    bits: u32,
+}
+
+impl DmarW {
+    # [ doc = r" Reset value" ]
+    pub fn reset_value() -> Self {
+        DmarW { bits: 0 }
+    }
+    # [ doc = "Bits 0:15 - DMA register for burst accesses" ]
+    pub fn dmab(&mut self, value: u16) -> &mut Self {
+        const OFFSET: u8 = 0u8;
+        const MASK: u16 = 65535;
+        self.bits &= !((MASK as u32) << OFFSET);
+        self.bits |= ((value & MASK) as u32) << OFFSET;
+        self
+    }
+}
+
+# [ repr ( C ) ]
+pub struct Rcr {
+    register: ::volatile_register::RW<u32>,
+}
+
+impl Rcr {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
+    pub fn modify<F>(&mut self, f: F)
+        where for<'w> F: FnOnce(&RcrR, &'w mut RcrW) -> &'w mut RcrW
+    {
+        let bits = self.register.read();
+        let r = RcrR { bits: bits };
+        let mut w = RcrW { bits: bits };
+        f(&r, &mut w);
+        self.register.write(w.bits);
+    }
+    pub fn read(&self) -> RcrR {
+        RcrR { bits: self.register.read() }
+    }
+    pub fn write<F>(&mut self, f: F)
+        where F: FnOnce(&mut RcrW) -> &mut RcrW
+    {
+        let mut w = RcrW::reset_value();
+        f(&mut w);
+        self.register.write(w.bits);
+    }
+}
+
+# [ derive ( Clone , Copy ) ]
+# [ repr ( C ) ]
+pub struct RcrR {
+    bits: u32,
+}
+
+impl RcrR {
+    # [ doc = "Bits 0:7 - Repetition counter value" ]
+    pub fn rep(&self) -> u8 {
+        const MASK: u32 = 255;
+        const OFFSET: u8 = 0u8;
+        ((self.bits >> OFFSET) & MASK) as u8
+    }
+}
+
+# [ derive ( Clone , Copy ) ]
+# [ repr ( C ) ]
+pub struct RcrW {
+    bits: u32,
+}
+
+impl RcrW {
+    # [ doc = r" Reset value" ]
+    pub fn reset_value() -> Self {
+        RcrW { bits: 0 }
+    }
+    # [ doc = "Bits 0:7 - Repetition counter value" ]
+    pub fn rep(&mut self, value: u8) -> &mut Self {
+        const OFFSET: u8 = 0u8;
+        const MASK: u8 = 255;
+        self.bits &= !((MASK as u32) << OFFSET);
+        self.bits |= ((value & MASK) as u32) << OFFSET;
+        self
+    }
+}
+
+# [ repr ( C ) ]
 pub struct Bdtr {
     register: ::volatile_register::RW<u32>,
 }
 
 impl Bdtr {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&BdtrR, &'w mut BdtrW) -> &'w mut BdtrW
     {
@@ -2766,7 +3121,7 @@ pub struct BdtrW {
 impl BdtrW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        BdtrW { bits: 0u32 }
+        BdtrW { bits: 0 }
     }
     # [ doc = "Bit 15 - Main output enable" ]
     pub fn moe(&mut self, value: bool) -> &mut Self {
@@ -2842,927 +3197,6 @@ impl BdtrW {
         const MASK: u8 = 255;
         self.bits &= !((MASK as u32) << OFFSET);
         self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-}
-
-# [ repr ( C ) ]
-pub struct Dcr {
-    register: ::volatile_register::RW<u32>,
-}
-
-impl Dcr {
-    pub fn modify<F>(&mut self, f: F)
-        where for<'w> F: FnOnce(&DcrR, &'w mut DcrW) -> &'w mut DcrW
-    {
-        let bits = self.register.read();
-        let r = DcrR { bits: bits };
-        let mut w = DcrW { bits: bits };
-        f(&r, &mut w);
-        self.register.write(w.bits);
-    }
-    pub fn read(&self) -> DcrR {
-        DcrR { bits: self.register.read() }
-    }
-    pub fn write<F>(&mut self, f: F)
-        where F: FnOnce(&mut DcrW) -> &mut DcrW
-    {
-        let mut w = DcrW::reset_value();
-        f(&mut w);
-        self.register.write(w.bits);
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct DcrR {
-    bits: u32,
-}
-
-impl DcrR {
-    # [ doc = "Bits 8:12 - DMA burst length" ]
-    pub fn dbl(&self) -> u8 {
-        const MASK: u32 = 31;
-        const OFFSET: u8 = 8u8;
-        ((self.bits >> OFFSET) & MASK) as u8
-    }
-    # [ doc = "Bits 0:4 - DMA base address" ]
-    pub fn dba(&self) -> u8 {
-        const MASK: u32 = 31;
-        const OFFSET: u8 = 0u8;
-        ((self.bits >> OFFSET) & MASK) as u8
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct DcrW {
-    bits: u32,
-}
-
-impl DcrW {
-    # [ doc = r" Reset value" ]
-    pub fn reset_value() -> Self {
-        DcrW { bits: 0u32 }
-    }
-    # [ doc = "Bits 8:12 - DMA burst length" ]
-    pub fn dbl(&mut self, value: u8) -> &mut Self {
-        const OFFSET: u8 = 8u8;
-        const MASK: u8 = 31;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-    # [ doc = "Bits 0:4 - DMA base address" ]
-    pub fn dba(&mut self, value: u8) -> &mut Self {
-        const OFFSET: u8 = 0u8;
-        const MASK: u8 = 31;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-}
-
-# [ repr ( C ) ]
-pub struct Dmar {
-    register: ::volatile_register::RW<u32>,
-}
-
-impl Dmar {
-    pub fn modify<F>(&mut self, f: F)
-        where for<'w> F: FnOnce(&DmarR, &'w mut DmarW) -> &'w mut DmarW
-    {
-        let bits = self.register.read();
-        let r = DmarR { bits: bits };
-        let mut w = DmarW { bits: bits };
-        f(&r, &mut w);
-        self.register.write(w.bits);
-    }
-    pub fn read(&self) -> DmarR {
-        DmarR { bits: self.register.read() }
-    }
-    pub fn write<F>(&mut self, f: F)
-        where F: FnOnce(&mut DmarW) -> &mut DmarW
-    {
-        let mut w = DmarW::reset_value();
-        f(&mut w);
-        self.register.write(w.bits);
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct DmarR {
-    bits: u32,
-}
-
-impl DmarR {
-    # [ doc = "Bits 0:15 - DMA register for burst accesses" ]
-    pub fn dmab(&self) -> u16 {
-        const MASK: u32 = 65535;
-        const OFFSET: u8 = 0u8;
-        ((self.bits >> OFFSET) & MASK) as u16
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct DmarW {
-    bits: u32,
-}
-
-impl DmarW {
-    # [ doc = r" Reset value" ]
-    pub fn reset_value() -> Self {
-        DmarW { bits: 0u32 }
-    }
-    # [ doc = "Bits 0:15 - DMA register for burst accesses" ]
-    pub fn dmab(&mut self, value: u16) -> &mut Self {
-        const OFFSET: u8 = 0u8;
-        const MASK: u16 = 65535;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-}
-
-# [ repr ( C ) ]
-pub struct Or1 {
-    register: ::volatile_register::RW<u32>,
-}
-
-impl Or1 {
-    pub fn modify<F>(&mut self, f: F)
-        where for<'w> F: FnOnce(&Or1R, &'w mut Or1W) -> &'w mut Or1W
-    {
-        let bits = self.register.read();
-        let r = Or1R { bits: bits };
-        let mut w = Or1W { bits: bits };
-        f(&r, &mut w);
-        self.register.write(w.bits);
-    }
-    pub fn read(&self) -> Or1R {
-        Or1R { bits: self.register.read() }
-    }
-    pub fn write<F>(&mut self, f: F)
-        where F: FnOnce(&mut Or1W) -> &mut Or1W
-    {
-        let mut w = Or1W::reset_value();
-        f(&mut w);
-        self.register.write(w.bits);
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct Or1R {
-    bits: u32,
-}
-
-impl Or1R {
-    # [ doc = "Bits 0:1 - External trigger remap on ADC1 analog watchdog" ]
-    pub fn etr_adc1_rmp(&self) -> u8 {
-        const MASK: u32 = 3;
-        const OFFSET: u8 = 0u8;
-        ((self.bits >> OFFSET) & MASK) as u8
-    }
-    # [ doc = "Bits 2:3 - External trigger remap on ADC3 analog watchdog" ]
-    pub fn etr_adc3_rmp(&self) -> u8 {
-        const MASK: u32 = 3;
-        const OFFSET: u8 = 2u8;
-        ((self.bits >> OFFSET) & MASK) as u8
-    }
-    # [ doc = "Bit 4 - Input Capture 1 remap" ]
-    pub fn ti1_rmp(&self) -> bool {
-        const OFFSET: u8 = 4u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct Or1W {
-    bits: u32,
-}
-
-impl Or1W {
-    # [ doc = r" Reset value" ]
-    pub fn reset_value() -> Self {
-        Or1W { bits: 0u32 }
-    }
-    # [ doc = "Bits 0:1 - External trigger remap on ADC1 analog watchdog" ]
-    pub fn etr_adc1_rmp(&mut self, value: u8) -> &mut Self {
-        const OFFSET: u8 = 0u8;
-        const MASK: u8 = 3;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-    # [ doc = "Bits 2:3 - External trigger remap on ADC3 analog watchdog" ]
-    pub fn etr_adc3_rmp(&mut self, value: u8) -> &mut Self {
-        const OFFSET: u8 = 2u8;
-        const MASK: u8 = 3;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-    # [ doc = "Bit 4 - Input Capture 1 remap" ]
-    pub fn ti1_rmp(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 4u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-}
-
-# [ repr ( C ) ]
-pub struct Ccmr3Output {
-    register: ::volatile_register::RW<u32>,
-}
-
-impl Ccmr3Output {
-    pub fn modify<F>(&mut self, f: F)
-        where for<'w> F: FnOnce(&Ccmr3OutputR, &'w mut Ccmr3OutputW) -> &'w mut Ccmr3OutputW
-    {
-        let bits = self.register.read();
-        let r = Ccmr3OutputR { bits: bits };
-        let mut w = Ccmr3OutputW { bits: bits };
-        f(&r, &mut w);
-        self.register.write(w.bits);
-    }
-    pub fn read(&self) -> Ccmr3OutputR {
-        Ccmr3OutputR { bits: self.register.read() }
-    }
-    pub fn write<F>(&mut self, f: F)
-        where F: FnOnce(&mut Ccmr3OutputW) -> &mut Ccmr3OutputW
-    {
-        let mut w = Ccmr3OutputW::reset_value();
-        f(&mut w);
-        self.register.write(w.bits);
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct Ccmr3OutputR {
-    bits: u32,
-}
-
-impl Ccmr3OutputR {
-    # [ doc = "Bit 24 - Output Compare 6 mode bit 3" ]
-    pub fn oc6m_bit3(&self) -> bool {
-        const OFFSET: u8 = 24u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bits 16:18 - Output Compare 5 mode bit 3" ]
-    pub fn oc5m_bit3(&self) -> u8 {
-        const MASK: u32 = 7;
-        const OFFSET: u8 = 16u8;
-        ((self.bits >> OFFSET) & MASK) as u8
-    }
-    # [ doc = "Bit 15 - Output compare 6 clear enable" ]
-    pub fn oc6ce(&self) -> bool {
-        const OFFSET: u8 = 15u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bits 12:14 - Output compare 6 mode" ]
-    pub fn oc6m(&self) -> u8 {
-        const MASK: u32 = 7;
-        const OFFSET: u8 = 12u8;
-        ((self.bits >> OFFSET) & MASK) as u8
-    }
-    # [ doc = "Bit 11 - Output compare 6 preload enable" ]
-    pub fn oc6pe(&self) -> bool {
-        const OFFSET: u8 = 11u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 10 - Output compare 6 fast enable" ]
-    pub fn oc6fe(&self) -> bool {
-        const OFFSET: u8 = 10u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 7 - Output compare 5 clear enable" ]
-    pub fn oc5ce(&self) -> bool {
-        const OFFSET: u8 = 7u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bits 4:6 - Output compare 5 mode" ]
-    pub fn oc5m(&self) -> u8 {
-        const MASK: u32 = 7;
-        const OFFSET: u8 = 4u8;
-        ((self.bits >> OFFSET) & MASK) as u8
-    }
-    # [ doc = "Bit 3 - Output compare 5 preload enable" ]
-    pub fn oc5pe(&self) -> bool {
-        const OFFSET: u8 = 3u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 2 - Output compare 5 fast enable" ]
-    pub fn oc5fe(&self) -> bool {
-        const OFFSET: u8 = 2u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct Ccmr3OutputW {
-    bits: u32,
-}
-
-impl Ccmr3OutputW {
-    # [ doc = r" Reset value" ]
-    pub fn reset_value() -> Self {
-        Ccmr3OutputW { bits: 0u32 }
-    }
-    # [ doc = "Bit 24 - Output Compare 6 mode bit 3" ]
-    pub fn oc6m_bit3(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 24u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bits 16:18 - Output Compare 5 mode bit 3" ]
-    pub fn oc5m_bit3(&mut self, value: u8) -> &mut Self {
-        const OFFSET: u8 = 16u8;
-        const MASK: u8 = 7;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-    # [ doc = "Bit 15 - Output compare 6 clear enable" ]
-    pub fn oc6ce(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 15u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bits 12:14 - Output compare 6 mode" ]
-    pub fn oc6m(&mut self, value: u8) -> &mut Self {
-        const OFFSET: u8 = 12u8;
-        const MASK: u8 = 7;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-    # [ doc = "Bit 11 - Output compare 6 preload enable" ]
-    pub fn oc6pe(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 11u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 10 - Output compare 6 fast enable" ]
-    pub fn oc6fe(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 10u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 7 - Output compare 5 clear enable" ]
-    pub fn oc5ce(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 7u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bits 4:6 - Output compare 5 mode" ]
-    pub fn oc5m(&mut self, value: u8) -> &mut Self {
-        const OFFSET: u8 = 4u8;
-        const MASK: u8 = 7;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-    # [ doc = "Bit 3 - Output compare 5 preload enable" ]
-    pub fn oc5pe(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 3u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 2 - Output compare 5 fast enable" ]
-    pub fn oc5fe(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 2u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-}
-
-# [ repr ( C ) ]
-pub struct Ccr5 {
-    register: ::volatile_register::RW<u32>,
-}
-
-impl Ccr5 {
-    pub fn modify<F>(&mut self, f: F)
-        where for<'w> F: FnOnce(&Ccr5R, &'w mut Ccr5W) -> &'w mut Ccr5W
-    {
-        let bits = self.register.read();
-        let r = Ccr5R { bits: bits };
-        let mut w = Ccr5W { bits: bits };
-        f(&r, &mut w);
-        self.register.write(w.bits);
-    }
-    pub fn read(&self) -> Ccr5R {
-        Ccr5R { bits: self.register.read() }
-    }
-    pub fn write<F>(&mut self, f: F)
-        where F: FnOnce(&mut Ccr5W) -> &mut Ccr5W
-    {
-        let mut w = Ccr5W::reset_value();
-        f(&mut w);
-        self.register.write(w.bits);
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct Ccr5R {
-    bits: u32,
-}
-
-impl Ccr5R {
-    # [ doc = "Bits 0:15 - Capture/Compare value" ]
-    pub fn ccr5(&self) -> u16 {
-        const MASK: u32 = 65535;
-        const OFFSET: u8 = 0u8;
-        ((self.bits >> OFFSET) & MASK) as u16
-    }
-    # [ doc = "Bit 29 - Group Channel 5 and Channel 1" ]
-    pub fn gc5c1(&self) -> bool {
-        const OFFSET: u8 = 29u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 30 - Group Channel 5 and Channel 2" ]
-    pub fn gc5c2(&self) -> bool {
-        const OFFSET: u8 = 30u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 31 - Group Channel 5 and Channel 3" ]
-    pub fn gc5c3(&self) -> bool {
-        const OFFSET: u8 = 31u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct Ccr5W {
-    bits: u32,
-}
-
-impl Ccr5W {
-    # [ doc = r" Reset value" ]
-    pub fn reset_value() -> Self {
-        Ccr5W { bits: 0u32 }
-    }
-    # [ doc = "Bits 0:15 - Capture/Compare value" ]
-    pub fn ccr5(&mut self, value: u16) -> &mut Self {
-        const OFFSET: u8 = 0u8;
-        const MASK: u16 = 65535;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-    # [ doc = "Bit 29 - Group Channel 5 and Channel 1" ]
-    pub fn gc5c1(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 29u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 30 - Group Channel 5 and Channel 2" ]
-    pub fn gc5c2(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 30u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 31 - Group Channel 5 and Channel 3" ]
-    pub fn gc5c3(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 31u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-}
-
-# [ repr ( C ) ]
-pub struct Ccr6 {
-    register: ::volatile_register::RW<u32>,
-}
-
-impl Ccr6 {
-    pub fn modify<F>(&mut self, f: F)
-        where for<'w> F: FnOnce(&Ccr6R, &'w mut Ccr6W) -> &'w mut Ccr6W
-    {
-        let bits = self.register.read();
-        let r = Ccr6R { bits: bits };
-        let mut w = Ccr6W { bits: bits };
-        f(&r, &mut w);
-        self.register.write(w.bits);
-    }
-    pub fn read(&self) -> Ccr6R {
-        Ccr6R { bits: self.register.read() }
-    }
-    pub fn write<F>(&mut self, f: F)
-        where F: FnOnce(&mut Ccr6W) -> &mut Ccr6W
-    {
-        let mut w = Ccr6W::reset_value();
-        f(&mut w);
-        self.register.write(w.bits);
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct Ccr6R {
-    bits: u32,
-}
-
-impl Ccr6R {
-    # [ doc = "Bits 0:15 - Capture/Compare value" ]
-    pub fn ccr6(&self) -> u16 {
-        const MASK: u32 = 65535;
-        const OFFSET: u8 = 0u8;
-        ((self.bits >> OFFSET) & MASK) as u16
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct Ccr6W {
-    bits: u32,
-}
-
-impl Ccr6W {
-    # [ doc = r" Reset value" ]
-    pub fn reset_value() -> Self {
-        Ccr6W { bits: 0u32 }
-    }
-    # [ doc = "Bits 0:15 - Capture/Compare value" ]
-    pub fn ccr6(&mut self, value: u16) -> &mut Self {
-        const OFFSET: u8 = 0u8;
-        const MASK: u16 = 65535;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-}
-
-# [ repr ( C ) ]
-pub struct Or2 {
-    register: ::volatile_register::RW<u32>,
-}
-
-impl Or2 {
-    pub fn modify<F>(&mut self, f: F)
-        where for<'w> F: FnOnce(&Or2R, &'w mut Or2W) -> &'w mut Or2W
-    {
-        let bits = self.register.read();
-        let r = Or2R { bits: bits };
-        let mut w = Or2W { bits: bits };
-        f(&r, &mut w);
-        self.register.write(w.bits);
-    }
-    pub fn read(&self) -> Or2R {
-        Or2R { bits: self.register.read() }
-    }
-    pub fn write<F>(&mut self, f: F)
-        where F: FnOnce(&mut Or2W) -> &mut Or2W
-    {
-        let mut w = Or2W::reset_value();
-        f(&mut w);
-        self.register.write(w.bits);
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct Or2R {
-    bits: u32,
-}
-
-impl Or2R {
-    # [ doc = "Bit 0 - BRK BKIN input enable" ]
-    pub fn bkine(&self) -> bool {
-        const OFFSET: u8 = 0u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 1 - BRK COMP1 enable" ]
-    pub fn bkcmp1e(&self) -> bool {
-        const OFFSET: u8 = 1u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 2 - BRK COMP2 enable" ]
-    pub fn bkcmp2e(&self) -> bool {
-        const OFFSET: u8 = 2u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 8 - BRK DFSDM_BREAK0 enable" ]
-    pub fn bkdfbk0e(&self) -> bool {
-        const OFFSET: u8 = 8u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 9 - BRK BKIN input polarity" ]
-    pub fn bkinp(&self) -> bool {
-        const OFFSET: u8 = 9u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 10 - BRK COMP1 input polarity" ]
-    pub fn bkcmp1p(&self) -> bool {
-        const OFFSET: u8 = 10u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 11 - BRK COMP2 input polarity" ]
-    pub fn bkcmp2p(&self) -> bool {
-        const OFFSET: u8 = 11u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bits 14:16 - ETR source selection" ]
-    pub fn etrsel(&self) -> u8 {
-        const MASK: u32 = 7;
-        const OFFSET: u8 = 14u8;
-        ((self.bits >> OFFSET) & MASK) as u8
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct Or2W {
-    bits: u32,
-}
-
-impl Or2W {
-    # [ doc = r" Reset value" ]
-    pub fn reset_value() -> Self {
-        Or2W { bits: 1u32 }
-    }
-    # [ doc = "Bit 0 - BRK BKIN input enable" ]
-    pub fn bkine(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 0u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 1 - BRK COMP1 enable" ]
-    pub fn bkcmp1e(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 1u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 2 - BRK COMP2 enable" ]
-    pub fn bkcmp2e(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 2u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 8 - BRK DFSDM_BREAK0 enable" ]
-    pub fn bkdfbk0e(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 8u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 9 - BRK BKIN input polarity" ]
-    pub fn bkinp(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 9u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 10 - BRK COMP1 input polarity" ]
-    pub fn bkcmp1p(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 10u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 11 - BRK COMP2 input polarity" ]
-    pub fn bkcmp2p(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 11u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bits 14:16 - ETR source selection" ]
-    pub fn etrsel(&mut self, value: u8) -> &mut Self {
-        const OFFSET: u8 = 14u8;
-        const MASK: u8 = 7;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-}
-
-# [ repr ( C ) ]
-pub struct Or3 {
-    register: ::volatile_register::RW<u32>,
-}
-
-impl Or3 {
-    pub fn modify<F>(&mut self, f: F)
-        where for<'w> F: FnOnce(&Or3R, &'w mut Or3W) -> &'w mut Or3W
-    {
-        let bits = self.register.read();
-        let r = Or3R { bits: bits };
-        let mut w = Or3W { bits: bits };
-        f(&r, &mut w);
-        self.register.write(w.bits);
-    }
-    pub fn read(&self) -> Or3R {
-        Or3R { bits: self.register.read() }
-    }
-    pub fn write<F>(&mut self, f: F)
-        where F: FnOnce(&mut Or3W) -> &mut Or3W
-    {
-        let mut w = Or3W::reset_value();
-        f(&mut w);
-        self.register.write(w.bits);
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct Or3R {
-    bits: u32,
-}
-
-impl Or3R {
-    # [ doc = "Bit 0 - BRK2 BKIN input enable" ]
-    pub fn bk2ine(&self) -> bool {
-        const OFFSET: u8 = 0u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 1 - BRK2 COMP1 enable" ]
-    pub fn bk2cmp1e(&self) -> bool {
-        const OFFSET: u8 = 1u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 2 - BRK2 COMP2 enable" ]
-    pub fn bk2cmp2e(&self) -> bool {
-        const OFFSET: u8 = 2u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 8 - BRK2 DFSDM_BREAK0 enable" ]
-    pub fn bk2dfbk0e(&self) -> bool {
-        const OFFSET: u8 = 8u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 9 - BRK2 BKIN input polarity" ]
-    pub fn bk2inp(&self) -> bool {
-        const OFFSET: u8 = 9u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 10 - BRK2 COMP1 input polarity" ]
-    pub fn bk2cmp1p(&self) -> bool {
-        const OFFSET: u8 = 10u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 11 - BRK2 COMP2 input polarity" ]
-    pub fn bk2cmp2p(&self) -> bool {
-        const OFFSET: u8 = 11u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct Or3W {
-    bits: u32,
-}
-
-impl Or3W {
-    # [ doc = r" Reset value" ]
-    pub fn reset_value() -> Self {
-        Or3W { bits: 1u32 }
-    }
-    # [ doc = "Bit 0 - BRK2 BKIN input enable" ]
-    pub fn bk2ine(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 0u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 1 - BRK2 COMP1 enable" ]
-    pub fn bk2cmp1e(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 1u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 2 - BRK2 COMP2 enable" ]
-    pub fn bk2cmp2e(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 2u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 8 - BRK2 DFSDM_BREAK0 enable" ]
-    pub fn bk2dfbk0e(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 8u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 9 - BRK2 BKIN input polarity" ]
-    pub fn bk2inp(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 9u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 10 - BRK2 COMP1 input polarity" ]
-    pub fn bk2cmp1p(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 10u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 11 - BRK2 COMP2 input polarity" ]
-    pub fn bk2cmp2p(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 11u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
         self
     }
 }

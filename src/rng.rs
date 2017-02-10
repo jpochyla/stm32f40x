@@ -15,6 +15,19 @@ pub struct Cr {
 }
 
 impl Cr {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&CrR, &'w mut CrW) -> &'w mut CrW
     {
@@ -64,7 +77,7 @@ pub struct CrW {
 impl CrW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        CrW { bits: 0u32 }
+        CrW { bits: 0 }
     }
     # [ doc = "Bit 3 - Interrupt enable" ]
     pub fn ie(&mut self, value: bool) -> &mut Self {
@@ -94,6 +107,19 @@ pub struct Sr {
 }
 
 impl Sr {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&SrR, &'w mut SrW) -> &'w mut SrW
     {
@@ -158,7 +184,7 @@ pub struct SrW {
 impl SrW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        SrW { bits: 0u32 }
+        SrW { bits: 0 }
     }
     # [ doc = "Bit 6 - Seed error interrupt status" ]
     pub fn seis(&mut self, value: bool) -> &mut Self {
@@ -188,6 +214,9 @@ pub struct Dr {
 }
 
 impl Dr {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
     pub fn read(&self) -> DrR {
         DrR { bits: self.register.read() }
     }
@@ -205,26 +234,5 @@ impl DrR {
         const MASK: u32 = 4294967295;
         const OFFSET: u8 = 0u8;
         ((self.bits >> OFFSET) & MASK) as u32
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct DrW {
-    bits: u32,
-}
-
-impl DrW {
-    # [ doc = r" Reset value" ]
-    pub fn reset_value() -> Self {
-        DrW { bits: 0u32 }
-    }
-    # [ doc = "Bits 0:31 - Random data" ]
-    pub fn rndata(&mut self, value: u32) -> &mut Self {
-        const OFFSET: u8 = 0u8;
-        const MASK: u32 = 4294967295;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
     }
 }

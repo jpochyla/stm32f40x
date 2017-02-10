@@ -1,9 +1,9 @@
 
-# `stm32l4x6-memory-map`
+# `stm32f40x-memory-map`
 
-> Memory map for STM32L4x6 microcontrollers
+> Memory map for STM32F40x microcontrollers
 
-## [Documentation](https://docs.rs/stm32l4x6-memory-map)
+## [Documentation](https://docs.rs/stm32f40x-memory-map)
 
 ## License
 

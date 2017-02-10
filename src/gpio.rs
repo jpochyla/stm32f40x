@@ -29,6 +29,19 @@ pub struct Moder {
 }
 
 impl Moder {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&ModerR, &'w mut ModerW) -> &'w mut ModerW
     {
@@ -164,7 +177,7 @@ pub struct ModerW {
 impl ModerW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        ModerW { bits: 2818572288u32 }
+        ModerW { bits: 2818572288 }
     }
     # [ doc = "Bits 30:31 - Port x configuration bits (y = 0..15)" ]
     pub fn moder15(&mut self, value: u8) -> &mut Self {
@@ -302,6 +315,19 @@ pub struct Otyper {
 }
 
 impl Otyper {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&OtyperR, &'w mut OtyperW) -> &'w mut OtyperW
     {
@@ -421,7 +447,7 @@ pub struct OtyperW {
 impl OtyperW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        OtyperW { bits: 0u32 }
+        OtyperW { bits: 0 }
     }
     # [ doc = "Bit 15 - Port x configuration bits (y = 0..15)" ]
     pub fn ot15(&mut self, value: bool) -> &mut Self {
@@ -591,6 +617,19 @@ pub struct Ospeedr {
 }
 
 impl Ospeedr {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&OspeedrR, &'w mut OspeedrW) -> &'w mut OspeedrW
     {
@@ -726,7 +765,7 @@ pub struct OspeedrW {
 impl OspeedrW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        OspeedrW { bits: 0u32 }
+        OspeedrW { bits: 0 }
     }
     # [ doc = "Bits 30:31 - Port x configuration bits (y = 0..15)" ]
     pub fn ospeedr15(&mut self, value: u8) -> &mut Self {
@@ -864,6 +903,19 @@ pub struct Pupdr {
 }
 
 impl Pupdr {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&PupdrR, &'w mut PupdrW) -> &'w mut PupdrW
     {
@@ -999,7 +1051,7 @@ pub struct PupdrW {
 impl PupdrW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        PupdrW { bits: 1677721600u32 }
+        PupdrW { bits: 1677721600 }
     }
     # [ doc = "Bits 30:31 - Port x configuration bits (y = 0..15)" ]
     pub fn pupdr15(&mut self, value: u8) -> &mut Self {
@@ -1137,6 +1189,9 @@ pub struct Idr {
 }
 
 impl Idr {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
     pub fn read(&self) -> IdrR {
         IdrR { bits: self.register.read() }
     }
@@ -1231,185 +1286,25 @@ impl IdrR {
     }
 }
 
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct IdrW {
-    bits: u32,
-}
-
-impl IdrW {
-    # [ doc = r" Reset value" ]
-    pub fn reset_value() -> Self {
-        IdrW { bits: 0u32 }
-    }
-    # [ doc = "Bit 15 - Port input data (y = 0..15)" ]
-    pub fn idr15(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 15u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 14 - Port input data (y = 0..15)" ]
-    pub fn idr14(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 14u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 13 - Port input data (y = 0..15)" ]
-    pub fn idr13(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 13u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 12 - Port input data (y = 0..15)" ]
-    pub fn idr12(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 12u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 11 - Port input data (y = 0..15)" ]
-    pub fn idr11(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 11u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 10 - Port input data (y = 0..15)" ]
-    pub fn idr10(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 10u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 9 - Port input data (y = 0..15)" ]
-    pub fn idr9(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 9u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 8 - Port input data (y = 0..15)" ]
-    pub fn idr8(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 8u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 7 - Port input data (y = 0..15)" ]
-    pub fn idr7(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 7u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 6 - Port input data (y = 0..15)" ]
-    pub fn idr6(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 6u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 5 - Port input data (y = 0..15)" ]
-    pub fn idr5(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 5u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 4 - Port input data (y = 0..15)" ]
-    pub fn idr4(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 4u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 3 - Port input data (y = 0..15)" ]
-    pub fn idr3(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 3u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 2 - Port input data (y = 0..15)" ]
-    pub fn idr2(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 2u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 1 - Port input data (y = 0..15)" ]
-    pub fn idr1(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 1u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 0 - Port input data (y = 0..15)" ]
-    pub fn idr0(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 0u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-}
-
 # [ repr ( C ) ]
 pub struct Odr {
     register: ::volatile_register::RW<u32>,
 }
 
 impl Odr {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&OdrR, &'w mut OdrW) -> &'w mut OdrW
     {
@@ -1529,7 +1424,7 @@ pub struct OdrW {
 impl OdrW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        OdrW { bits: 0u32 }
+        OdrW { bits: 0 }
     }
     # [ doc = "Bit 15 - Port output data (y = 0..15)" ]
     pub fn odr15(&mut self, value: bool) -> &mut Self {
@@ -1699,181 +1594,15 @@ pub struct Bsrr {
 }
 
 impl Bsrr {
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn write<F>(&self, f: F)
         where F: FnOnce(&mut BsrrW) -> &mut BsrrW
     {
         let mut w = BsrrW::reset_value();
         f(&mut w);
         self.register.write(w.bits);
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct BsrrR {
-    bits: u32,
-}
-
-impl BsrrR {
-    # [ doc = "Bit 31 - Port x reset bit y (y = 0..15)" ]
-    pub fn br15(&self) -> bool {
-        const OFFSET: u8 = 31u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 30 - Port x reset bit y (y = 0..15)" ]
-    pub fn br14(&self) -> bool {
-        const OFFSET: u8 = 30u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 29 - Port x reset bit y (y = 0..15)" ]
-    pub fn br13(&self) -> bool {
-        const OFFSET: u8 = 29u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 28 - Port x reset bit y (y = 0..15)" ]
-    pub fn br12(&self) -> bool {
-        const OFFSET: u8 = 28u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 27 - Port x reset bit y (y = 0..15)" ]
-    pub fn br11(&self) -> bool {
-        const OFFSET: u8 = 27u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 26 - Port x reset bit y (y = 0..15)" ]
-    pub fn br10(&self) -> bool {
-        const OFFSET: u8 = 26u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 25 - Port x reset bit y (y = 0..15)" ]
-    pub fn br9(&self) -> bool {
-        const OFFSET: u8 = 25u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 24 - Port x reset bit y (y = 0..15)" ]
-    pub fn br8(&self) -> bool {
-        const OFFSET: u8 = 24u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 23 - Port x reset bit y (y = 0..15)" ]
-    pub fn br7(&self) -> bool {
-        const OFFSET: u8 = 23u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 22 - Port x reset bit y (y = 0..15)" ]
-    pub fn br6(&self) -> bool {
-        const OFFSET: u8 = 22u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 21 - Port x reset bit y (y = 0..15)" ]
-    pub fn br5(&self) -> bool {
-        const OFFSET: u8 = 21u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 20 - Port x reset bit y (y = 0..15)" ]
-    pub fn br4(&self) -> bool {
-        const OFFSET: u8 = 20u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 19 - Port x reset bit y (y = 0..15)" ]
-    pub fn br3(&self) -> bool {
-        const OFFSET: u8 = 19u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 18 - Port x reset bit y (y = 0..15)" ]
-    pub fn br2(&self) -> bool {
-        const OFFSET: u8 = 18u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 17 - Port x reset bit y (y = 0..15)" ]
-    pub fn br1(&self) -> bool {
-        const OFFSET: u8 = 17u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 16 - Port x set bit y (y= 0..15)" ]
-    pub fn br0(&self) -> bool {
-        const OFFSET: u8 = 16u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 15 - Port x set bit y (y= 0..15)" ]
-    pub fn bs15(&self) -> bool {
-        const OFFSET: u8 = 15u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 14 - Port x set bit y (y= 0..15)" ]
-    pub fn bs14(&self) -> bool {
-        const OFFSET: u8 = 14u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 13 - Port x set bit y (y= 0..15)" ]
-    pub fn bs13(&self) -> bool {
-        const OFFSET: u8 = 13u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 12 - Port x set bit y (y= 0..15)" ]
-    pub fn bs12(&self) -> bool {
-        const OFFSET: u8 = 12u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 11 - Port x set bit y (y= 0..15)" ]
-    pub fn bs11(&self) -> bool {
-        const OFFSET: u8 = 11u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 10 - Port x set bit y (y= 0..15)" ]
-    pub fn bs10(&self) -> bool {
-        const OFFSET: u8 = 10u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 9 - Port x set bit y (y= 0..15)" ]
-    pub fn bs9(&self) -> bool {
-        const OFFSET: u8 = 9u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 8 - Port x set bit y (y= 0..15)" ]
-    pub fn bs8(&self) -> bool {
-        const OFFSET: u8 = 8u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 7 - Port x set bit y (y= 0..15)" ]
-    pub fn bs7(&self) -> bool {
-        const OFFSET: u8 = 7u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 6 - Port x set bit y (y= 0..15)" ]
-    pub fn bs6(&self) -> bool {
-        const OFFSET: u8 = 6u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 5 - Port x set bit y (y= 0..15)" ]
-    pub fn bs5(&self) -> bool {
-        const OFFSET: u8 = 5u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 4 - Port x set bit y (y= 0..15)" ]
-    pub fn bs4(&self) -> bool {
-        const OFFSET: u8 = 4u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 3 - Port x set bit y (y= 0..15)" ]
-    pub fn bs3(&self) -> bool {
-        const OFFSET: u8 = 3u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 2 - Port x set bit y (y= 0..15)" ]
-    pub fn bs2(&self) -> bool {
-        const OFFSET: u8 = 2u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 1 - Port x set bit y (y= 0..15)" ]
-    pub fn bs1(&self) -> bool {
-        const OFFSET: u8 = 1u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 0 - Port x set bit y (y= 0..15)" ]
-    pub fn bs0(&self) -> bool {
-        const OFFSET: u8 = 0u8;
-        self.bits & (1 << OFFSET) != 0
     }
 }
 
@@ -1886,7 +1615,7 @@ pub struct BsrrW {
 impl BsrrW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        BsrrW { bits: 0u32 }
+        BsrrW { bits: 0 }
     }
     # [ doc = "Bit 31 - Port x reset bit y (y = 0..15)" ]
     pub fn br15(&mut self, value: bool) -> &mut Self {
@@ -2216,6 +1945,19 @@ pub struct Lckr {
 }
 
 impl Lckr {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&LckrR, &'w mut LckrW) -> &'w mut LckrW
     {
@@ -2340,7 +2082,7 @@ pub struct LckrW {
 impl LckrW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        LckrW { bits: 0u32 }
+        LckrW { bits: 0 }
     }
     # [ doc = "Bit 16 - Port x lock bit y (y= 0..15)" ]
     pub fn lckk(&mut self, value: bool) -> &mut Self {
@@ -2520,6 +2262,19 @@ pub struct Afrl {
 }
 
 impl Afrl {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&AfrlR, &'w mut AfrlW) -> &'w mut AfrlW
     {
@@ -2607,7 +2362,7 @@ pub struct AfrlW {
 impl AfrlW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        AfrlW { bits: 0u32 }
+        AfrlW { bits: 0 }
     }
     # [ doc = "Bits 28:31 - Alternate function selection for port x bit y (y = 0..7)" ]
     pub fn afrl7(&mut self, value: u8) -> &mut Self {
@@ -2681,6 +2436,19 @@ pub struct Afrh {
 }
 
 impl Afrh {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&AfrhR, &'w mut AfrhW) -> &'w mut AfrhW
     {
@@ -2768,7 +2536,7 @@ pub struct AfrhW {
 impl AfrhW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        AfrhW { bits: 0u32 }
+        AfrhW { bits: 0 }
     }
     # [ doc = "Bits 28:31 - Alternate function selection for port x bit y (y = 8..15)" ]
     pub fn afrh15(&mut self, value: u8) -> &mut Self {

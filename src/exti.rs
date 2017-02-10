@@ -1,55 +1,55 @@
 # [ doc = "External interrupt/event controller" ]
 # [ repr ( C ) ]
 pub struct Exti {
-    # [ doc = "0x00 - Interrupt mask register" ]
-    pub imr1: Imr1,
-    # [ doc = "0x04 - Event mask register" ]
-    pub emr1: Emr1,
-    # [ doc = "0x08 - Rising Trigger selection register" ]
-    pub rtsr1: Rtsr1,
-    # [ doc = "0x0c - Falling Trigger selection register" ]
-    pub ftsr1: Ftsr1,
-    # [ doc = "0x10 - Software interrupt event register" ]
-    pub swier1: Swier1,
-    # [ doc = "0x14 - Pending register" ]
-    pub pr1: Pr1,
-    _reserved0: [u8; 8usize],
-    # [ doc = "0x20 - Interrupt mask register" ]
-    pub imr2: Imr2,
-    # [ doc = "0x24 - Event mask register" ]
-    pub emr2: Emr2,
-    # [ doc = "0x28 - Rising Trigger selection register" ]
-    pub rtsr2: Rtsr2,
-    # [ doc = "0x2c - Falling Trigger selection register" ]
-    pub ftsr2: Ftsr2,
-    # [ doc = "0x30 - Software interrupt event register" ]
-    pub swier2: Swier2,
-    # [ doc = "0x34 - Pending register" ]
-    pub pr2: Pr2,
+    # [ doc = "0x00 - Interrupt mask register (EXTI_IMR)" ]
+    pub imr: Imr,
+    # [ doc = "0x04 - Event mask register (EXTI_EMR)" ]
+    pub emr: Emr,
+    # [ doc = "0x08 - Rising Trigger selection register (EXTI_RTSR)" ]
+    pub rtsr: Rtsr,
+    # [ doc = "0x0c - Falling Trigger selection register (EXTI_FTSR)" ]
+    pub ftsr: Ftsr,
+    # [ doc = "0x10 - Software interrupt event register (EXTI_SWIER)" ]
+    pub swier: Swier,
+    # [ doc = "0x14 - Pending register (EXTI_PR)" ]
+    pub pr: Pr,
 }
 
 # [ repr ( C ) ]
-pub struct Imr1 {
+pub struct Imr {
     register: ::volatile_register::RW<u32>,
 }
 
-impl Imr1 {
+impl Imr {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
-        where for<'w> F: FnOnce(&Imr1R, &'w mut Imr1W) -> &'w mut Imr1W
+        where for<'w> F: FnOnce(&ImrR, &'w mut ImrW) -> &'w mut ImrW
     {
         let bits = self.register.read();
-        let r = Imr1R { bits: bits };
-        let mut w = Imr1W { bits: bits };
+        let r = ImrR { bits: bits };
+        let mut w = ImrW { bits: bits };
         f(&r, &mut w);
         self.register.write(w.bits);
     }
-    pub fn read(&self) -> Imr1R {
-        Imr1R { bits: self.register.read() }
+    pub fn read(&self) -> ImrR {
+        ImrR { bits: self.register.read() }
     }
     pub fn write<F>(&mut self, f: F)
-        where F: FnOnce(&mut Imr1W) -> &mut Imr1W
+        where F: FnOnce(&mut ImrW) -> &mut ImrW
     {
-        let mut w = Imr1W::reset_value();
+        let mut w = ImrW::reset_value();
         f(&mut w);
         self.register.write(w.bits);
     }
@@ -57,11 +57,11 @@ impl Imr1 {
 
 # [ derive ( Clone , Copy ) ]
 # [ repr ( C ) ]
-pub struct Imr1R {
+pub struct ImrR {
     bits: u32,
 }
 
-impl Imr1R {
+impl ImrR {
     # [ doc = "Bit 0 - Interrupt Mask on line 0" ]
     pub fn mr0(&self) -> bool {
         const OFFSET: u8 = 0u8;
@@ -177,63 +177,18 @@ impl Imr1R {
         const OFFSET: u8 = 22u8;
         self.bits & (1 << OFFSET) != 0
     }
-    # [ doc = "Bit 23 - Interrupt Mask on line 23" ]
-    pub fn mr23(&self) -> bool {
-        const OFFSET: u8 = 23u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 24 - Interrupt Mask on line 24" ]
-    pub fn mr24(&self) -> bool {
-        const OFFSET: u8 = 24u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 25 - Interrupt Mask on line 25" ]
-    pub fn mr25(&self) -> bool {
-        const OFFSET: u8 = 25u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 26 - Interrupt Mask on line 26" ]
-    pub fn mr26(&self) -> bool {
-        const OFFSET: u8 = 26u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 27 - Interrupt Mask on line 27" ]
-    pub fn mr27(&self) -> bool {
-        const OFFSET: u8 = 27u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 28 - Interrupt Mask on line 28" ]
-    pub fn mr28(&self) -> bool {
-        const OFFSET: u8 = 28u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 29 - Interrupt Mask on line 29" ]
-    pub fn mr29(&self) -> bool {
-        const OFFSET: u8 = 29u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 30 - Interrupt Mask on line 30" ]
-    pub fn mr30(&self) -> bool {
-        const OFFSET: u8 = 30u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 31 - Interrupt Mask on line 31" ]
-    pub fn mr31(&self) -> bool {
-        const OFFSET: u8 = 31u8;
-        self.bits & (1 << OFFSET) != 0
-    }
 }
 
 # [ derive ( Clone , Copy ) ]
 # [ repr ( C ) ]
-pub struct Imr1W {
+pub struct ImrW {
     bits: u32,
 }
 
-impl Imr1W {
+impl ImrW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Imr1W { bits: 4286709760u32 }
+        ImrW { bits: 0 }
     }
     # [ doc = "Bit 0 - Interrupt Mask on line 0" ]
     pub fn mr0(&mut self, value: bool) -> &mut Self {
@@ -465,120 +420,43 @@ impl Imr1W {
         }
         self
     }
-    # [ doc = "Bit 23 - Interrupt Mask on line 23" ]
-    pub fn mr23(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 23u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 24 - Interrupt Mask on line 24" ]
-    pub fn mr24(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 24u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 25 - Interrupt Mask on line 25" ]
-    pub fn mr25(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 25u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 26 - Interrupt Mask on line 26" ]
-    pub fn mr26(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 26u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 27 - Interrupt Mask on line 27" ]
-    pub fn mr27(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 27u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 28 - Interrupt Mask on line 28" ]
-    pub fn mr28(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 28u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 29 - Interrupt Mask on line 29" ]
-    pub fn mr29(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 29u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 30 - Interrupt Mask on line 30" ]
-    pub fn mr30(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 30u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 31 - Interrupt Mask on line 31" ]
-    pub fn mr31(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 31u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
 }
 
 # [ repr ( C ) ]
-pub struct Emr1 {
+pub struct Emr {
     register: ::volatile_register::RW<u32>,
 }
 
-impl Emr1 {
+impl Emr {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
-        where for<'w> F: FnOnce(&Emr1R, &'w mut Emr1W) -> &'w mut Emr1W
+        where for<'w> F: FnOnce(&EmrR, &'w mut EmrW) -> &'w mut EmrW
     {
         let bits = self.register.read();
-        let r = Emr1R { bits: bits };
-        let mut w = Emr1W { bits: bits };
+        let r = EmrR { bits: bits };
+        let mut w = EmrW { bits: bits };
         f(&r, &mut w);
         self.register.write(w.bits);
     }
-    pub fn read(&self) -> Emr1R {
-        Emr1R { bits: self.register.read() }
+    pub fn read(&self) -> EmrR {
+        EmrR { bits: self.register.read() }
     }
     pub fn write<F>(&mut self, f: F)
-        where F: FnOnce(&mut Emr1W) -> &mut Emr1W
+        where F: FnOnce(&mut EmrW) -> &mut EmrW
     {
-        let mut w = Emr1W::reset_value();
+        let mut w = EmrW::reset_value();
         f(&mut w);
         self.register.write(w.bits);
     }
@@ -586,11 +464,11 @@ impl Emr1 {
 
 # [ derive ( Clone , Copy ) ]
 # [ repr ( C ) ]
-pub struct Emr1R {
+pub struct EmrR {
     bits: u32,
 }
 
-impl Emr1R {
+impl EmrR {
     # [ doc = "Bit 0 - Event Mask on line 0" ]
     pub fn mr0(&self) -> bool {
         const OFFSET: u8 = 0u8;
@@ -706,63 +584,18 @@ impl Emr1R {
         const OFFSET: u8 = 22u8;
         self.bits & (1 << OFFSET) != 0
     }
-    # [ doc = "Bit 23 - Event Mask on line 23" ]
-    pub fn mr23(&self) -> bool {
-        const OFFSET: u8 = 23u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 24 - Event Mask on line 24" ]
-    pub fn mr24(&self) -> bool {
-        const OFFSET: u8 = 24u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 25 - Event Mask on line 25" ]
-    pub fn mr25(&self) -> bool {
-        const OFFSET: u8 = 25u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 26 - Event Mask on line 26" ]
-    pub fn mr26(&self) -> bool {
-        const OFFSET: u8 = 26u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 27 - Event Mask on line 27" ]
-    pub fn mr27(&self) -> bool {
-        const OFFSET: u8 = 27u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 28 - Event Mask on line 28" ]
-    pub fn mr28(&self) -> bool {
-        const OFFSET: u8 = 28u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 29 - Event Mask on line 29" ]
-    pub fn mr29(&self) -> bool {
-        const OFFSET: u8 = 29u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 30 - Event Mask on line 30" ]
-    pub fn mr30(&self) -> bool {
-        const OFFSET: u8 = 30u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 31 - Event Mask on line 31" ]
-    pub fn mr31(&self) -> bool {
-        const OFFSET: u8 = 31u8;
-        self.bits & (1 << OFFSET) != 0
-    }
 }
 
 # [ derive ( Clone , Copy ) ]
 # [ repr ( C ) ]
-pub struct Emr1W {
+pub struct EmrW {
     bits: u32,
 }
 
-impl Emr1W {
+impl EmrW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Emr1W { bits: 0u32 }
+        EmrW { bits: 0 }
     }
     # [ doc = "Bit 0 - Event Mask on line 0" ]
     pub fn mr0(&mut self, value: bool) -> &mut Self {
@@ -994,120 +827,43 @@ impl Emr1W {
         }
         self
     }
-    # [ doc = "Bit 23 - Event Mask on line 23" ]
-    pub fn mr23(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 23u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 24 - Event Mask on line 24" ]
-    pub fn mr24(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 24u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 25 - Event Mask on line 25" ]
-    pub fn mr25(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 25u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 26 - Event Mask on line 26" ]
-    pub fn mr26(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 26u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 27 - Event Mask on line 27" ]
-    pub fn mr27(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 27u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 28 - Event Mask on line 28" ]
-    pub fn mr28(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 28u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 29 - Event Mask on line 29" ]
-    pub fn mr29(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 29u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 30 - Event Mask on line 30" ]
-    pub fn mr30(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 30u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 31 - Event Mask on line 31" ]
-    pub fn mr31(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 31u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
 }
 
 # [ repr ( C ) ]
-pub struct Rtsr1 {
+pub struct Rtsr {
     register: ::volatile_register::RW<u32>,
 }
 
-impl Rtsr1 {
+impl Rtsr {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
-        where for<'w> F: FnOnce(&Rtsr1R, &'w mut Rtsr1W) -> &'w mut Rtsr1W
+        where for<'w> F: FnOnce(&RtsrR, &'w mut RtsrW) -> &'w mut RtsrW
     {
         let bits = self.register.read();
-        let r = Rtsr1R { bits: bits };
-        let mut w = Rtsr1W { bits: bits };
+        let r = RtsrR { bits: bits };
+        let mut w = RtsrW { bits: bits };
         f(&r, &mut w);
         self.register.write(w.bits);
     }
-    pub fn read(&self) -> Rtsr1R {
-        Rtsr1R { bits: self.register.read() }
+    pub fn read(&self) -> RtsrR {
+        RtsrR { bits: self.register.read() }
     }
     pub fn write<F>(&mut self, f: F)
-        where F: FnOnce(&mut Rtsr1W) -> &mut Rtsr1W
+        where F: FnOnce(&mut RtsrW) -> &mut RtsrW
     {
-        let mut w = Rtsr1W::reset_value();
+        let mut w = RtsrW::reset_value();
         f(&mut w);
         self.register.write(w.bits);
     }
@@ -1115,11 +871,11 @@ impl Rtsr1 {
 
 # [ derive ( Clone , Copy ) ]
 # [ repr ( C ) ]
-pub struct Rtsr1R {
+pub struct RtsrR {
     bits: u32,
 }
 
-impl Rtsr1R {
+impl RtsrR {
     # [ doc = "Bit 0 - Rising trigger event configuration of line 0" ]
     pub fn tr0(&self) -> bool {
         const OFFSET: u8 = 0u8;
@@ -1205,6 +961,11 @@ impl Rtsr1R {
         const OFFSET: u8 = 16u8;
         self.bits & (1 << OFFSET) != 0
     }
+    # [ doc = "Bit 17 - Rising trigger event configuration of line 17" ]
+    pub fn tr17(&self) -> bool {
+        const OFFSET: u8 = 17u8;
+        self.bits & (1 << OFFSET) != 0
+    }
     # [ doc = "Bit 18 - Rising trigger event configuration of line 18" ]
     pub fn tr18(&self) -> bool {
         const OFFSET: u8 = 18u8;
@@ -1234,14 +995,14 @@ impl Rtsr1R {
 
 # [ derive ( Clone , Copy ) ]
 # [ repr ( C ) ]
-pub struct Rtsr1W {
+pub struct RtsrW {
     bits: u32,
 }
 
-impl Rtsr1W {
+impl RtsrW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Rtsr1W { bits: 0u32 }
+        RtsrW { bits: 0 }
     }
     # [ doc = "Bit 0 - Rising trigger event configuration of line 0" ]
     pub fn tr0(&mut self, value: bool) -> &mut Self {
@@ -1413,6 +1174,16 @@ impl Rtsr1W {
         }
         self
     }
+    # [ doc = "Bit 17 - Rising trigger event configuration of line 17" ]
+    pub fn tr17(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 17u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
     # [ doc = "Bit 18 - Rising trigger event configuration of line 18" ]
     pub fn tr18(&mut self, value: bool) -> &mut Self {
         const OFFSET: u8 = 18u8;
@@ -1466,27 +1237,40 @@ impl Rtsr1W {
 }
 
 # [ repr ( C ) ]
-pub struct Ftsr1 {
+pub struct Ftsr {
     register: ::volatile_register::RW<u32>,
 }
 
-impl Ftsr1 {
+impl Ftsr {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
-        where for<'w> F: FnOnce(&Ftsr1R, &'w mut Ftsr1W) -> &'w mut Ftsr1W
+        where for<'w> F: FnOnce(&FtsrR, &'w mut FtsrW) -> &'w mut FtsrW
     {
         let bits = self.register.read();
-        let r = Ftsr1R { bits: bits };
-        let mut w = Ftsr1W { bits: bits };
+        let r = FtsrR { bits: bits };
+        let mut w = FtsrW { bits: bits };
         f(&r, &mut w);
         self.register.write(w.bits);
     }
-    pub fn read(&self) -> Ftsr1R {
-        Ftsr1R { bits: self.register.read() }
+    pub fn read(&self) -> FtsrR {
+        FtsrR { bits: self.register.read() }
     }
     pub fn write<F>(&mut self, f: F)
-        where F: FnOnce(&mut Ftsr1W) -> &mut Ftsr1W
+        where F: FnOnce(&mut FtsrW) -> &mut FtsrW
     {
-        let mut w = Ftsr1W::reset_value();
+        let mut w = FtsrW::reset_value();
         f(&mut w);
         self.register.write(w.bits);
     }
@@ -1494,11 +1278,11 @@ impl Ftsr1 {
 
 # [ derive ( Clone , Copy ) ]
 # [ repr ( C ) ]
-pub struct Ftsr1R {
+pub struct FtsrR {
     bits: u32,
 }
 
-impl Ftsr1R {
+impl FtsrR {
     # [ doc = "Bit 0 - Falling trigger event configuration of line 0" ]
     pub fn tr0(&self) -> bool {
         const OFFSET: u8 = 0u8;
@@ -1584,6 +1368,11 @@ impl Ftsr1R {
         const OFFSET: u8 = 16u8;
         self.bits & (1 << OFFSET) != 0
     }
+    # [ doc = "Bit 17 - Falling trigger event configuration of line 17" ]
+    pub fn tr17(&self) -> bool {
+        const OFFSET: u8 = 17u8;
+        self.bits & (1 << OFFSET) != 0
+    }
     # [ doc = "Bit 18 - Falling trigger event configuration of line 18" ]
     pub fn tr18(&self) -> bool {
         const OFFSET: u8 = 18u8;
@@ -1613,14 +1402,14 @@ impl Ftsr1R {
 
 # [ derive ( Clone , Copy ) ]
 # [ repr ( C ) ]
-pub struct Ftsr1W {
+pub struct FtsrW {
     bits: u32,
 }
 
-impl Ftsr1W {
+impl FtsrW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Ftsr1W { bits: 0u32 }
+        FtsrW { bits: 0 }
     }
     # [ doc = "Bit 0 - Falling trigger event configuration of line 0" ]
     pub fn tr0(&mut self, value: bool) -> &mut Self {
@@ -1792,6 +1581,16 @@ impl Ftsr1W {
         }
         self
     }
+    # [ doc = "Bit 17 - Falling trigger event configuration of line 17" ]
+    pub fn tr17(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 17u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
     # [ doc = "Bit 18 - Falling trigger event configuration of line 18" ]
     pub fn tr18(&mut self, value: bool) -> &mut Self {
         const OFFSET: u8 = 18u8;
@@ -1845,27 +1644,40 @@ impl Ftsr1W {
 }
 
 # [ repr ( C ) ]
-pub struct Swier1 {
+pub struct Swier {
     register: ::volatile_register::RW<u32>,
 }
 
-impl Swier1 {
+impl Swier {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
-        where for<'w> F: FnOnce(&Swier1R, &'w mut Swier1W) -> &'w mut Swier1W
+        where for<'w> F: FnOnce(&SwierR, &'w mut SwierW) -> &'w mut SwierW
     {
         let bits = self.register.read();
-        let r = Swier1R { bits: bits };
-        let mut w = Swier1W { bits: bits };
+        let r = SwierR { bits: bits };
+        let mut w = SwierW { bits: bits };
         f(&r, &mut w);
         self.register.write(w.bits);
     }
-    pub fn read(&self) -> Swier1R {
-        Swier1R { bits: self.register.read() }
+    pub fn read(&self) -> SwierR {
+        SwierR { bits: self.register.read() }
     }
     pub fn write<F>(&mut self, f: F)
-        where F: FnOnce(&mut Swier1W) -> &mut Swier1W
+        where F: FnOnce(&mut SwierW) -> &mut SwierW
     {
-        let mut w = Swier1W::reset_value();
+        let mut w = SwierW::reset_value();
         f(&mut w);
         self.register.write(w.bits);
     }
@@ -1873,11 +1685,11 @@ impl Swier1 {
 
 # [ derive ( Clone , Copy ) ]
 # [ repr ( C ) ]
-pub struct Swier1R {
+pub struct SwierR {
     bits: u32,
 }
 
-impl Swier1R {
+impl SwierR {
     # [ doc = "Bit 0 - Software Interrupt on line 0" ]
     pub fn swier0(&self) -> bool {
         const OFFSET: u8 = 0u8;
@@ -1963,6 +1775,11 @@ impl Swier1R {
         const OFFSET: u8 = 16u8;
         self.bits & (1 << OFFSET) != 0
     }
+    # [ doc = "Bit 17 - Software Interrupt on line 17" ]
+    pub fn swier17(&self) -> bool {
+        const OFFSET: u8 = 17u8;
+        self.bits & (1 << OFFSET) != 0
+    }
     # [ doc = "Bit 18 - Software Interrupt on line 18" ]
     pub fn swier18(&self) -> bool {
         const OFFSET: u8 = 18u8;
@@ -1992,14 +1809,14 @@ impl Swier1R {
 
 # [ derive ( Clone , Copy ) ]
 # [ repr ( C ) ]
-pub struct Swier1W {
+pub struct SwierW {
     bits: u32,
 }
 
-impl Swier1W {
+impl SwierW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Swier1W { bits: 0u32 }
+        SwierW { bits: 0 }
     }
     # [ doc = "Bit 0 - Software Interrupt on line 0" ]
     pub fn swier0(&mut self, value: bool) -> &mut Self {
@@ -2171,6 +1988,16 @@ impl Swier1W {
         }
         self
     }
+    # [ doc = "Bit 17 - Software Interrupt on line 17" ]
+    pub fn swier17(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 17u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
     # [ doc = "Bit 18 - Software Interrupt on line 18" ]
     pub fn swier18(&mut self, value: bool) -> &mut Self {
         const OFFSET: u8 = 18u8;
@@ -2224,27 +2051,40 @@ impl Swier1W {
 }
 
 # [ repr ( C ) ]
-pub struct Pr1 {
+pub struct Pr {
     register: ::volatile_register::RW<u32>,
 }
 
-impl Pr1 {
+impl Pr {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
-        where for<'w> F: FnOnce(&Pr1R, &'w mut Pr1W) -> &'w mut Pr1W
+        where for<'w> F: FnOnce(&PrR, &'w mut PrW) -> &'w mut PrW
     {
         let bits = self.register.read();
-        let r = Pr1R { bits: bits };
-        let mut w = Pr1W { bits: bits };
+        let r = PrR { bits: bits };
+        let mut w = PrW { bits: bits };
         f(&r, &mut w);
         self.register.write(w.bits);
     }
-    pub fn read(&self) -> Pr1R {
-        Pr1R { bits: self.register.read() }
+    pub fn read(&self) -> PrR {
+        PrR { bits: self.register.read() }
     }
     pub fn write<F>(&mut self, f: F)
-        where F: FnOnce(&mut Pr1W) -> &mut Pr1W
+        where F: FnOnce(&mut PrW) -> &mut PrW
     {
-        let mut w = Pr1W::reset_value();
+        let mut w = PrW::reset_value();
         f(&mut w);
         self.register.write(w.bits);
     }
@@ -2252,11 +2092,11 @@ impl Pr1 {
 
 # [ derive ( Clone , Copy ) ]
 # [ repr ( C ) ]
-pub struct Pr1R {
+pub struct PrR {
     bits: u32,
 }
 
-impl Pr1R {
+impl PrR {
     # [ doc = "Bit 0 - Pending bit 0" ]
     pub fn pr0(&self) -> bool {
         const OFFSET: u8 = 0u8;
@@ -2342,6 +2182,11 @@ impl Pr1R {
         const OFFSET: u8 = 16u8;
         self.bits & (1 << OFFSET) != 0
     }
+    # [ doc = "Bit 17 - Pending bit 17" ]
+    pub fn pr17(&self) -> bool {
+        const OFFSET: u8 = 17u8;
+        self.bits & (1 << OFFSET) != 0
+    }
     # [ doc = "Bit 18 - Pending bit 18" ]
     pub fn pr18(&self) -> bool {
         const OFFSET: u8 = 18u8;
@@ -2371,14 +2216,14 @@ impl Pr1R {
 
 # [ derive ( Clone , Copy ) ]
 # [ repr ( C ) ]
-pub struct Pr1W {
+pub struct PrW {
     bits: u32,
 }
 
-impl Pr1W {
+impl PrW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Pr1W { bits: 0u32 }
+        PrW { bits: 0 }
     }
     # [ doc = "Bit 0 - Pending bit 0" ]
     pub fn pr0(&mut self, value: bool) -> &mut Self {
@@ -2550,6 +2395,16 @@ impl Pr1W {
         }
         self
     }
+    # [ doc = "Bit 17 - Pending bit 17" ]
+    pub fn pr17(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 17u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
     # [ doc = "Bit 18 - Pending bit 18" ]
     pub fn pr18(&mut self, value: bool) -> &mut Self {
         const OFFSET: u8 = 18u8;
@@ -2593,780 +2448,6 @@ impl Pr1W {
     # [ doc = "Bit 22 - Pending bit 22" ]
     pub fn pr22(&mut self, value: bool) -> &mut Self {
         const OFFSET: u8 = 22u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-}
-
-# [ repr ( C ) ]
-pub struct Imr2 {
-    register: ::volatile_register::RW<u32>,
-}
-
-impl Imr2 {
-    pub fn modify<F>(&mut self, f: F)
-        where for<'w> F: FnOnce(&Imr2R, &'w mut Imr2W) -> &'w mut Imr2W
-    {
-        let bits = self.register.read();
-        let r = Imr2R { bits: bits };
-        let mut w = Imr2W { bits: bits };
-        f(&r, &mut w);
-        self.register.write(w.bits);
-    }
-    pub fn read(&self) -> Imr2R {
-        Imr2R { bits: self.register.read() }
-    }
-    pub fn write<F>(&mut self, f: F)
-        where F: FnOnce(&mut Imr2W) -> &mut Imr2W
-    {
-        let mut w = Imr2W::reset_value();
-        f(&mut w);
-        self.register.write(w.bits);
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct Imr2R {
-    bits: u32,
-}
-
-impl Imr2R {
-    # [ doc = "Bit 0 - Interrupt Mask on external/internal line 32" ]
-    pub fn mr32(&self) -> bool {
-        const OFFSET: u8 = 0u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 1 - Interrupt Mask on external/internal line 33" ]
-    pub fn mr33(&self) -> bool {
-        const OFFSET: u8 = 1u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 2 - Interrupt Mask on external/internal line 34" ]
-    pub fn mr34(&self) -> bool {
-        const OFFSET: u8 = 2u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 3 - Interrupt Mask on external/internal line 35" ]
-    pub fn mr35(&self) -> bool {
-        const OFFSET: u8 = 3u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 4 - Interrupt Mask on external/internal line 36" ]
-    pub fn mr36(&self) -> bool {
-        const OFFSET: u8 = 4u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 5 - Interrupt Mask on external/internal line 37" ]
-    pub fn mr37(&self) -> bool {
-        const OFFSET: u8 = 5u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 6 - Interrupt Mask on external/internal line 38" ]
-    pub fn mr38(&self) -> bool {
-        const OFFSET: u8 = 6u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 7 - Interrupt Mask on external/internal line 39" ]
-    pub fn mr39(&self) -> bool {
-        const OFFSET: u8 = 7u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct Imr2W {
-    bits: u32,
-}
-
-impl Imr2W {
-    # [ doc = r" Reset value" ]
-    pub fn reset_value() -> Self {
-        Imr2W { bits: 4294967175u32 }
-    }
-    # [ doc = "Bit 0 - Interrupt Mask on external/internal line 32" ]
-    pub fn mr32(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 0u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 1 - Interrupt Mask on external/internal line 33" ]
-    pub fn mr33(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 1u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 2 - Interrupt Mask on external/internal line 34" ]
-    pub fn mr34(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 2u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 3 - Interrupt Mask on external/internal line 35" ]
-    pub fn mr35(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 3u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 4 - Interrupt Mask on external/internal line 36" ]
-    pub fn mr36(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 4u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 5 - Interrupt Mask on external/internal line 37" ]
-    pub fn mr37(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 5u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 6 - Interrupt Mask on external/internal line 38" ]
-    pub fn mr38(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 6u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 7 - Interrupt Mask on external/internal line 39" ]
-    pub fn mr39(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 7u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-}
-
-# [ repr ( C ) ]
-pub struct Emr2 {
-    register: ::volatile_register::RW<u32>,
-}
-
-impl Emr2 {
-    pub fn modify<F>(&mut self, f: F)
-        where for<'w> F: FnOnce(&Emr2R, &'w mut Emr2W) -> &'w mut Emr2W
-    {
-        let bits = self.register.read();
-        let r = Emr2R { bits: bits };
-        let mut w = Emr2W { bits: bits };
-        f(&r, &mut w);
-        self.register.write(w.bits);
-    }
-    pub fn read(&self) -> Emr2R {
-        Emr2R { bits: self.register.read() }
-    }
-    pub fn write<F>(&mut self, f: F)
-        where F: FnOnce(&mut Emr2W) -> &mut Emr2W
-    {
-        let mut w = Emr2W::reset_value();
-        f(&mut w);
-        self.register.write(w.bits);
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct Emr2R {
-    bits: u32,
-}
-
-impl Emr2R {
-    # [ doc = "Bit 0 - Event mask on external/internal line 32" ]
-    pub fn mr32(&self) -> bool {
-        const OFFSET: u8 = 0u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 1 - Event mask on external/internal line 33" ]
-    pub fn mr33(&self) -> bool {
-        const OFFSET: u8 = 1u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 2 - Event mask on external/internal line 34" ]
-    pub fn mr34(&self) -> bool {
-        const OFFSET: u8 = 2u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 3 - Event mask on external/internal line 35" ]
-    pub fn mr35(&self) -> bool {
-        const OFFSET: u8 = 3u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 4 - Event mask on external/internal line 36" ]
-    pub fn mr36(&self) -> bool {
-        const OFFSET: u8 = 4u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 5 - Event mask on external/internal line 37" ]
-    pub fn mr37(&self) -> bool {
-        const OFFSET: u8 = 5u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 6 - Event mask on external/internal line 38" ]
-    pub fn mr38(&self) -> bool {
-        const OFFSET: u8 = 6u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 7 - Event mask on external/internal line 39" ]
-    pub fn mr39(&self) -> bool {
-        const OFFSET: u8 = 7u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct Emr2W {
-    bits: u32,
-}
-
-impl Emr2W {
-    # [ doc = r" Reset value" ]
-    pub fn reset_value() -> Self {
-        Emr2W { bits: 0u32 }
-    }
-    # [ doc = "Bit 0 - Event mask on external/internal line 32" ]
-    pub fn mr32(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 0u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 1 - Event mask on external/internal line 33" ]
-    pub fn mr33(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 1u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 2 - Event mask on external/internal line 34" ]
-    pub fn mr34(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 2u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 3 - Event mask on external/internal line 35" ]
-    pub fn mr35(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 3u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 4 - Event mask on external/internal line 36" ]
-    pub fn mr36(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 4u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 5 - Event mask on external/internal line 37" ]
-    pub fn mr37(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 5u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 6 - Event mask on external/internal line 38" ]
-    pub fn mr38(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 6u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 7 - Event mask on external/internal line 39" ]
-    pub fn mr39(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 7u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-}
-
-# [ repr ( C ) ]
-pub struct Rtsr2 {
-    register: ::volatile_register::RW<u32>,
-}
-
-impl Rtsr2 {
-    pub fn modify<F>(&mut self, f: F)
-        where for<'w> F: FnOnce(&Rtsr2R, &'w mut Rtsr2W) -> &'w mut Rtsr2W
-    {
-        let bits = self.register.read();
-        let r = Rtsr2R { bits: bits };
-        let mut w = Rtsr2W { bits: bits };
-        f(&r, &mut w);
-        self.register.write(w.bits);
-    }
-    pub fn read(&self) -> Rtsr2R {
-        Rtsr2R { bits: self.register.read() }
-    }
-    pub fn write<F>(&mut self, f: F)
-        where F: FnOnce(&mut Rtsr2W) -> &mut Rtsr2W
-    {
-        let mut w = Rtsr2W::reset_value();
-        f(&mut w);
-        self.register.write(w.bits);
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct Rtsr2R {
-    bits: u32,
-}
-
-impl Rtsr2R {
-    # [ doc = "Bit 3 - Rising trigger event configuration bit of line 35" ]
-    pub fn rt35(&self) -> bool {
-        const OFFSET: u8 = 3u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 4 - Rising trigger event configuration bit of line 36" ]
-    pub fn rt36(&self) -> bool {
-        const OFFSET: u8 = 4u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 5 - Rising trigger event configuration bit of line 37" ]
-    pub fn rt37(&self) -> bool {
-        const OFFSET: u8 = 5u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 6 - Rising trigger event configuration bit of line 38" ]
-    pub fn rt38(&self) -> bool {
-        const OFFSET: u8 = 6u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct Rtsr2W {
-    bits: u32,
-}
-
-impl Rtsr2W {
-    # [ doc = r" Reset value" ]
-    pub fn reset_value() -> Self {
-        Rtsr2W { bits: 0u32 }
-    }
-    # [ doc = "Bit 3 - Rising trigger event configuration bit of line 35" ]
-    pub fn rt35(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 3u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 4 - Rising trigger event configuration bit of line 36" ]
-    pub fn rt36(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 4u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 5 - Rising trigger event configuration bit of line 37" ]
-    pub fn rt37(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 5u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 6 - Rising trigger event configuration bit of line 38" ]
-    pub fn rt38(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 6u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-}
-
-# [ repr ( C ) ]
-pub struct Ftsr2 {
-    register: ::volatile_register::RW<u32>,
-}
-
-impl Ftsr2 {
-    pub fn modify<F>(&mut self, f: F)
-        where for<'w> F: FnOnce(&Ftsr2R, &'w mut Ftsr2W) -> &'w mut Ftsr2W
-    {
-        let bits = self.register.read();
-        let r = Ftsr2R { bits: bits };
-        let mut w = Ftsr2W { bits: bits };
-        f(&r, &mut w);
-        self.register.write(w.bits);
-    }
-    pub fn read(&self) -> Ftsr2R {
-        Ftsr2R { bits: self.register.read() }
-    }
-    pub fn write<F>(&mut self, f: F)
-        where F: FnOnce(&mut Ftsr2W) -> &mut Ftsr2W
-    {
-        let mut w = Ftsr2W::reset_value();
-        f(&mut w);
-        self.register.write(w.bits);
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct Ftsr2R {
-    bits: u32,
-}
-
-impl Ftsr2R {
-    # [ doc = "Bit 3 - Falling trigger event configuration bit of line 35" ]
-    pub fn ft35(&self) -> bool {
-        const OFFSET: u8 = 3u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 4 - Falling trigger event configuration bit of line 36" ]
-    pub fn ft36(&self) -> bool {
-        const OFFSET: u8 = 4u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 5 - Falling trigger event configuration bit of line 37" ]
-    pub fn ft37(&self) -> bool {
-        const OFFSET: u8 = 5u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 6 - Falling trigger event configuration bit of line 38" ]
-    pub fn ft38(&self) -> bool {
-        const OFFSET: u8 = 6u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct Ftsr2W {
-    bits: u32,
-}
-
-impl Ftsr2W {
-    # [ doc = r" Reset value" ]
-    pub fn reset_value() -> Self {
-        Ftsr2W { bits: 0u32 }
-    }
-    # [ doc = "Bit 3 - Falling trigger event configuration bit of line 35" ]
-    pub fn ft35(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 3u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 4 - Falling trigger event configuration bit of line 36" ]
-    pub fn ft36(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 4u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 5 - Falling trigger event configuration bit of line 37" ]
-    pub fn ft37(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 5u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 6 - Falling trigger event configuration bit of line 38" ]
-    pub fn ft38(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 6u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-}
-
-# [ repr ( C ) ]
-pub struct Swier2 {
-    register: ::volatile_register::RW<u32>,
-}
-
-impl Swier2 {
-    pub fn modify<F>(&mut self, f: F)
-        where for<'w> F: FnOnce(&Swier2R, &'w mut Swier2W) -> &'w mut Swier2W
-    {
-        let bits = self.register.read();
-        let r = Swier2R { bits: bits };
-        let mut w = Swier2W { bits: bits };
-        f(&r, &mut w);
-        self.register.write(w.bits);
-    }
-    pub fn read(&self) -> Swier2R {
-        Swier2R { bits: self.register.read() }
-    }
-    pub fn write<F>(&mut self, f: F)
-        where F: FnOnce(&mut Swier2W) -> &mut Swier2W
-    {
-        let mut w = Swier2W::reset_value();
-        f(&mut w);
-        self.register.write(w.bits);
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct Swier2R {
-    bits: u32,
-}
-
-impl Swier2R {
-    # [ doc = "Bit 3 - Software interrupt on line 35" ]
-    pub fn swi35(&self) -> bool {
-        const OFFSET: u8 = 3u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 4 - Software interrupt on line 36" ]
-    pub fn swi36(&self) -> bool {
-        const OFFSET: u8 = 4u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 5 - Software interrupt on line 37" ]
-    pub fn swi37(&self) -> bool {
-        const OFFSET: u8 = 5u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 6 - Software interrupt on line 38" ]
-    pub fn swi38(&self) -> bool {
-        const OFFSET: u8 = 6u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct Swier2W {
-    bits: u32,
-}
-
-impl Swier2W {
-    # [ doc = r" Reset value" ]
-    pub fn reset_value() -> Self {
-        Swier2W { bits: 0u32 }
-    }
-    # [ doc = "Bit 3 - Software interrupt on line 35" ]
-    pub fn swi35(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 3u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 4 - Software interrupt on line 36" ]
-    pub fn swi36(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 4u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 5 - Software interrupt on line 37" ]
-    pub fn swi37(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 5u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 6 - Software interrupt on line 38" ]
-    pub fn swi38(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 6u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-}
-
-# [ repr ( C ) ]
-pub struct Pr2 {
-    register: ::volatile_register::RW<u32>,
-}
-
-impl Pr2 {
-    pub fn modify<F>(&mut self, f: F)
-        where for<'w> F: FnOnce(&Pr2R, &'w mut Pr2W) -> &'w mut Pr2W
-    {
-        let bits = self.register.read();
-        let r = Pr2R { bits: bits };
-        let mut w = Pr2W { bits: bits };
-        f(&r, &mut w);
-        self.register.write(w.bits);
-    }
-    pub fn read(&self) -> Pr2R {
-        Pr2R { bits: self.register.read() }
-    }
-    pub fn write<F>(&mut self, f: F)
-        where F: FnOnce(&mut Pr2W) -> &mut Pr2W
-    {
-        let mut w = Pr2W::reset_value();
-        f(&mut w);
-        self.register.write(w.bits);
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct Pr2R {
-    bits: u32,
-}
-
-impl Pr2R {
-    # [ doc = "Bit 3 - Pending interrupt flag on line 35" ]
-    pub fn pif35(&self) -> bool {
-        const OFFSET: u8 = 3u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 4 - Pending interrupt flag on line 36" ]
-    pub fn pif36(&self) -> bool {
-        const OFFSET: u8 = 4u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 5 - Pending interrupt flag on line 37" ]
-    pub fn pif37(&self) -> bool {
-        const OFFSET: u8 = 5u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 6 - Pending interrupt flag on line 38" ]
-    pub fn pif38(&self) -> bool {
-        const OFFSET: u8 = 6u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct Pr2W {
-    bits: u32,
-}
-
-impl Pr2W {
-    # [ doc = r" Reset value" ]
-    pub fn reset_value() -> Self {
-        Pr2W { bits: 0u32 }
-    }
-    # [ doc = "Bit 3 - Pending interrupt flag on line 35" ]
-    pub fn pif35(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 3u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 4 - Pending interrupt flag on line 36" ]
-    pub fn pif36(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 4u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 5 - Pending interrupt flag on line 37" ]
-    pub fn pif37(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 5u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 6 - Pending interrupt flag on line 38" ]
-    pub fn pif38(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 6u8;
         if value {
             self.bits |= 1 << OFFSET;
         } else {

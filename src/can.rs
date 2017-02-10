@@ -58,7 +58,21 @@ pub struct Can {
     pub rdl1r: Rdl1r,
     # [ doc = "0x1cc - mailbox data high register" ]
     pub rdh1r: Rdh1r,
-    _reserved1: [u8; 112usize],
+    _reserved1: [u8; 48usize],
+    # [ doc = "0x200 - filter master register" ]
+    pub fmr: Fmr,
+    # [ doc = "0x204 - filter mode register" ]
+    pub fm1r: Fm1r,
+    _reserved2: [u8; 4usize],
+    # [ doc = "0x20c - filter scale register" ]
+    pub fs1r: Fs1r,
+    _reserved3: [u8; 4usize],
+    # [ doc = "0x214 - filter FIFO assignment register" ]
+    pub ffa1r: Ffa1r,
+    _reserved4: [u8; 4usize],
+    # [ doc = "0x21c - filter activation register" ]
+    pub fa1r: Fa1r,
+    _reserved5: [u8; 32usize],
     # [ doc = "0x240 - Filter bank 0 register 1" ]
     pub f0r1: F0r1,
     # [ doc = "0x244 - Filter bank 0 register 2" ]
@@ -179,6 +193,19 @@ pub struct Mcr {
 }
 
 impl Mcr {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&McrR, &'w mut McrW) -> &'w mut McrW
     {
@@ -268,7 +295,7 @@ pub struct McrW {
 impl McrW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        McrW { bits: 65538u32 }
+        McrW { bits: 65538 }
     }
     # [ doc = "Bit 16 - DBF" ]
     pub fn dbf(&mut self, value: bool) -> &mut Self {
@@ -378,6 +405,19 @@ pub struct Msr {
 }
 
 impl Msr {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&MsrR, &'w mut MsrW) -> &'w mut MsrW
     {
@@ -462,7 +502,7 @@ pub struct MsrW {
 impl MsrW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        MsrW { bits: 3074u32 }
+        MsrW { bits: 3074 }
     }
     # [ doc = "Bit 4 - SLAKI" ]
     pub fn slaki(&mut self, value: bool) -> &mut Self {
@@ -502,6 +542,19 @@ pub struct Tsr {
 }
 
 impl Tsr {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&TsrR, &'w mut TsrW) -> &'w mut TsrW
     {
@@ -652,7 +705,7 @@ pub struct TsrW {
 impl TsrW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        TsrW { bits: 469762048u32 }
+        TsrW { bits: 469762048 }
     }
     # [ doc = "Bit 23 - ABRQ2" ]
     pub fn abrq2(&mut self, value: bool) -> &mut Self {
@@ -812,6 +865,19 @@ pub struct Rf0r {
 }
 
 impl Rf0r {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Rf0rR, &'w mut Rf0rW) -> &'w mut Rf0rW
     {
@@ -872,7 +938,7 @@ pub struct Rf0rW {
 impl Rf0rW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Rf0rW { bits: 0u32 }
+        Rf0rW { bits: 0 }
     }
     # [ doc = "Bit 5 - RFOM0" ]
     pub fn rfom0(&mut self, value: bool) -> &mut Self {
@@ -912,6 +978,19 @@ pub struct Rf1r {
 }
 
 impl Rf1r {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Rf1rR, &'w mut Rf1rW) -> &'w mut Rf1rW
     {
@@ -972,7 +1051,7 @@ pub struct Rf1rW {
 impl Rf1rW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Rf1rW { bits: 0u32 }
+        Rf1rW { bits: 0 }
     }
     # [ doc = "Bit 5 - RFOM1" ]
     pub fn rfom1(&mut self, value: bool) -> &mut Self {
@@ -1012,6 +1091,19 @@ pub struct Ier {
 }
 
 impl Ier {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&IerR, &'w mut IerW) -> &'w mut IerW
     {
@@ -1121,7 +1213,7 @@ pub struct IerW {
 impl IerW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        IerW { bits: 0u32 }
+        IerW { bits: 0 }
     }
     # [ doc = "Bit 17 - SLKIE" ]
     pub fn slkie(&mut self, value: bool) -> &mut Self {
@@ -1271,6 +1363,19 @@ pub struct Esr {
 }
 
 impl Esr {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&EsrR, &'w mut EsrW) -> &'w mut EsrW
     {
@@ -1343,7 +1448,7 @@ pub struct EsrW {
 impl EsrW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        EsrW { bits: 0u32 }
+        EsrW { bits: 0 }
     }
     # [ doc = "Bits 4:6 - LEC" ]
     pub fn lec(&mut self, value: u8) -> &mut Self {
@@ -1361,6 +1466,19 @@ pub struct Btr {
 }
 
 impl Btr {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&BtrR, &'w mut BtrW) -> &'w mut BtrW
     {
@@ -1434,7 +1552,7 @@ pub struct BtrW {
 impl BtrW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        BtrW { bits: 0u32 }
+        BtrW { bits: 0 }
     }
     # [ doc = "Bit 31 - SILM" ]
     pub fn silm(&mut self, value: bool) -> &mut Self {
@@ -1496,6 +1614,19 @@ pub struct Ti0r {
 }
 
 impl Ti0r {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Ti0rR, &'w mut Ti0rW) -> &'w mut Ti0rW
     {
@@ -1562,7 +1693,7 @@ pub struct Ti0rW {
 impl Ti0rW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Ti0rW { bits: 0u32 }
+        Ti0rW { bits: 0 }
     }
     # [ doc = "Bits 21:31 - STID" ]
     pub fn stid(&mut self, value: u16) -> &mut Self {
@@ -1618,6 +1749,19 @@ pub struct Tdt0r {
 }
 
 impl Tdt0r {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Tdt0rR, &'w mut Tdt0rW) -> &'w mut Tdt0rW
     {
@@ -1674,7 +1818,7 @@ pub struct Tdt0rW {
 impl Tdt0rW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Tdt0rW { bits: 0u32 }
+        Tdt0rW { bits: 0 }
     }
     # [ doc = "Bits 16:31 - TIME" ]
     pub fn time(&mut self, value: u16) -> &mut Self {
@@ -1710,6 +1854,19 @@ pub struct Tdl0r {
 }
 
 impl Tdl0r {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Tdl0rR, &'w mut Tdl0rW) -> &'w mut Tdl0rW
     {
@@ -1773,7 +1930,7 @@ pub struct Tdl0rW {
 impl Tdl0rW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Tdl0rW { bits: 0u32 }
+        Tdl0rW { bits: 0 }
     }
     # [ doc = "Bits 24:31 - DATA3" ]
     pub fn data3(&mut self, value: u8) -> &mut Self {
@@ -1815,6 +1972,19 @@ pub struct Tdh0r {
 }
 
 impl Tdh0r {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Tdh0rR, &'w mut Tdh0rW) -> &'w mut Tdh0rW
     {
@@ -1878,7 +2048,7 @@ pub struct Tdh0rW {
 impl Tdh0rW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Tdh0rW { bits: 0u32 }
+        Tdh0rW { bits: 0 }
     }
     # [ doc = "Bits 24:31 - DATA7" ]
     pub fn data7(&mut self, value: u8) -> &mut Self {
@@ -1920,6 +2090,19 @@ pub struct Ti1r {
 }
 
 impl Ti1r {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Ti1rR, &'w mut Ti1rW) -> &'w mut Ti1rW
     {
@@ -1986,7 +2169,7 @@ pub struct Ti1rW {
 impl Ti1rW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Ti1rW { bits: 0u32 }
+        Ti1rW { bits: 0 }
     }
     # [ doc = "Bits 21:31 - STID" ]
     pub fn stid(&mut self, value: u16) -> &mut Self {
@@ -2042,6 +2225,19 @@ pub struct Tdt1r {
 }
 
 impl Tdt1r {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Tdt1rR, &'w mut Tdt1rW) -> &'w mut Tdt1rW
     {
@@ -2098,7 +2294,7 @@ pub struct Tdt1rW {
 impl Tdt1rW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Tdt1rW { bits: 0u32 }
+        Tdt1rW { bits: 0 }
     }
     # [ doc = "Bits 16:31 - TIME" ]
     pub fn time(&mut self, value: u16) -> &mut Self {
@@ -2134,6 +2330,19 @@ pub struct Tdl1r {
 }
 
 impl Tdl1r {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Tdl1rR, &'w mut Tdl1rW) -> &'w mut Tdl1rW
     {
@@ -2197,7 +2406,7 @@ pub struct Tdl1rW {
 impl Tdl1rW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Tdl1rW { bits: 0u32 }
+        Tdl1rW { bits: 0 }
     }
     # [ doc = "Bits 24:31 - DATA3" ]
     pub fn data3(&mut self, value: u8) -> &mut Self {
@@ -2239,6 +2448,19 @@ pub struct Tdh1r {
 }
 
 impl Tdh1r {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Tdh1rR, &'w mut Tdh1rW) -> &'w mut Tdh1rW
     {
@@ -2302,7 +2524,7 @@ pub struct Tdh1rW {
 impl Tdh1rW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Tdh1rW { bits: 0u32 }
+        Tdh1rW { bits: 0 }
     }
     # [ doc = "Bits 24:31 - DATA7" ]
     pub fn data7(&mut self, value: u8) -> &mut Self {
@@ -2344,6 +2566,19 @@ pub struct Ti2r {
 }
 
 impl Ti2r {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Ti2rR, &'w mut Ti2rW) -> &'w mut Ti2rW
     {
@@ -2410,7 +2645,7 @@ pub struct Ti2rW {
 impl Ti2rW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Ti2rW { bits: 0u32 }
+        Ti2rW { bits: 0 }
     }
     # [ doc = "Bits 21:31 - STID" ]
     pub fn stid(&mut self, value: u16) -> &mut Self {
@@ -2466,6 +2701,19 @@ pub struct Tdt2r {
 }
 
 impl Tdt2r {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Tdt2rR, &'w mut Tdt2rW) -> &'w mut Tdt2rW
     {
@@ -2522,7 +2770,7 @@ pub struct Tdt2rW {
 impl Tdt2rW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Tdt2rW { bits: 0u32 }
+        Tdt2rW { bits: 0 }
     }
     # [ doc = "Bits 16:31 - TIME" ]
     pub fn time(&mut self, value: u16) -> &mut Self {
@@ -2558,6 +2806,19 @@ pub struct Tdl2r {
 }
 
 impl Tdl2r {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Tdl2rR, &'w mut Tdl2rW) -> &'w mut Tdl2rW
     {
@@ -2621,7 +2882,7 @@ pub struct Tdl2rW {
 impl Tdl2rW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Tdl2rW { bits: 0u32 }
+        Tdl2rW { bits: 0 }
     }
     # [ doc = "Bits 24:31 - DATA3" ]
     pub fn data3(&mut self, value: u8) -> &mut Self {
@@ -2663,6 +2924,19 @@ pub struct Tdh2r {
 }
 
 impl Tdh2r {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&Tdh2rR, &'w mut Tdh2rW) -> &'w mut Tdh2rW
     {
@@ -2726,7 +3000,7 @@ pub struct Tdh2rW {
 impl Tdh2rW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Tdh2rW { bits: 0u32 }
+        Tdh2rW { bits: 0 }
     }
     # [ doc = "Bits 24:31 - DATA7" ]
     pub fn data7(&mut self, value: u8) -> &mut Self {
@@ -2768,6 +3042,9 @@ pub struct Ri0r {
 }
 
 impl Ri0r {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
     pub fn read(&self) -> Ri0rR {
         Ri0rR { bits: self.register.read() }
     }
@@ -2804,61 +3081,15 @@ impl Ri0rR {
     }
 }
 
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct Ri0rW {
-    bits: u32,
-}
-
-impl Ri0rW {
-    # [ doc = r" Reset value" ]
-    pub fn reset_value() -> Self {
-        Ri0rW { bits: 0u32 }
-    }
-    # [ doc = "Bits 21:31 - STID" ]
-    pub fn stid(&mut self, value: u16) -> &mut Self {
-        const OFFSET: u8 = 21u8;
-        const MASK: u16 = 2047;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-    # [ doc = "Bits 3:20 - EXID" ]
-    pub fn exid(&mut self, value: u32) -> &mut Self {
-        const OFFSET: u8 = 3u8;
-        const MASK: u32 = 262143;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-    # [ doc = "Bit 2 - IDE" ]
-    pub fn ide(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 2u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 1 - RTR" ]
-    pub fn rtr(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 1u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-}
-
 # [ repr ( C ) ]
 pub struct Rdt0r {
     register: ::volatile_register::RO<u32>,
 }
 
 impl Rdt0r {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
     pub fn read(&self) -> Rdt0rR {
         Rdt0rR { bits: self.register.read() }
     }
@@ -2891,49 +3122,15 @@ impl Rdt0rR {
     }
 }
 
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct Rdt0rW {
-    bits: u32,
-}
-
-impl Rdt0rW {
-    # [ doc = r" Reset value" ]
-    pub fn reset_value() -> Self {
-        Rdt0rW { bits: 0u32 }
-    }
-    # [ doc = "Bits 16:31 - TIME" ]
-    pub fn time(&mut self, value: u16) -> &mut Self {
-        const OFFSET: u8 = 16u8;
-        const MASK: u16 = 65535;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-    # [ doc = "Bits 8:15 - FMI" ]
-    pub fn fmi(&mut self, value: u8) -> &mut Self {
-        const OFFSET: u8 = 8u8;
-        const MASK: u8 = 255;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-    # [ doc = "Bits 0:3 - DLC" ]
-    pub fn dlc(&mut self, value: u8) -> &mut Self {
-        const OFFSET: u8 = 0u8;
-        const MASK: u8 = 15;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-}
-
 # [ repr ( C ) ]
 pub struct Rdl0r {
     register: ::volatile_register::RO<u32>,
 }
 
 impl Rdl0r {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
     pub fn read(&self) -> Rdl0rR {
         Rdl0rR { bits: self.register.read() }
     }
@@ -2972,57 +3169,15 @@ impl Rdl0rR {
     }
 }
 
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct Rdl0rW {
-    bits: u32,
-}
-
-impl Rdl0rW {
-    # [ doc = r" Reset value" ]
-    pub fn reset_value() -> Self {
-        Rdl0rW { bits: 0u32 }
-    }
-    # [ doc = "Bits 24:31 - DATA3" ]
-    pub fn data3(&mut self, value: u8) -> &mut Self {
-        const OFFSET: u8 = 24u8;
-        const MASK: u8 = 255;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-    # [ doc = "Bits 16:23 - DATA2" ]
-    pub fn data2(&mut self, value: u8) -> &mut Self {
-        const OFFSET: u8 = 16u8;
-        const MASK: u8 = 255;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-    # [ doc = "Bits 8:15 - DATA1" ]
-    pub fn data1(&mut self, value: u8) -> &mut Self {
-        const OFFSET: u8 = 8u8;
-        const MASK: u8 = 255;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-    # [ doc = "Bits 0:7 - DATA0" ]
-    pub fn data0(&mut self, value: u8) -> &mut Self {
-        const OFFSET: u8 = 0u8;
-        const MASK: u8 = 255;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-}
-
 # [ repr ( C ) ]
 pub struct Rdh0r {
     register: ::volatile_register::RO<u32>,
 }
 
 impl Rdh0r {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
     pub fn read(&self) -> Rdh0rR {
         Rdh0rR { bits: self.register.read() }
     }
@@ -3061,57 +3216,15 @@ impl Rdh0rR {
     }
 }
 
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct Rdh0rW {
-    bits: u32,
-}
-
-impl Rdh0rW {
-    # [ doc = r" Reset value" ]
-    pub fn reset_value() -> Self {
-        Rdh0rW { bits: 0u32 }
-    }
-    # [ doc = "Bits 24:31 - DATA7" ]
-    pub fn data7(&mut self, value: u8) -> &mut Self {
-        const OFFSET: u8 = 24u8;
-        const MASK: u8 = 255;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-    # [ doc = "Bits 16:23 - DATA6" ]
-    pub fn data6(&mut self, value: u8) -> &mut Self {
-        const OFFSET: u8 = 16u8;
-        const MASK: u8 = 255;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-    # [ doc = "Bits 8:15 - DATA5" ]
-    pub fn data5(&mut self, value: u8) -> &mut Self {
-        const OFFSET: u8 = 8u8;
-        const MASK: u8 = 255;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-    # [ doc = "Bits 0:7 - DATA4" ]
-    pub fn data4(&mut self, value: u8) -> &mut Self {
-        const OFFSET: u8 = 0u8;
-        const MASK: u8 = 255;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-}
-
 # [ repr ( C ) ]
 pub struct Ri1r {
     register: ::volatile_register::RO<u32>,
 }
 
 impl Ri1r {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
     pub fn read(&self) -> Ri1rR {
         Ri1rR { bits: self.register.read() }
     }
@@ -3148,61 +3261,15 @@ impl Ri1rR {
     }
 }
 
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct Ri1rW {
-    bits: u32,
-}
-
-impl Ri1rW {
-    # [ doc = r" Reset value" ]
-    pub fn reset_value() -> Self {
-        Ri1rW { bits: 0u32 }
-    }
-    # [ doc = "Bits 21:31 - STID" ]
-    pub fn stid(&mut self, value: u16) -> &mut Self {
-        const OFFSET: u8 = 21u8;
-        const MASK: u16 = 2047;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-    # [ doc = "Bits 3:20 - EXID" ]
-    pub fn exid(&mut self, value: u32) -> &mut Self {
-        const OFFSET: u8 = 3u8;
-        const MASK: u32 = 262143;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-    # [ doc = "Bit 2 - IDE" ]
-    pub fn ide(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 2u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 1 - RTR" ]
-    pub fn rtr(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 1u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-}
-
 # [ repr ( C ) ]
 pub struct Rdt1r {
     register: ::volatile_register::RO<u32>,
 }
 
 impl Rdt1r {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
     pub fn read(&self) -> Rdt1rR {
         Rdt1rR { bits: self.register.read() }
     }
@@ -3235,49 +3302,15 @@ impl Rdt1rR {
     }
 }
 
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct Rdt1rW {
-    bits: u32,
-}
-
-impl Rdt1rW {
-    # [ doc = r" Reset value" ]
-    pub fn reset_value() -> Self {
-        Rdt1rW { bits: 0u32 }
-    }
-    # [ doc = "Bits 16:31 - TIME" ]
-    pub fn time(&mut self, value: u16) -> &mut Self {
-        const OFFSET: u8 = 16u8;
-        const MASK: u16 = 65535;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-    # [ doc = "Bits 8:15 - FMI" ]
-    pub fn fmi(&mut self, value: u8) -> &mut Self {
-        const OFFSET: u8 = 8u8;
-        const MASK: u8 = 255;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-    # [ doc = "Bits 0:3 - DLC" ]
-    pub fn dlc(&mut self, value: u8) -> &mut Self {
-        const OFFSET: u8 = 0u8;
-        const MASK: u8 = 15;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-}
-
 # [ repr ( C ) ]
 pub struct Rdl1r {
     register: ::volatile_register::RO<u32>,
 }
 
 impl Rdl1r {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
     pub fn read(&self) -> Rdl1rR {
         Rdl1rR { bits: self.register.read() }
     }
@@ -3316,57 +3349,15 @@ impl Rdl1rR {
     }
 }
 
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct Rdl1rW {
-    bits: u32,
-}
-
-impl Rdl1rW {
-    # [ doc = r" Reset value" ]
-    pub fn reset_value() -> Self {
-        Rdl1rW { bits: 0u32 }
-    }
-    # [ doc = "Bits 24:31 - DATA3" ]
-    pub fn data3(&mut self, value: u8) -> &mut Self {
-        const OFFSET: u8 = 24u8;
-        const MASK: u8 = 255;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-    # [ doc = "Bits 16:23 - DATA2" ]
-    pub fn data2(&mut self, value: u8) -> &mut Self {
-        const OFFSET: u8 = 16u8;
-        const MASK: u8 = 255;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-    # [ doc = "Bits 8:15 - DATA1" ]
-    pub fn data1(&mut self, value: u8) -> &mut Self {
-        const OFFSET: u8 = 8u8;
-        const MASK: u8 = 255;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-    # [ doc = "Bits 0:7 - DATA0" ]
-    pub fn data0(&mut self, value: u8) -> &mut Self {
-        const OFFSET: u8 = 0u8;
-        const MASK: u8 = 255;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-}
-
 # [ repr ( C ) ]
 pub struct Rdh1r {
     register: ::volatile_register::RO<u32>,
 }
 
 impl Rdh1r {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
     pub fn read(&self) -> Rdh1rR {
         Rdh1rR { bits: self.register.read() }
     }
@@ -3405,47 +3396,2021 @@ impl Rdh1rR {
     }
 }
 
+# [ repr ( C ) ]
+pub struct Fmr {
+    register: ::volatile_register::RW<u32>,
+}
+
+impl Fmr {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
+    pub fn modify<F>(&mut self, f: F)
+        where for<'w> F: FnOnce(&FmrR, &'w mut FmrW) -> &'w mut FmrW
+    {
+        let bits = self.register.read();
+        let r = FmrR { bits: bits };
+        let mut w = FmrW { bits: bits };
+        f(&r, &mut w);
+        self.register.write(w.bits);
+    }
+    pub fn read(&self) -> FmrR {
+        FmrR { bits: self.register.read() }
+    }
+    pub fn write<F>(&mut self, f: F)
+        where F: FnOnce(&mut FmrW) -> &mut FmrW
+    {
+        let mut w = FmrW::reset_value();
+        f(&mut w);
+        self.register.write(w.bits);
+    }
+}
+
 # [ derive ( Clone , Copy ) ]
 # [ repr ( C ) ]
-pub struct Rdh1rW {
+pub struct FmrR {
     bits: u32,
 }
 
-impl Rdh1rW {
+impl FmrR {
+    # [ doc = "Bits 8:13 - CAN2SB" ]
+    pub fn can2sb(&self) -> u8 {
+        const MASK: u32 = 63;
+        const OFFSET: u8 = 8u8;
+        ((self.bits >> OFFSET) & MASK) as u8
+    }
+    # [ doc = "Bit 0 - FINIT" ]
+    pub fn finit(&self) -> bool {
+        const OFFSET: u8 = 0u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+}
+
+# [ derive ( Clone , Copy ) ]
+# [ repr ( C ) ]
+pub struct FmrW {
+    bits: u32,
+}
+
+impl FmrW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        Rdh1rW { bits: 0u32 }
+        FmrW { bits: 706481665 }
     }
-    # [ doc = "Bits 24:31 - DATA7" ]
-    pub fn data7(&mut self, value: u8) -> &mut Self {
-        const OFFSET: u8 = 24u8;
-        const MASK: u8 = 255;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-    # [ doc = "Bits 16:23 - DATA6" ]
-    pub fn data6(&mut self, value: u8) -> &mut Self {
-        const OFFSET: u8 = 16u8;
-        const MASK: u8 = 255;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-    # [ doc = "Bits 8:15 - DATA5" ]
-    pub fn data5(&mut self, value: u8) -> &mut Self {
+    # [ doc = "Bits 8:13 - CAN2SB" ]
+    pub fn can2sb(&mut self, value: u8) -> &mut Self {
         const OFFSET: u8 = 8u8;
-        const MASK: u8 = 255;
+        const MASK: u8 = 63;
         self.bits &= !((MASK as u32) << OFFSET);
         self.bits |= ((value & MASK) as u32) << OFFSET;
         self
     }
-    # [ doc = "Bits 0:7 - DATA4" ]
-    pub fn data4(&mut self, value: u8) -> &mut Self {
+    # [ doc = "Bit 0 - FINIT" ]
+    pub fn finit(&mut self, value: bool) -> &mut Self {
         const OFFSET: u8 = 0u8;
-        const MASK: u8 = 255;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+}
+
+# [ repr ( C ) ]
+pub struct Fm1r {
+    register: ::volatile_register::RW<u32>,
+}
+
+impl Fm1r {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
+    pub fn modify<F>(&mut self, f: F)
+        where for<'w> F: FnOnce(&Fm1rR, &'w mut Fm1rW) -> &'w mut Fm1rW
+    {
+        let bits = self.register.read();
+        let r = Fm1rR { bits: bits };
+        let mut w = Fm1rW { bits: bits };
+        f(&r, &mut w);
+        self.register.write(w.bits);
+    }
+    pub fn read(&self) -> Fm1rR {
+        Fm1rR { bits: self.register.read() }
+    }
+    pub fn write<F>(&mut self, f: F)
+        where F: FnOnce(&mut Fm1rW) -> &mut Fm1rW
+    {
+        let mut w = Fm1rW::reset_value();
+        f(&mut w);
+        self.register.write(w.bits);
+    }
+}
+
+# [ derive ( Clone , Copy ) ]
+# [ repr ( C ) ]
+pub struct Fm1rR {
+    bits: u32,
+}
+
+impl Fm1rR {
+    # [ doc = "Bit 0 - Filter mode" ]
+    pub fn fbm0(&self) -> bool {
+        const OFFSET: u8 = 0u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 1 - Filter mode" ]
+    pub fn fbm1(&self) -> bool {
+        const OFFSET: u8 = 1u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 2 - Filter mode" ]
+    pub fn fbm2(&self) -> bool {
+        const OFFSET: u8 = 2u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 3 - Filter mode" ]
+    pub fn fbm3(&self) -> bool {
+        const OFFSET: u8 = 3u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 4 - Filter mode" ]
+    pub fn fbm4(&self) -> bool {
+        const OFFSET: u8 = 4u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 5 - Filter mode" ]
+    pub fn fbm5(&self) -> bool {
+        const OFFSET: u8 = 5u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 6 - Filter mode" ]
+    pub fn fbm6(&self) -> bool {
+        const OFFSET: u8 = 6u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 7 - Filter mode" ]
+    pub fn fbm7(&self) -> bool {
+        const OFFSET: u8 = 7u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 8 - Filter mode" ]
+    pub fn fbm8(&self) -> bool {
+        const OFFSET: u8 = 8u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 9 - Filter mode" ]
+    pub fn fbm9(&self) -> bool {
+        const OFFSET: u8 = 9u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 10 - Filter mode" ]
+    pub fn fbm10(&self) -> bool {
+        const OFFSET: u8 = 10u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 11 - Filter mode" ]
+    pub fn fbm11(&self) -> bool {
+        const OFFSET: u8 = 11u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 12 - Filter mode" ]
+    pub fn fbm12(&self) -> bool {
+        const OFFSET: u8 = 12u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 13 - Filter mode" ]
+    pub fn fbm13(&self) -> bool {
+        const OFFSET: u8 = 13u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 14 - Filter mode" ]
+    pub fn fbm14(&self) -> bool {
+        const OFFSET: u8 = 14u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 15 - Filter mode" ]
+    pub fn fbm15(&self) -> bool {
+        const OFFSET: u8 = 15u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 16 - Filter mode" ]
+    pub fn fbm16(&self) -> bool {
+        const OFFSET: u8 = 16u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 17 - Filter mode" ]
+    pub fn fbm17(&self) -> bool {
+        const OFFSET: u8 = 17u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 18 - Filter mode" ]
+    pub fn fbm18(&self) -> bool {
+        const OFFSET: u8 = 18u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 19 - Filter mode" ]
+    pub fn fbm19(&self) -> bool {
+        const OFFSET: u8 = 19u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 20 - Filter mode" ]
+    pub fn fbm20(&self) -> bool {
+        const OFFSET: u8 = 20u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 21 - Filter mode" ]
+    pub fn fbm21(&self) -> bool {
+        const OFFSET: u8 = 21u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 22 - Filter mode" ]
+    pub fn fbm22(&self) -> bool {
+        const OFFSET: u8 = 22u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 23 - Filter mode" ]
+    pub fn fbm23(&self) -> bool {
+        const OFFSET: u8 = 23u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 24 - Filter mode" ]
+    pub fn fbm24(&self) -> bool {
+        const OFFSET: u8 = 24u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 25 - Filter mode" ]
+    pub fn fbm25(&self) -> bool {
+        const OFFSET: u8 = 25u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 26 - Filter mode" ]
+    pub fn fbm26(&self) -> bool {
+        const OFFSET: u8 = 26u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 27 - Filter mode" ]
+    pub fn fbm27(&self) -> bool {
+        const OFFSET: u8 = 27u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+}
+
+# [ derive ( Clone , Copy ) ]
+# [ repr ( C ) ]
+pub struct Fm1rW {
+    bits: u32,
+}
+
+impl Fm1rW {
+    # [ doc = r" Reset value" ]
+    pub fn reset_value() -> Self {
+        Fm1rW { bits: 0 }
+    }
+    # [ doc = "Bit 0 - Filter mode" ]
+    pub fn fbm0(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 0u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 1 - Filter mode" ]
+    pub fn fbm1(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 1u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 2 - Filter mode" ]
+    pub fn fbm2(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 2u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 3 - Filter mode" ]
+    pub fn fbm3(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 3u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 4 - Filter mode" ]
+    pub fn fbm4(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 4u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 5 - Filter mode" ]
+    pub fn fbm5(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 5u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 6 - Filter mode" ]
+    pub fn fbm6(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 6u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 7 - Filter mode" ]
+    pub fn fbm7(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 7u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 8 - Filter mode" ]
+    pub fn fbm8(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 8u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 9 - Filter mode" ]
+    pub fn fbm9(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 9u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 10 - Filter mode" ]
+    pub fn fbm10(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 10u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 11 - Filter mode" ]
+    pub fn fbm11(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 11u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 12 - Filter mode" ]
+    pub fn fbm12(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 12u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 13 - Filter mode" ]
+    pub fn fbm13(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 13u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 14 - Filter mode" ]
+    pub fn fbm14(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 14u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 15 - Filter mode" ]
+    pub fn fbm15(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 15u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 16 - Filter mode" ]
+    pub fn fbm16(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 16u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 17 - Filter mode" ]
+    pub fn fbm17(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 17u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 18 - Filter mode" ]
+    pub fn fbm18(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 18u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 19 - Filter mode" ]
+    pub fn fbm19(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 19u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 20 - Filter mode" ]
+    pub fn fbm20(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 20u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 21 - Filter mode" ]
+    pub fn fbm21(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 21u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 22 - Filter mode" ]
+    pub fn fbm22(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 22u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 23 - Filter mode" ]
+    pub fn fbm23(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 23u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 24 - Filter mode" ]
+    pub fn fbm24(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 24u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 25 - Filter mode" ]
+    pub fn fbm25(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 25u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 26 - Filter mode" ]
+    pub fn fbm26(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 26u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 27 - Filter mode" ]
+    pub fn fbm27(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 27u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+}
+
+# [ repr ( C ) ]
+pub struct Fs1r {
+    register: ::volatile_register::RW<u32>,
+}
+
+impl Fs1r {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
+    pub fn modify<F>(&mut self, f: F)
+        where for<'w> F: FnOnce(&Fs1rR, &'w mut Fs1rW) -> &'w mut Fs1rW
+    {
+        let bits = self.register.read();
+        let r = Fs1rR { bits: bits };
+        let mut w = Fs1rW { bits: bits };
+        f(&r, &mut w);
+        self.register.write(w.bits);
+    }
+    pub fn read(&self) -> Fs1rR {
+        Fs1rR { bits: self.register.read() }
+    }
+    pub fn write<F>(&mut self, f: F)
+        where F: FnOnce(&mut Fs1rW) -> &mut Fs1rW
+    {
+        let mut w = Fs1rW::reset_value();
+        f(&mut w);
+        self.register.write(w.bits);
+    }
+}
+
+# [ derive ( Clone , Copy ) ]
+# [ repr ( C ) ]
+pub struct Fs1rR {
+    bits: u32,
+}
+
+impl Fs1rR {
+    # [ doc = "Bit 0 - Filter scale configuration" ]
+    pub fn fsc0(&self) -> bool {
+        const OFFSET: u8 = 0u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 1 - Filter scale configuration" ]
+    pub fn fsc1(&self) -> bool {
+        const OFFSET: u8 = 1u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 2 - Filter scale configuration" ]
+    pub fn fsc2(&self) -> bool {
+        const OFFSET: u8 = 2u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 3 - Filter scale configuration" ]
+    pub fn fsc3(&self) -> bool {
+        const OFFSET: u8 = 3u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 4 - Filter scale configuration" ]
+    pub fn fsc4(&self) -> bool {
+        const OFFSET: u8 = 4u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 5 - Filter scale configuration" ]
+    pub fn fsc5(&self) -> bool {
+        const OFFSET: u8 = 5u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 6 - Filter scale configuration" ]
+    pub fn fsc6(&self) -> bool {
+        const OFFSET: u8 = 6u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 7 - Filter scale configuration" ]
+    pub fn fsc7(&self) -> bool {
+        const OFFSET: u8 = 7u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 8 - Filter scale configuration" ]
+    pub fn fsc8(&self) -> bool {
+        const OFFSET: u8 = 8u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 9 - Filter scale configuration" ]
+    pub fn fsc9(&self) -> bool {
+        const OFFSET: u8 = 9u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 10 - Filter scale configuration" ]
+    pub fn fsc10(&self) -> bool {
+        const OFFSET: u8 = 10u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 11 - Filter scale configuration" ]
+    pub fn fsc11(&self) -> bool {
+        const OFFSET: u8 = 11u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 12 - Filter scale configuration" ]
+    pub fn fsc12(&self) -> bool {
+        const OFFSET: u8 = 12u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 13 - Filter scale configuration" ]
+    pub fn fsc13(&self) -> bool {
+        const OFFSET: u8 = 13u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 14 - Filter scale configuration" ]
+    pub fn fsc14(&self) -> bool {
+        const OFFSET: u8 = 14u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 15 - Filter scale configuration" ]
+    pub fn fsc15(&self) -> bool {
+        const OFFSET: u8 = 15u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 16 - Filter scale configuration" ]
+    pub fn fsc16(&self) -> bool {
+        const OFFSET: u8 = 16u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 17 - Filter scale configuration" ]
+    pub fn fsc17(&self) -> bool {
+        const OFFSET: u8 = 17u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 18 - Filter scale configuration" ]
+    pub fn fsc18(&self) -> bool {
+        const OFFSET: u8 = 18u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 19 - Filter scale configuration" ]
+    pub fn fsc19(&self) -> bool {
+        const OFFSET: u8 = 19u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 20 - Filter scale configuration" ]
+    pub fn fsc20(&self) -> bool {
+        const OFFSET: u8 = 20u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 21 - Filter scale configuration" ]
+    pub fn fsc21(&self) -> bool {
+        const OFFSET: u8 = 21u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 22 - Filter scale configuration" ]
+    pub fn fsc22(&self) -> bool {
+        const OFFSET: u8 = 22u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 23 - Filter scale configuration" ]
+    pub fn fsc23(&self) -> bool {
+        const OFFSET: u8 = 23u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 24 - Filter scale configuration" ]
+    pub fn fsc24(&self) -> bool {
+        const OFFSET: u8 = 24u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 25 - Filter scale configuration" ]
+    pub fn fsc25(&self) -> bool {
+        const OFFSET: u8 = 25u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 26 - Filter scale configuration" ]
+    pub fn fsc26(&self) -> bool {
+        const OFFSET: u8 = 26u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 27 - Filter scale configuration" ]
+    pub fn fsc27(&self) -> bool {
+        const OFFSET: u8 = 27u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+}
+
+# [ derive ( Clone , Copy ) ]
+# [ repr ( C ) ]
+pub struct Fs1rW {
+    bits: u32,
+}
+
+impl Fs1rW {
+    # [ doc = r" Reset value" ]
+    pub fn reset_value() -> Self {
+        Fs1rW { bits: 0 }
+    }
+    # [ doc = "Bit 0 - Filter scale configuration" ]
+    pub fn fsc0(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 0u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 1 - Filter scale configuration" ]
+    pub fn fsc1(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 1u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 2 - Filter scale configuration" ]
+    pub fn fsc2(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 2u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 3 - Filter scale configuration" ]
+    pub fn fsc3(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 3u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 4 - Filter scale configuration" ]
+    pub fn fsc4(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 4u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 5 - Filter scale configuration" ]
+    pub fn fsc5(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 5u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 6 - Filter scale configuration" ]
+    pub fn fsc6(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 6u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 7 - Filter scale configuration" ]
+    pub fn fsc7(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 7u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 8 - Filter scale configuration" ]
+    pub fn fsc8(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 8u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 9 - Filter scale configuration" ]
+    pub fn fsc9(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 9u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 10 - Filter scale configuration" ]
+    pub fn fsc10(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 10u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 11 - Filter scale configuration" ]
+    pub fn fsc11(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 11u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 12 - Filter scale configuration" ]
+    pub fn fsc12(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 12u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 13 - Filter scale configuration" ]
+    pub fn fsc13(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 13u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 14 - Filter scale configuration" ]
+    pub fn fsc14(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 14u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 15 - Filter scale configuration" ]
+    pub fn fsc15(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 15u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 16 - Filter scale configuration" ]
+    pub fn fsc16(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 16u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 17 - Filter scale configuration" ]
+    pub fn fsc17(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 17u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 18 - Filter scale configuration" ]
+    pub fn fsc18(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 18u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 19 - Filter scale configuration" ]
+    pub fn fsc19(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 19u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 20 - Filter scale configuration" ]
+    pub fn fsc20(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 20u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 21 - Filter scale configuration" ]
+    pub fn fsc21(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 21u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 22 - Filter scale configuration" ]
+    pub fn fsc22(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 22u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 23 - Filter scale configuration" ]
+    pub fn fsc23(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 23u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 24 - Filter scale configuration" ]
+    pub fn fsc24(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 24u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 25 - Filter scale configuration" ]
+    pub fn fsc25(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 25u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 26 - Filter scale configuration" ]
+    pub fn fsc26(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 26u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 27 - Filter scale configuration" ]
+    pub fn fsc27(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 27u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+}
+
+# [ repr ( C ) ]
+pub struct Ffa1r {
+    register: ::volatile_register::RW<u32>,
+}
+
+impl Ffa1r {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
+    pub fn modify<F>(&mut self, f: F)
+        where for<'w> F: FnOnce(&Ffa1rR, &'w mut Ffa1rW) -> &'w mut Ffa1rW
+    {
+        let bits = self.register.read();
+        let r = Ffa1rR { bits: bits };
+        let mut w = Ffa1rW { bits: bits };
+        f(&r, &mut w);
+        self.register.write(w.bits);
+    }
+    pub fn read(&self) -> Ffa1rR {
+        Ffa1rR { bits: self.register.read() }
+    }
+    pub fn write<F>(&mut self, f: F)
+        where F: FnOnce(&mut Ffa1rW) -> &mut Ffa1rW
+    {
+        let mut w = Ffa1rW::reset_value();
+        f(&mut w);
+        self.register.write(w.bits);
+    }
+}
+
+# [ derive ( Clone , Copy ) ]
+# [ repr ( C ) ]
+pub struct Ffa1rR {
+    bits: u32,
+}
+
+impl Ffa1rR {
+    # [ doc = "Bit 0 - Filter FIFO assignment for filter 0" ]
+    pub fn ffa0(&self) -> bool {
+        const OFFSET: u8 = 0u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 1 - Filter FIFO assignment for filter 1" ]
+    pub fn ffa1(&self) -> bool {
+        const OFFSET: u8 = 1u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 2 - Filter FIFO assignment for filter 2" ]
+    pub fn ffa2(&self) -> bool {
+        const OFFSET: u8 = 2u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 3 - Filter FIFO assignment for filter 3" ]
+    pub fn ffa3(&self) -> bool {
+        const OFFSET: u8 = 3u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 4 - Filter FIFO assignment for filter 4" ]
+    pub fn ffa4(&self) -> bool {
+        const OFFSET: u8 = 4u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 5 - Filter FIFO assignment for filter 5" ]
+    pub fn ffa5(&self) -> bool {
+        const OFFSET: u8 = 5u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 6 - Filter FIFO assignment for filter 6" ]
+    pub fn ffa6(&self) -> bool {
+        const OFFSET: u8 = 6u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 7 - Filter FIFO assignment for filter 7" ]
+    pub fn ffa7(&self) -> bool {
+        const OFFSET: u8 = 7u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 8 - Filter FIFO assignment for filter 8" ]
+    pub fn ffa8(&self) -> bool {
+        const OFFSET: u8 = 8u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 9 - Filter FIFO assignment for filter 9" ]
+    pub fn ffa9(&self) -> bool {
+        const OFFSET: u8 = 9u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 10 - Filter FIFO assignment for filter 10" ]
+    pub fn ffa10(&self) -> bool {
+        const OFFSET: u8 = 10u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 11 - Filter FIFO assignment for filter 11" ]
+    pub fn ffa11(&self) -> bool {
+        const OFFSET: u8 = 11u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 12 - Filter FIFO assignment for filter 12" ]
+    pub fn ffa12(&self) -> bool {
+        const OFFSET: u8 = 12u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 13 - Filter FIFO assignment for filter 13" ]
+    pub fn ffa13(&self) -> bool {
+        const OFFSET: u8 = 13u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 14 - Filter FIFO assignment for filter 14" ]
+    pub fn ffa14(&self) -> bool {
+        const OFFSET: u8 = 14u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 15 - Filter FIFO assignment for filter 15" ]
+    pub fn ffa15(&self) -> bool {
+        const OFFSET: u8 = 15u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 16 - Filter FIFO assignment for filter 16" ]
+    pub fn ffa16(&self) -> bool {
+        const OFFSET: u8 = 16u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 17 - Filter FIFO assignment for filter 17" ]
+    pub fn ffa17(&self) -> bool {
+        const OFFSET: u8 = 17u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 18 - Filter FIFO assignment for filter 18" ]
+    pub fn ffa18(&self) -> bool {
+        const OFFSET: u8 = 18u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 19 - Filter FIFO assignment for filter 19" ]
+    pub fn ffa19(&self) -> bool {
+        const OFFSET: u8 = 19u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 20 - Filter FIFO assignment for filter 20" ]
+    pub fn ffa20(&self) -> bool {
+        const OFFSET: u8 = 20u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 21 - Filter FIFO assignment for filter 21" ]
+    pub fn ffa21(&self) -> bool {
+        const OFFSET: u8 = 21u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 22 - Filter FIFO assignment for filter 22" ]
+    pub fn ffa22(&self) -> bool {
+        const OFFSET: u8 = 22u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 23 - Filter FIFO assignment for filter 23" ]
+    pub fn ffa23(&self) -> bool {
+        const OFFSET: u8 = 23u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 24 - Filter FIFO assignment for filter 24" ]
+    pub fn ffa24(&self) -> bool {
+        const OFFSET: u8 = 24u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 25 - Filter FIFO assignment for filter 25" ]
+    pub fn ffa25(&self) -> bool {
+        const OFFSET: u8 = 25u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 26 - Filter FIFO assignment for filter 26" ]
+    pub fn ffa26(&self) -> bool {
+        const OFFSET: u8 = 26u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 27 - Filter FIFO assignment for filter 27" ]
+    pub fn ffa27(&self) -> bool {
+        const OFFSET: u8 = 27u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+}
+
+# [ derive ( Clone , Copy ) ]
+# [ repr ( C ) ]
+pub struct Ffa1rW {
+    bits: u32,
+}
+
+impl Ffa1rW {
+    # [ doc = r" Reset value" ]
+    pub fn reset_value() -> Self {
+        Ffa1rW { bits: 0 }
+    }
+    # [ doc = "Bit 0 - Filter FIFO assignment for filter 0" ]
+    pub fn ffa0(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 0u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 1 - Filter FIFO assignment for filter 1" ]
+    pub fn ffa1(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 1u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 2 - Filter FIFO assignment for filter 2" ]
+    pub fn ffa2(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 2u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 3 - Filter FIFO assignment for filter 3" ]
+    pub fn ffa3(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 3u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 4 - Filter FIFO assignment for filter 4" ]
+    pub fn ffa4(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 4u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 5 - Filter FIFO assignment for filter 5" ]
+    pub fn ffa5(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 5u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 6 - Filter FIFO assignment for filter 6" ]
+    pub fn ffa6(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 6u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 7 - Filter FIFO assignment for filter 7" ]
+    pub fn ffa7(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 7u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 8 - Filter FIFO assignment for filter 8" ]
+    pub fn ffa8(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 8u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 9 - Filter FIFO assignment for filter 9" ]
+    pub fn ffa9(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 9u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 10 - Filter FIFO assignment for filter 10" ]
+    pub fn ffa10(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 10u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 11 - Filter FIFO assignment for filter 11" ]
+    pub fn ffa11(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 11u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 12 - Filter FIFO assignment for filter 12" ]
+    pub fn ffa12(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 12u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 13 - Filter FIFO assignment for filter 13" ]
+    pub fn ffa13(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 13u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 14 - Filter FIFO assignment for filter 14" ]
+    pub fn ffa14(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 14u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 15 - Filter FIFO assignment for filter 15" ]
+    pub fn ffa15(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 15u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 16 - Filter FIFO assignment for filter 16" ]
+    pub fn ffa16(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 16u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 17 - Filter FIFO assignment for filter 17" ]
+    pub fn ffa17(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 17u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 18 - Filter FIFO assignment for filter 18" ]
+    pub fn ffa18(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 18u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 19 - Filter FIFO assignment for filter 19" ]
+    pub fn ffa19(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 19u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 20 - Filter FIFO assignment for filter 20" ]
+    pub fn ffa20(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 20u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 21 - Filter FIFO assignment for filter 21" ]
+    pub fn ffa21(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 21u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 22 - Filter FIFO assignment for filter 22" ]
+    pub fn ffa22(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 22u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 23 - Filter FIFO assignment for filter 23" ]
+    pub fn ffa23(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 23u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 24 - Filter FIFO assignment for filter 24" ]
+    pub fn ffa24(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 24u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 25 - Filter FIFO assignment for filter 25" ]
+    pub fn ffa25(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 25u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 26 - Filter FIFO assignment for filter 26" ]
+    pub fn ffa26(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 26u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 27 - Filter FIFO assignment for filter 27" ]
+    pub fn ffa27(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 27u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+}
+
+# [ repr ( C ) ]
+pub struct Fa1r {
+    register: ::volatile_register::RW<u32>,
+}
+
+impl Fa1r {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
+    pub fn modify<F>(&mut self, f: F)
+        where for<'w> F: FnOnce(&Fa1rR, &'w mut Fa1rW) -> &'w mut Fa1rW
+    {
+        let bits = self.register.read();
+        let r = Fa1rR { bits: bits };
+        let mut w = Fa1rW { bits: bits };
+        f(&r, &mut w);
+        self.register.write(w.bits);
+    }
+    pub fn read(&self) -> Fa1rR {
+        Fa1rR { bits: self.register.read() }
+    }
+    pub fn write<F>(&mut self, f: F)
+        where F: FnOnce(&mut Fa1rW) -> &mut Fa1rW
+    {
+        let mut w = Fa1rW::reset_value();
+        f(&mut w);
+        self.register.write(w.bits);
+    }
+}
+
+# [ derive ( Clone , Copy ) ]
+# [ repr ( C ) ]
+pub struct Fa1rR {
+    bits: u32,
+}
+
+impl Fa1rR {
+    # [ doc = "Bit 0 - Filter active" ]
+    pub fn fact0(&self) -> bool {
+        const OFFSET: u8 = 0u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 1 - Filter active" ]
+    pub fn fact1(&self) -> bool {
+        const OFFSET: u8 = 1u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 2 - Filter active" ]
+    pub fn fact2(&self) -> bool {
+        const OFFSET: u8 = 2u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 3 - Filter active" ]
+    pub fn fact3(&self) -> bool {
+        const OFFSET: u8 = 3u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 4 - Filter active" ]
+    pub fn fact4(&self) -> bool {
+        const OFFSET: u8 = 4u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 5 - Filter active" ]
+    pub fn fact5(&self) -> bool {
+        const OFFSET: u8 = 5u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 6 - Filter active" ]
+    pub fn fact6(&self) -> bool {
+        const OFFSET: u8 = 6u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 7 - Filter active" ]
+    pub fn fact7(&self) -> bool {
+        const OFFSET: u8 = 7u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 8 - Filter active" ]
+    pub fn fact8(&self) -> bool {
+        const OFFSET: u8 = 8u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 9 - Filter active" ]
+    pub fn fact9(&self) -> bool {
+        const OFFSET: u8 = 9u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 10 - Filter active" ]
+    pub fn fact10(&self) -> bool {
+        const OFFSET: u8 = 10u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 11 - Filter active" ]
+    pub fn fact11(&self) -> bool {
+        const OFFSET: u8 = 11u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 12 - Filter active" ]
+    pub fn fact12(&self) -> bool {
+        const OFFSET: u8 = 12u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 13 - Filter active" ]
+    pub fn fact13(&self) -> bool {
+        const OFFSET: u8 = 13u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 14 - Filter active" ]
+    pub fn fact14(&self) -> bool {
+        const OFFSET: u8 = 14u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 15 - Filter active" ]
+    pub fn fact15(&self) -> bool {
+        const OFFSET: u8 = 15u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 16 - Filter active" ]
+    pub fn fact16(&self) -> bool {
+        const OFFSET: u8 = 16u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 17 - Filter active" ]
+    pub fn fact17(&self) -> bool {
+        const OFFSET: u8 = 17u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 18 - Filter active" ]
+    pub fn fact18(&self) -> bool {
+        const OFFSET: u8 = 18u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 19 - Filter active" ]
+    pub fn fact19(&self) -> bool {
+        const OFFSET: u8 = 19u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 20 - Filter active" ]
+    pub fn fact20(&self) -> bool {
+        const OFFSET: u8 = 20u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 21 - Filter active" ]
+    pub fn fact21(&self) -> bool {
+        const OFFSET: u8 = 21u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 22 - Filter active" ]
+    pub fn fact22(&self) -> bool {
+        const OFFSET: u8 = 22u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 23 - Filter active" ]
+    pub fn fact23(&self) -> bool {
+        const OFFSET: u8 = 23u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 24 - Filter active" ]
+    pub fn fact24(&self) -> bool {
+        const OFFSET: u8 = 24u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 25 - Filter active" ]
+    pub fn fact25(&self) -> bool {
+        const OFFSET: u8 = 25u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 26 - Filter active" ]
+    pub fn fact26(&self) -> bool {
+        const OFFSET: u8 = 26u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+    # [ doc = "Bit 27 - Filter active" ]
+    pub fn fact27(&self) -> bool {
+        const OFFSET: u8 = 27u8;
+        self.bits & (1 << OFFSET) != 0
+    }
+}
+
+# [ derive ( Clone , Copy ) ]
+# [ repr ( C ) ]
+pub struct Fa1rW {
+    bits: u32,
+}
+
+impl Fa1rW {
+    # [ doc = r" Reset value" ]
+    pub fn reset_value() -> Self {
+        Fa1rW { bits: 0 }
+    }
+    # [ doc = "Bit 0 - Filter active" ]
+    pub fn fact0(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 0u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 1 - Filter active" ]
+    pub fn fact1(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 1u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 2 - Filter active" ]
+    pub fn fact2(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 2u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 3 - Filter active" ]
+    pub fn fact3(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 3u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 4 - Filter active" ]
+    pub fn fact4(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 4u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 5 - Filter active" ]
+    pub fn fact5(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 5u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 6 - Filter active" ]
+    pub fn fact6(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 6u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 7 - Filter active" ]
+    pub fn fact7(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 7u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 8 - Filter active" ]
+    pub fn fact8(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 8u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 9 - Filter active" ]
+    pub fn fact9(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 9u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 10 - Filter active" ]
+    pub fn fact10(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 10u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 11 - Filter active" ]
+    pub fn fact11(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 11u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 12 - Filter active" ]
+    pub fn fact12(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 12u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 13 - Filter active" ]
+    pub fn fact13(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 13u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 14 - Filter active" ]
+    pub fn fact14(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 14u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 15 - Filter active" ]
+    pub fn fact15(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 15u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 16 - Filter active" ]
+    pub fn fact16(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 16u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 17 - Filter active" ]
+    pub fn fact17(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 17u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 18 - Filter active" ]
+    pub fn fact18(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 18u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 19 - Filter active" ]
+    pub fn fact19(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 19u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 20 - Filter active" ]
+    pub fn fact20(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 20u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 21 - Filter active" ]
+    pub fn fact21(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 21u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 22 - Filter active" ]
+    pub fn fact22(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 22u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 23 - Filter active" ]
+    pub fn fact23(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 23u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 24 - Filter active" ]
+    pub fn fact24(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 24u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 25 - Filter active" ]
+    pub fn fact25(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 25u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 26 - Filter active" ]
+    pub fn fact26(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 26u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
+    # [ doc = "Bit 27 - Filter active" ]
+    pub fn fact27(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 27u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
         self
     }
 }
@@ -3456,6 +5421,19 @@ pub struct F0r1 {
 }
 
 impl F0r1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F0r1R, &'w mut F0r1W) -> &'w mut F0r1W
     {
@@ -3655,7 +5633,7 @@ pub struct F0r1W {
 impl F0r1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F0r1W { bits: 0u32 }
+        F0r1W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -3985,6 +5963,19 @@ pub struct F0r2 {
 }
 
 impl F0r2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F0r2R, &'w mut F0r2W) -> &'w mut F0r2W
     {
@@ -4184,7 +6175,7 @@ pub struct F0r2W {
 impl F0r2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F0r2W { bits: 0u32 }
+        F0r2W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -4514,6 +6505,19 @@ pub struct F1r1 {
 }
 
 impl F1r1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F1r1R, &'w mut F1r1W) -> &'w mut F1r1W
     {
@@ -4713,7 +6717,7 @@ pub struct F1r1W {
 impl F1r1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F1r1W { bits: 0u32 }
+        F1r1W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -5043,6 +7047,19 @@ pub struct F1r2 {
 }
 
 impl F1r2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F1r2R, &'w mut F1r2W) -> &'w mut F1r2W
     {
@@ -5242,7 +7259,7 @@ pub struct F1r2W {
 impl F1r2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F1r2W { bits: 0u32 }
+        F1r2W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -5572,6 +7589,19 @@ pub struct F2r1 {
 }
 
 impl F2r1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F2r1R, &'w mut F2r1W) -> &'w mut F2r1W
     {
@@ -5771,7 +7801,7 @@ pub struct F2r1W {
 impl F2r1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F2r1W { bits: 0u32 }
+        F2r1W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -6101,6 +8131,19 @@ pub struct F2r2 {
 }
 
 impl F2r2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F2r2R, &'w mut F2r2W) -> &'w mut F2r2W
     {
@@ -6300,7 +8343,7 @@ pub struct F2r2W {
 impl F2r2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F2r2W { bits: 0u32 }
+        F2r2W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -6630,6 +8673,19 @@ pub struct F3r1 {
 }
 
 impl F3r1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F3r1R, &'w mut F3r1W) -> &'w mut F3r1W
     {
@@ -6829,7 +8885,7 @@ pub struct F3r1W {
 impl F3r1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F3r1W { bits: 0u32 }
+        F3r1W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -7159,6 +9215,19 @@ pub struct F3r2 {
 }
 
 impl F3r2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F3r2R, &'w mut F3r2W) -> &'w mut F3r2W
     {
@@ -7358,7 +9427,7 @@ pub struct F3r2W {
 impl F3r2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F3r2W { bits: 0u32 }
+        F3r2W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -7688,6 +9757,19 @@ pub struct F4r1 {
 }
 
 impl F4r1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F4r1R, &'w mut F4r1W) -> &'w mut F4r1W
     {
@@ -7887,7 +9969,7 @@ pub struct F4r1W {
 impl F4r1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F4r1W { bits: 0u32 }
+        F4r1W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -8217,6 +10299,19 @@ pub struct F4r2 {
 }
 
 impl F4r2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F4r2R, &'w mut F4r2W) -> &'w mut F4r2W
     {
@@ -8416,7 +10511,7 @@ pub struct F4r2W {
 impl F4r2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F4r2W { bits: 0u32 }
+        F4r2W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -8746,6 +10841,19 @@ pub struct F5r1 {
 }
 
 impl F5r1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F5r1R, &'w mut F5r1W) -> &'w mut F5r1W
     {
@@ -8945,7 +11053,7 @@ pub struct F5r1W {
 impl F5r1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F5r1W { bits: 0u32 }
+        F5r1W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -9275,6 +11383,19 @@ pub struct F5r2 {
 }
 
 impl F5r2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F5r2R, &'w mut F5r2W) -> &'w mut F5r2W
     {
@@ -9474,7 +11595,7 @@ pub struct F5r2W {
 impl F5r2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F5r2W { bits: 0u32 }
+        F5r2W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -9804,6 +11925,19 @@ pub struct F6r1 {
 }
 
 impl F6r1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F6r1R, &'w mut F6r1W) -> &'w mut F6r1W
     {
@@ -10003,7 +12137,7 @@ pub struct F6r1W {
 impl F6r1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F6r1W { bits: 0u32 }
+        F6r1W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -10333,6 +12467,19 @@ pub struct F6r2 {
 }
 
 impl F6r2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F6r2R, &'w mut F6r2W) -> &'w mut F6r2W
     {
@@ -10532,7 +12679,7 @@ pub struct F6r2W {
 impl F6r2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F6r2W { bits: 0u32 }
+        F6r2W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -10862,6 +13009,19 @@ pub struct F7r1 {
 }
 
 impl F7r1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F7r1R, &'w mut F7r1W) -> &'w mut F7r1W
     {
@@ -11061,7 +13221,7 @@ pub struct F7r1W {
 impl F7r1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F7r1W { bits: 0u32 }
+        F7r1W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -11391,6 +13551,19 @@ pub struct F7r2 {
 }
 
 impl F7r2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F7r2R, &'w mut F7r2W) -> &'w mut F7r2W
     {
@@ -11590,7 +13763,7 @@ pub struct F7r2W {
 impl F7r2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F7r2W { bits: 0u32 }
+        F7r2W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -11920,6 +14093,19 @@ pub struct F8r1 {
 }
 
 impl F8r1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F8r1R, &'w mut F8r1W) -> &'w mut F8r1W
     {
@@ -12119,7 +14305,7 @@ pub struct F8r1W {
 impl F8r1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F8r1W { bits: 0u32 }
+        F8r1W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -12449,6 +14635,19 @@ pub struct F8r2 {
 }
 
 impl F8r2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F8r2R, &'w mut F8r2W) -> &'w mut F8r2W
     {
@@ -12648,7 +14847,7 @@ pub struct F8r2W {
 impl F8r2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F8r2W { bits: 0u32 }
+        F8r2W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -12978,6 +15177,19 @@ pub struct F9r1 {
 }
 
 impl F9r1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F9r1R, &'w mut F9r1W) -> &'w mut F9r1W
     {
@@ -13177,7 +15389,7 @@ pub struct F9r1W {
 impl F9r1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F9r1W { bits: 0u32 }
+        F9r1W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -13507,6 +15719,19 @@ pub struct F9r2 {
 }
 
 impl F9r2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F9r2R, &'w mut F9r2W) -> &'w mut F9r2W
     {
@@ -13706,7 +15931,7 @@ pub struct F9r2W {
 impl F9r2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F9r2W { bits: 0u32 }
+        F9r2W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -14036,6 +16261,19 @@ pub struct F10r1 {
 }
 
 impl F10r1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F10r1R, &'w mut F10r1W) -> &'w mut F10r1W
     {
@@ -14235,7 +16473,7 @@ pub struct F10r1W {
 impl F10r1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F10r1W { bits: 0u32 }
+        F10r1W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -14565,6 +16803,19 @@ pub struct F10r2 {
 }
 
 impl F10r2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F10r2R, &'w mut F10r2W) -> &'w mut F10r2W
     {
@@ -14764,7 +17015,7 @@ pub struct F10r2W {
 impl F10r2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F10r2W { bits: 0u32 }
+        F10r2W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -15094,6 +17345,19 @@ pub struct F11r1 {
 }
 
 impl F11r1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F11r1R, &'w mut F11r1W) -> &'w mut F11r1W
     {
@@ -15293,7 +17557,7 @@ pub struct F11r1W {
 impl F11r1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F11r1W { bits: 0u32 }
+        F11r1W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -15623,6 +17887,19 @@ pub struct F11r2 {
 }
 
 impl F11r2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F11r2R, &'w mut F11r2W) -> &'w mut F11r2W
     {
@@ -15822,7 +18099,7 @@ pub struct F11r2W {
 impl F11r2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F11r2W { bits: 0u32 }
+        F11r2W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -16152,6 +18429,19 @@ pub struct F12r1 {
 }
 
 impl F12r1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F12r1R, &'w mut F12r1W) -> &'w mut F12r1W
     {
@@ -16351,7 +18641,7 @@ pub struct F12r1W {
 impl F12r1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F12r1W { bits: 0u32 }
+        F12r1W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -16681,6 +18971,19 @@ pub struct F12r2 {
 }
 
 impl F12r2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F12r2R, &'w mut F12r2W) -> &'w mut F12r2W
     {
@@ -16880,7 +19183,7 @@ pub struct F12r2W {
 impl F12r2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F12r2W { bits: 0u32 }
+        F12r2W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -17210,6 +19513,19 @@ pub struct F13r1 {
 }
 
 impl F13r1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F13r1R, &'w mut F13r1W) -> &'w mut F13r1W
     {
@@ -17409,7 +19725,7 @@ pub struct F13r1W {
 impl F13r1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F13r1W { bits: 0u32 }
+        F13r1W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -17739,6 +20055,19 @@ pub struct F13r2 {
 }
 
 impl F13r2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F13r2R, &'w mut F13r2W) -> &'w mut F13r2W
     {
@@ -17938,7 +20267,7 @@ pub struct F13r2W {
 impl F13r2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F13r2W { bits: 0u32 }
+        F13r2W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -18268,6 +20597,19 @@ pub struct F14r1 {
 }
 
 impl F14r1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F14r1R, &'w mut F14r1W) -> &'w mut F14r1W
     {
@@ -18467,7 +20809,7 @@ pub struct F14r1W {
 impl F14r1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F14r1W { bits: 0u32 }
+        F14r1W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -18797,6 +21139,19 @@ pub struct F14r2 {
 }
 
 impl F14r2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F14r2R, &'w mut F14r2W) -> &'w mut F14r2W
     {
@@ -18996,7 +21351,7 @@ pub struct F14r2W {
 impl F14r2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F14r2W { bits: 0u32 }
+        F14r2W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -19326,6 +21681,19 @@ pub struct F15r1 {
 }
 
 impl F15r1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F15r1R, &'w mut F15r1W) -> &'w mut F15r1W
     {
@@ -19525,7 +21893,7 @@ pub struct F15r1W {
 impl F15r1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F15r1W { bits: 0u32 }
+        F15r1W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -19855,6 +22223,19 @@ pub struct F15r2 {
 }
 
 impl F15r2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F15r2R, &'w mut F15r2W) -> &'w mut F15r2W
     {
@@ -20054,7 +22435,7 @@ pub struct F15r2W {
 impl F15r2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F15r2W { bits: 0u32 }
+        F15r2W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -20384,6 +22765,19 @@ pub struct F16r1 {
 }
 
 impl F16r1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F16r1R, &'w mut F16r1W) -> &'w mut F16r1W
     {
@@ -20583,7 +22977,7 @@ pub struct F16r1W {
 impl F16r1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F16r1W { bits: 0u32 }
+        F16r1W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -20913,6 +23307,19 @@ pub struct F16r2 {
 }
 
 impl F16r2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F16r2R, &'w mut F16r2W) -> &'w mut F16r2W
     {
@@ -21112,7 +23519,7 @@ pub struct F16r2W {
 impl F16r2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F16r2W { bits: 0u32 }
+        F16r2W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -21442,6 +23849,19 @@ pub struct F17r1 {
 }
 
 impl F17r1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F17r1R, &'w mut F17r1W) -> &'w mut F17r1W
     {
@@ -21641,7 +24061,7 @@ pub struct F17r1W {
 impl F17r1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F17r1W { bits: 0u32 }
+        F17r1W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -21971,6 +24391,19 @@ pub struct F17r2 {
 }
 
 impl F17r2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F17r2R, &'w mut F17r2W) -> &'w mut F17r2W
     {
@@ -22170,7 +24603,7 @@ pub struct F17r2W {
 impl F17r2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F17r2W { bits: 0u32 }
+        F17r2W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -22500,6 +24933,19 @@ pub struct F18r1 {
 }
 
 impl F18r1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F18r1R, &'w mut F18r1W) -> &'w mut F18r1W
     {
@@ -22699,7 +25145,7 @@ pub struct F18r1W {
 impl F18r1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F18r1W { bits: 0u32 }
+        F18r1W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -23029,6 +25475,19 @@ pub struct F18r2 {
 }
 
 impl F18r2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F18r2R, &'w mut F18r2W) -> &'w mut F18r2W
     {
@@ -23228,7 +25687,7 @@ pub struct F18r2W {
 impl F18r2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F18r2W { bits: 0u32 }
+        F18r2W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -23558,6 +26017,19 @@ pub struct F19r1 {
 }
 
 impl F19r1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F19r1R, &'w mut F19r1W) -> &'w mut F19r1W
     {
@@ -23757,7 +26229,7 @@ pub struct F19r1W {
 impl F19r1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F19r1W { bits: 0u32 }
+        F19r1W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -24087,6 +26559,19 @@ pub struct F19r2 {
 }
 
 impl F19r2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F19r2R, &'w mut F19r2W) -> &'w mut F19r2W
     {
@@ -24286,7 +26771,7 @@ pub struct F19r2W {
 impl F19r2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F19r2W { bits: 0u32 }
+        F19r2W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -24616,6 +27101,19 @@ pub struct F20r1 {
 }
 
 impl F20r1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F20r1R, &'w mut F20r1W) -> &'w mut F20r1W
     {
@@ -24815,7 +27313,7 @@ pub struct F20r1W {
 impl F20r1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F20r1W { bits: 0u32 }
+        F20r1W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -25145,6 +27643,19 @@ pub struct F20r2 {
 }
 
 impl F20r2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F20r2R, &'w mut F20r2W) -> &'w mut F20r2W
     {
@@ -25344,7 +27855,7 @@ pub struct F20r2W {
 impl F20r2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F20r2W { bits: 0u32 }
+        F20r2W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -25674,6 +28185,19 @@ pub struct F21r1 {
 }
 
 impl F21r1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F21r1R, &'w mut F21r1W) -> &'w mut F21r1W
     {
@@ -25873,7 +28397,7 @@ pub struct F21r1W {
 impl F21r1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F21r1W { bits: 0u32 }
+        F21r1W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -26203,6 +28727,19 @@ pub struct F21r2 {
 }
 
 impl F21r2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F21r2R, &'w mut F21r2W) -> &'w mut F21r2W
     {
@@ -26402,7 +28939,7 @@ pub struct F21r2W {
 impl F21r2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F21r2W { bits: 0u32 }
+        F21r2W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -26732,6 +29269,19 @@ pub struct F22r1 {
 }
 
 impl F22r1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F22r1R, &'w mut F22r1W) -> &'w mut F22r1W
     {
@@ -26931,7 +29481,7 @@ pub struct F22r1W {
 impl F22r1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F22r1W { bits: 0u32 }
+        F22r1W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -27261,6 +29811,19 @@ pub struct F22r2 {
 }
 
 impl F22r2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F22r2R, &'w mut F22r2W) -> &'w mut F22r2W
     {
@@ -27460,7 +30023,7 @@ pub struct F22r2W {
 impl F22r2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F22r2W { bits: 0u32 }
+        F22r2W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -27790,6 +30353,19 @@ pub struct F23r1 {
 }
 
 impl F23r1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F23r1R, &'w mut F23r1W) -> &'w mut F23r1W
     {
@@ -27989,7 +30565,7 @@ pub struct F23r1W {
 impl F23r1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F23r1W { bits: 0u32 }
+        F23r1W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -28319,6 +30895,19 @@ pub struct F23r2 {
 }
 
 impl F23r2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F23r2R, &'w mut F23r2W) -> &'w mut F23r2W
     {
@@ -28518,7 +31107,7 @@ pub struct F23r2W {
 impl F23r2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F23r2W { bits: 0u32 }
+        F23r2W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -28848,6 +31437,19 @@ pub struct F24r1 {
 }
 
 impl F24r1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F24r1R, &'w mut F24r1W) -> &'w mut F24r1W
     {
@@ -29047,7 +31649,7 @@ pub struct F24r1W {
 impl F24r1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F24r1W { bits: 0u32 }
+        F24r1W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -29377,6 +31979,19 @@ pub struct F24r2 {
 }
 
 impl F24r2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F24r2R, &'w mut F24r2W) -> &'w mut F24r2W
     {
@@ -29576,7 +32191,7 @@ pub struct F24r2W {
 impl F24r2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F24r2W { bits: 0u32 }
+        F24r2W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -29906,6 +32521,19 @@ pub struct F25r1 {
 }
 
 impl F25r1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F25r1R, &'w mut F25r1W) -> &'w mut F25r1W
     {
@@ -30105,7 +32733,7 @@ pub struct F25r1W {
 impl F25r1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F25r1W { bits: 0u32 }
+        F25r1W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -30435,6 +33063,19 @@ pub struct F25r2 {
 }
 
 impl F25r2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F25r2R, &'w mut F25r2W) -> &'w mut F25r2W
     {
@@ -30634,7 +33275,7 @@ pub struct F25r2W {
 impl F25r2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F25r2W { bits: 0u32 }
+        F25r2W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -30964,6 +33605,19 @@ pub struct F26r1 {
 }
 
 impl F26r1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F26r1R, &'w mut F26r1W) -> &'w mut F26r1W
     {
@@ -31163,7 +33817,7 @@ pub struct F26r1W {
 impl F26r1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F26r1W { bits: 0u32 }
+        F26r1W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -31493,6 +34147,19 @@ pub struct F26r2 {
 }
 
 impl F26r2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F26r2R, &'w mut F26r2W) -> &'w mut F26r2W
     {
@@ -31692,7 +34359,7 @@ pub struct F26r2W {
 impl F26r2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F26r2W { bits: 0u32 }
+        F26r2W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -32022,6 +34689,19 @@ pub struct F27r1 {
 }
 
 impl F27r1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F27r1R, &'w mut F27r1W) -> &'w mut F27r1W
     {
@@ -32221,7 +34901,7 @@ pub struct F27r1W {
 impl F27r1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F27r1W { bits: 0u32 }
+        F27r1W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {
@@ -32551,6 +35231,19 @@ pub struct F27r2 {
 }
 
 impl F27r2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&F27r2R, &'w mut F27r2W) -> &'w mut F27r2W
     {
@@ -32750,7 +35443,7 @@ pub struct F27r2W {
 impl F27r2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        F27r2W { bits: 0u32 }
+        F27r2W { bits: 0 }
     }
     # [ doc = "Bit 0 - Filter bits" ]
     pub fn fb0(&mut self, value: bool) -> &mut Self {

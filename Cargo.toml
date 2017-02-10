@@ -1,11 +1,13 @@
 [package]
-authors = ["Brandon Edens <brandonedens@gmail.com>",
-		"Jorge Aparicio <japaricious@gmail.com>"]
-description = "Memory map for STM32L4x6 microcontrollers"
-keywords = ["arm", "cortex-m", "stm32", "stm32l4"]
+authors = [
+	"Brandon Edens <brandonedens@gmail.com>",
+	"Jorge Aparicio <japaricious@gmail.com>",
+	"Jan Pochyla <jpochyla@gmail.com>"]
+description = "Memory map for STM32F40x microcontrollers"
+keywords = ["arm", "cortex-m", "stm32", "stm32f40x"]
 license = "MIT OR Apache-2.0"
-name = "stm32l4x6-memory-map"
-repository = "https://github.com/brandonedens/stm32l4x6-memory-map"
+name = "stm32f40x-memory-map"
+repository = "https://github.com/jpochyla/stm32f40x-memory-map"
 version = "0.1.0"
 
 [dependencies]

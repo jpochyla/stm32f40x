@@ -20,28 +20,77 @@ pub struct OtgFsHost {
     _reserved2: [u8; 188usize],
     # [ doc = "0x100 - OTG_FS host channel-0 characteristics register (OTG_FS_HCCHAR0)" ]
     pub fs_hcchar0: FsHcchar0,
-    _reserved3: [u8; 28usize],
+    _reserved3: [u8; 4usize],
+    # [ doc = "0x108 - OTG_FS host channel-0 interrupt register (OTG_FS_HCINT0)" ]
+    pub fs_hcint0: FsHcint0,
+    # [ doc = "0x10c - OTG_FS host channel-0 mask register (OTG_FS_HCINTMSK0)" ]
+    pub fs_hcintmsk0: FsHcintmsk0,
+    # [ doc = "0x110 - OTG_FS host channel-0 transfer size register" ]
+    pub fs_hctsiz0: FsHctsiz0,
+    _reserved4: [u8; 12usize],
     # [ doc = "0x120 - OTG_FS host channel-1 characteristics register (OTG_FS_HCCHAR1)" ]
     pub fs_hcchar1: FsHcchar1,
-    _reserved4: [u8; 28usize],
+    _reserved5: [u8; 4usize],
+    # [ doc = "0x128 - OTG_FS host channel-1 interrupt register (OTG_FS_HCINT1)" ]
+    pub fs_hcint1: FsHcint1,
+    # [ doc = "0x12c - OTG_FS host channel-1 mask register (OTG_FS_HCINTMSK1)" ]
+    pub fs_hcintmsk1: FsHcintmsk1,
+    # [ doc = "0x130 - OTG_FS host channel-1 transfer size register" ]
+    pub fs_hctsiz1: FsHctsiz1,
+    _reserved6: [u8; 12usize],
     # [ doc = "0x140 - OTG_FS host channel-2 characteristics register (OTG_FS_HCCHAR2)" ]
     pub fs_hcchar2: FsHcchar2,
-    _reserved5: [u8; 28usize],
+    _reserved7: [u8; 4usize],
+    # [ doc = "0x148 - OTG_FS host channel-2 interrupt register (OTG_FS_HCINT2)" ]
+    pub fs_hcint2: FsHcint2,
+    # [ doc = "0x14c - OTG_FS host channel-2 mask register (OTG_FS_HCINTMSK2)" ]
+    pub fs_hcintmsk2: FsHcintmsk2,
+    # [ doc = "0x150 - OTG_FS host channel-2 transfer size register" ]
+    pub fs_hctsiz2: FsHctsiz2,
+    _reserved8: [u8; 12usize],
     # [ doc = "0x160 - OTG_FS host channel-3 characteristics register (OTG_FS_HCCHAR3)" ]
     pub fs_hcchar3: FsHcchar3,
-    _reserved6: [u8; 28usize],
+    _reserved9: [u8; 4usize],
+    # [ doc = "0x168 - OTG_FS host channel-3 interrupt register (OTG_FS_HCINT3)" ]
+    pub fs_hcint3: FsHcint3,
+    # [ doc = "0x16c - OTG_FS host channel-3 mask register (OTG_FS_HCINTMSK3)" ]
+    pub fs_hcintmsk3: FsHcintmsk3,
+    # [ doc = "0x170 - OTG_FS host channel-3 transfer size register" ]
+    pub fs_hctsiz3: FsHctsiz3,
+    _reserved10: [u8; 12usize],
     # [ doc = "0x180 - OTG_FS host channel-4 characteristics register (OTG_FS_HCCHAR4)" ]
     pub fs_hcchar4: FsHcchar4,
-    _reserved7: [u8; 28usize],
+    _reserved11: [u8; 4usize],
+    # [ doc = "0x188 - OTG_FS host channel-4 interrupt register (OTG_FS_HCINT4)" ]
+    pub fs_hcint4: FsHcint4,
+    # [ doc = "0x18c - OTG_FS host channel-4 mask register (OTG_FS_HCINTMSK4)" ]
+    pub fs_hcintmsk4: FsHcintmsk4,
+    # [ doc = "0x190 - OTG_FS host channel-x transfer size register" ]
+    pub fs_hctsiz4: FsHctsiz4,
+    _reserved12: [u8; 12usize],
     # [ doc = "0x1a0 - OTG_FS host channel-5 characteristics register (OTG_FS_HCCHAR5)" ]
     pub fs_hcchar5: FsHcchar5,
-    _reserved8: [u8; 28usize],
+    _reserved13: [u8; 4usize],
+    # [ doc = "0x1a8 - OTG_FS host channel-5 interrupt register (OTG_FS_HCINT5)" ]
+    pub fs_hcint5: FsHcint5,
+    # [ doc = "0x1ac - OTG_FS host channel-5 mask register (OTG_FS_HCINTMSK5)" ]
+    pub fs_hcintmsk5: FsHcintmsk5,
+    # [ doc = "0x1b0 - OTG_FS host channel-5 transfer size register" ]
+    pub fs_hctsiz5: FsHctsiz5,
+    _reserved14: [u8; 12usize],
     # [ doc = "0x1c0 - OTG_FS host channel-6 characteristics register (OTG_FS_HCCHAR6)" ]
     pub fs_hcchar6: FsHcchar6,
-    _reserved9: [u8; 28usize],
+    _reserved15: [u8; 4usize],
+    # [ doc = "0x1c8 - OTG_FS host channel-6 interrupt register (OTG_FS_HCINT6)" ]
+    pub fs_hcint6: FsHcint6,
+    # [ doc = "0x1cc - OTG_FS host channel-6 mask register (OTG_FS_HCINTMSK6)" ]
+    pub fs_hcintmsk6: FsHcintmsk6,
+    # [ doc = "0x1d0 - OTG_FS host channel-6 transfer size register" ]
+    pub fs_hctsiz6: FsHctsiz6,
+    _reserved16: [u8; 12usize],
     # [ doc = "0x1e0 - OTG_FS host channel-7 characteristics register (OTG_FS_HCCHAR7)" ]
     pub fs_hcchar7: FsHcchar7,
-    _reserved10: [u8; 4usize],
+    _reserved17: [u8; 4usize],
     # [ doc = "0x1e8 - OTG_FS host channel-7 interrupt register (OTG_FS_HCINT7)" ]
     pub fs_hcint7: FsHcint7,
     # [ doc = "0x1ec - OTG_FS host channel-7 mask register (OTG_FS_HCINTMSK7)" ]
@@ -56,6 +105,19 @@ pub struct FsHcfg {
 }
 
 impl FsHcfg {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsHcfgR, &'w mut FsHcfgW) -> &'w mut FsHcfgW
     {
@@ -106,7 +168,7 @@ pub struct FsHcfgW {
 impl FsHcfgW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsHcfgW { bits: 0u32 }
+        FsHcfgW { bits: 0 }
     }
     # [ doc = "Bits 0:1 - FS/LS PHY clock select" ]
     pub fn fslspcs(&mut self, value: u8) -> &mut Self {
@@ -124,6 +186,19 @@ pub struct Hfir {
 }
 
 impl Hfir {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&HfirR, &'w mut HfirW) -> &'w mut HfirW
     {
@@ -169,7 +244,7 @@ pub struct HfirW {
 impl HfirW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        HfirW { bits: 60000u32 }
+        HfirW { bits: 60000 }
     }
     # [ doc = "Bits 0:15 - Frame interval" ]
     pub fn frivl(&mut self, value: u16) -> &mut Self {
@@ -187,6 +262,9 @@ pub struct FsHfnum {
 }
 
 impl FsHfnum {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
     pub fn read(&self) -> FsHfnumR {
         FsHfnumR { bits: self.register.read() }
     }
@@ -213,41 +291,25 @@ impl FsHfnumR {
     }
 }
 
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct FsHfnumW {
-    bits: u32,
-}
-
-impl FsHfnumW {
-    # [ doc = r" Reset value" ]
-    pub fn reset_value() -> Self {
-        FsHfnumW { bits: 16383u32 }
-    }
-    # [ doc = "Bits 0:15 - Frame number" ]
-    pub fn frnum(&mut self, value: u16) -> &mut Self {
-        const OFFSET: u8 = 0u8;
-        const MASK: u16 = 65535;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-    # [ doc = "Bits 16:31 - Frame time remaining" ]
-    pub fn ftrem(&mut self, value: u16) -> &mut Self {
-        const OFFSET: u8 = 16u8;
-        const MASK: u16 = 65535;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-}
-
 # [ repr ( C ) ]
 pub struct FsHptxsts {
     register: ::volatile_register::RW<u32>,
 }
 
 impl FsHptxsts {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsHptxstsR, &'w mut FsHptxstsW) -> &'w mut FsHptxstsW
     {
@@ -305,7 +367,7 @@ pub struct FsHptxstsW {
 impl FsHptxstsW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsHptxstsW { bits: 524544u32 }
+        FsHptxstsW { bits: 524544 }
     }
     # [ doc = "Bits 0:15 - Periodic transmit data FIFO space available" ]
     pub fn ptxfsavl(&mut self, value: u16) -> &mut Self {
@@ -323,6 +385,9 @@ pub struct Haint {
 }
 
 impl Haint {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
     pub fn read(&self) -> HaintR {
         HaintR { bits: self.register.read() }
     }
@@ -343,33 +408,25 @@ impl HaintR {
     }
 }
 
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct HaintW {
-    bits: u32,
-}
-
-impl HaintW {
-    # [ doc = r" Reset value" ]
-    pub fn reset_value() -> Self {
-        HaintW { bits: 0u32 }
-    }
-    # [ doc = "Bits 0:15 - Channel interrupts" ]
-    pub fn haint(&mut self, value: u16) -> &mut Self {
-        const OFFSET: u8 = 0u8;
-        const MASK: u16 = 65535;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-}
-
 # [ repr ( C ) ]
 pub struct Haintmsk {
     register: ::volatile_register::RW<u32>,
 }
 
 impl Haintmsk {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&HaintmskR, &'w mut HaintmskW) -> &'w mut HaintmskW
     {
@@ -415,7 +472,7 @@ pub struct HaintmskW {
 impl HaintmskW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        HaintmskW { bits: 0u32 }
+        HaintmskW { bits: 0 }
     }
     # [ doc = "Bits 0:15 - Channel interrupt mask" ]
     pub fn haintm(&mut self, value: u16) -> &mut Self {
@@ -433,6 +490,19 @@ pub struct FsHprt {
 }
 
 impl FsHprt {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsHprtR, &'w mut FsHprtW) -> &'w mut FsHprtW
     {
@@ -540,7 +610,7 @@ pub struct FsHprtW {
 impl FsHprtW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsHprtW { bits: 0u32 }
+        FsHprtW { bits: 0 }
     }
     # [ doc = "Bit 1 - Port connect detected" ]
     pub fn pcdet(&mut self, value: bool) -> &mut Self {
@@ -638,6 +708,19 @@ pub struct FsHcchar0 {
 }
 
 impl FsHcchar0 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsHcchar0R, &'w mut FsHcchar0W) -> &'w mut FsHcchar0W
     {
@@ -732,7 +815,7 @@ pub struct FsHcchar0W {
 impl FsHcchar0W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsHcchar0W { bits: 0u32 }
+        FsHcchar0W { bits: 0 }
     }
     # [ doc = "Bits 0:10 - Maximum packet size" ]
     pub fn mpsiz(&mut self, value: u16) -> &mut Self {
@@ -832,6 +915,19 @@ pub struct FsHcchar1 {
 }
 
 impl FsHcchar1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsHcchar1R, &'w mut FsHcchar1W) -> &'w mut FsHcchar1W
     {
@@ -926,7 +1022,7 @@ pub struct FsHcchar1W {
 impl FsHcchar1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsHcchar1W { bits: 0u32 }
+        FsHcchar1W { bits: 0 }
     }
     # [ doc = "Bits 0:10 - Maximum packet size" ]
     pub fn mpsiz(&mut self, value: u16) -> &mut Self {
@@ -1026,6 +1122,19 @@ pub struct FsHcchar2 {
 }
 
 impl FsHcchar2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsHcchar2R, &'w mut FsHcchar2W) -> &'w mut FsHcchar2W
     {
@@ -1120,7 +1229,7 @@ pub struct FsHcchar2W {
 impl FsHcchar2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsHcchar2W { bits: 0u32 }
+        FsHcchar2W { bits: 0 }
     }
     # [ doc = "Bits 0:10 - Maximum packet size" ]
     pub fn mpsiz(&mut self, value: u16) -> &mut Self {
@@ -1220,6 +1329,19 @@ pub struct FsHcchar3 {
 }
 
 impl FsHcchar3 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsHcchar3R, &'w mut FsHcchar3W) -> &'w mut FsHcchar3W
     {
@@ -1314,7 +1436,7 @@ pub struct FsHcchar3W {
 impl FsHcchar3W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsHcchar3W { bits: 0u32 }
+        FsHcchar3W { bits: 0 }
     }
     # [ doc = "Bits 0:10 - Maximum packet size" ]
     pub fn mpsiz(&mut self, value: u16) -> &mut Self {
@@ -1414,6 +1536,19 @@ pub struct FsHcchar4 {
 }
 
 impl FsHcchar4 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsHcchar4R, &'w mut FsHcchar4W) -> &'w mut FsHcchar4W
     {
@@ -1508,7 +1643,7 @@ pub struct FsHcchar4W {
 impl FsHcchar4W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsHcchar4W { bits: 0u32 }
+        FsHcchar4W { bits: 0 }
     }
     # [ doc = "Bits 0:10 - Maximum packet size" ]
     pub fn mpsiz(&mut self, value: u16) -> &mut Self {
@@ -1608,6 +1743,19 @@ pub struct FsHcchar5 {
 }
 
 impl FsHcchar5 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsHcchar5R, &'w mut FsHcchar5W) -> &'w mut FsHcchar5W
     {
@@ -1702,7 +1850,7 @@ pub struct FsHcchar5W {
 impl FsHcchar5W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsHcchar5W { bits: 0u32 }
+        FsHcchar5W { bits: 0 }
     }
     # [ doc = "Bits 0:10 - Maximum packet size" ]
     pub fn mpsiz(&mut self, value: u16) -> &mut Self {
@@ -1802,6 +1950,19 @@ pub struct FsHcchar6 {
 }
 
 impl FsHcchar6 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsHcchar6R, &'w mut FsHcchar6W) -> &'w mut FsHcchar6W
     {
@@ -1896,7 +2057,7 @@ pub struct FsHcchar6W {
 impl FsHcchar6W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsHcchar6W { bits: 0u32 }
+        FsHcchar6W { bits: 0 }
     }
     # [ doc = "Bits 0:10 - Maximum packet size" ]
     pub fn mpsiz(&mut self, value: u16) -> &mut Self {
@@ -1996,6 +2157,19 @@ pub struct FsHcchar7 {
 }
 
 impl FsHcchar7 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsHcchar7R, &'w mut FsHcchar7W) -> &'w mut FsHcchar7W
     {
@@ -2090,7 +2264,7 @@ pub struct FsHcchar7W {
 impl FsHcchar7W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsHcchar7W { bits: 0u32 }
+        FsHcchar7W { bits: 0 }
     }
     # [ doc = "Bits 0:10 - Maximum packet size" ]
     pub fn mpsiz(&mut self, value: u16) -> &mut Self {
@@ -2190,6 +2364,19 @@ pub struct FsHcint0 {
 }
 
 impl FsHcint0 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsHcint0R, &'w mut FsHcint0W) -> &'w mut FsHcint0W
     {
@@ -2274,7 +2461,7 @@ pub struct FsHcint0W {
 impl FsHcint0W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsHcint0W { bits: 0u32 }
+        FsHcint0W { bits: 0 }
     }
     # [ doc = "Bit 0 - Transfer completed" ]
     pub fn xfrc(&mut self, value: bool) -> &mut Self {
@@ -2374,6 +2561,19 @@ pub struct FsHcint1 {
 }
 
 impl FsHcint1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsHcint1R, &'w mut FsHcint1W) -> &'w mut FsHcint1W
     {
@@ -2458,7 +2658,7 @@ pub struct FsHcint1W {
 impl FsHcint1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsHcint1W { bits: 0u32 }
+        FsHcint1W { bits: 0 }
     }
     # [ doc = "Bit 0 - Transfer completed" ]
     pub fn xfrc(&mut self, value: bool) -> &mut Self {
@@ -2558,6 +2758,19 @@ pub struct FsHcint2 {
 }
 
 impl FsHcint2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsHcint2R, &'w mut FsHcint2W) -> &'w mut FsHcint2W
     {
@@ -2642,7 +2855,7 @@ pub struct FsHcint2W {
 impl FsHcint2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsHcint2W { bits: 0u32 }
+        FsHcint2W { bits: 0 }
     }
     # [ doc = "Bit 0 - Transfer completed" ]
     pub fn xfrc(&mut self, value: bool) -> &mut Self {
@@ -2742,6 +2955,19 @@ pub struct FsHcint3 {
 }
 
 impl FsHcint3 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsHcint3R, &'w mut FsHcint3W) -> &'w mut FsHcint3W
     {
@@ -2826,7 +3052,7 @@ pub struct FsHcint3W {
 impl FsHcint3W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsHcint3W { bits: 0u32 }
+        FsHcint3W { bits: 0 }
     }
     # [ doc = "Bit 0 - Transfer completed" ]
     pub fn xfrc(&mut self, value: bool) -> &mut Self {
@@ -2926,6 +3152,19 @@ pub struct FsHcint4 {
 }
 
 impl FsHcint4 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsHcint4R, &'w mut FsHcint4W) -> &'w mut FsHcint4W
     {
@@ -3010,7 +3249,7 @@ pub struct FsHcint4W {
 impl FsHcint4W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsHcint4W { bits: 0u32 }
+        FsHcint4W { bits: 0 }
     }
     # [ doc = "Bit 0 - Transfer completed" ]
     pub fn xfrc(&mut self, value: bool) -> &mut Self {
@@ -3110,6 +3349,19 @@ pub struct FsHcint5 {
 }
 
 impl FsHcint5 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsHcint5R, &'w mut FsHcint5W) -> &'w mut FsHcint5W
     {
@@ -3194,7 +3446,7 @@ pub struct FsHcint5W {
 impl FsHcint5W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsHcint5W { bits: 0u32 }
+        FsHcint5W { bits: 0 }
     }
     # [ doc = "Bit 0 - Transfer completed" ]
     pub fn xfrc(&mut self, value: bool) -> &mut Self {
@@ -3294,6 +3546,19 @@ pub struct FsHcint6 {
 }
 
 impl FsHcint6 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsHcint6R, &'w mut FsHcint6W) -> &'w mut FsHcint6W
     {
@@ -3378,7 +3643,7 @@ pub struct FsHcint6W {
 impl FsHcint6W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsHcint6W { bits: 0u32 }
+        FsHcint6W { bits: 0 }
     }
     # [ doc = "Bit 0 - Transfer completed" ]
     pub fn xfrc(&mut self, value: bool) -> &mut Self {
@@ -3478,6 +3743,19 @@ pub struct FsHcint7 {
 }
 
 impl FsHcint7 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsHcint7R, &'w mut FsHcint7W) -> &'w mut FsHcint7W
     {
@@ -3562,7 +3840,7 @@ pub struct FsHcint7W {
 impl FsHcint7W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsHcint7W { bits: 0u32 }
+        FsHcint7W { bits: 0 }
     }
     # [ doc = "Bit 0 - Transfer completed" ]
     pub fn xfrc(&mut self, value: bool) -> &mut Self {
@@ -3662,6 +3940,19 @@ pub struct FsHcintmsk0 {
 }
 
 impl FsHcintmsk0 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsHcintmsk0R, &'w mut FsHcintmsk0W) -> &'w mut FsHcintmsk0W
     {
@@ -3751,7 +4042,7 @@ pub struct FsHcintmsk0W {
 impl FsHcintmsk0W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsHcintmsk0W { bits: 0u32 }
+        FsHcintmsk0W { bits: 0 }
     }
     # [ doc = "Bit 0 - Transfer completed mask" ]
     pub fn xfrcm(&mut self, value: bool) -> &mut Self {
@@ -3861,6 +4152,19 @@ pub struct FsHcintmsk1 {
 }
 
 impl FsHcintmsk1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsHcintmsk1R, &'w mut FsHcintmsk1W) -> &'w mut FsHcintmsk1W
     {
@@ -3950,7 +4254,7 @@ pub struct FsHcintmsk1W {
 impl FsHcintmsk1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsHcintmsk1W { bits: 0u32 }
+        FsHcintmsk1W { bits: 0 }
     }
     # [ doc = "Bit 0 - Transfer completed mask" ]
     pub fn xfrcm(&mut self, value: bool) -> &mut Self {
@@ -4060,6 +4364,19 @@ pub struct FsHcintmsk2 {
 }
 
 impl FsHcintmsk2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsHcintmsk2R, &'w mut FsHcintmsk2W) -> &'w mut FsHcintmsk2W
     {
@@ -4149,7 +4466,7 @@ pub struct FsHcintmsk2W {
 impl FsHcintmsk2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsHcintmsk2W { bits: 0u32 }
+        FsHcintmsk2W { bits: 0 }
     }
     # [ doc = "Bit 0 - Transfer completed mask" ]
     pub fn xfrcm(&mut self, value: bool) -> &mut Self {
@@ -4259,6 +4576,19 @@ pub struct FsHcintmsk3 {
 }
 
 impl FsHcintmsk3 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsHcintmsk3R, &'w mut FsHcintmsk3W) -> &'w mut FsHcintmsk3W
     {
@@ -4348,7 +4678,7 @@ pub struct FsHcintmsk3W {
 impl FsHcintmsk3W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsHcintmsk3W { bits: 0u32 }
+        FsHcintmsk3W { bits: 0 }
     }
     # [ doc = "Bit 0 - Transfer completed mask" ]
     pub fn xfrcm(&mut self, value: bool) -> &mut Self {
@@ -4458,6 +4788,19 @@ pub struct FsHcintmsk4 {
 }
 
 impl FsHcintmsk4 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsHcintmsk4R, &'w mut FsHcintmsk4W) -> &'w mut FsHcintmsk4W
     {
@@ -4547,7 +4890,7 @@ pub struct FsHcintmsk4W {
 impl FsHcintmsk4W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsHcintmsk4W { bits: 0u32 }
+        FsHcintmsk4W { bits: 0 }
     }
     # [ doc = "Bit 0 - Transfer completed mask" ]
     pub fn xfrcm(&mut self, value: bool) -> &mut Self {
@@ -4657,6 +5000,19 @@ pub struct FsHcintmsk5 {
 }
 
 impl FsHcintmsk5 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsHcintmsk5R, &'w mut FsHcintmsk5W) -> &'w mut FsHcintmsk5W
     {
@@ -4746,7 +5102,7 @@ pub struct FsHcintmsk5W {
 impl FsHcintmsk5W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsHcintmsk5W { bits: 0u32 }
+        FsHcintmsk5W { bits: 0 }
     }
     # [ doc = "Bit 0 - Transfer completed mask" ]
     pub fn xfrcm(&mut self, value: bool) -> &mut Self {
@@ -4856,6 +5212,19 @@ pub struct FsHcintmsk6 {
 }
 
 impl FsHcintmsk6 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsHcintmsk6R, &'w mut FsHcintmsk6W) -> &'w mut FsHcintmsk6W
     {
@@ -4945,7 +5314,7 @@ pub struct FsHcintmsk6W {
 impl FsHcintmsk6W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsHcintmsk6W { bits: 0u32 }
+        FsHcintmsk6W { bits: 0 }
     }
     # [ doc = "Bit 0 - Transfer completed mask" ]
     pub fn xfrcm(&mut self, value: bool) -> &mut Self {
@@ -5055,6 +5424,19 @@ pub struct FsHcintmsk7 {
 }
 
 impl FsHcintmsk7 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsHcintmsk7R, &'w mut FsHcintmsk7W) -> &'w mut FsHcintmsk7W
     {
@@ -5144,7 +5526,7 @@ pub struct FsHcintmsk7W {
 impl FsHcintmsk7W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsHcintmsk7W { bits: 0u32 }
+        FsHcintmsk7W { bits: 0 }
     }
     # [ doc = "Bit 0 - Transfer completed mask" ]
     pub fn xfrcm(&mut self, value: bool) -> &mut Self {
@@ -5254,6 +5636,19 @@ pub struct FsHctsiz0 {
 }
 
 impl FsHctsiz0 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsHctsiz0R, &'w mut FsHctsiz0W) -> &'w mut FsHctsiz0W
     {
@@ -5311,7 +5706,7 @@ pub struct FsHctsiz0W {
 impl FsHctsiz0W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsHctsiz0W { bits: 0u32 }
+        FsHctsiz0W { bits: 0 }
     }
     # [ doc = "Bits 0:18 - Transfer size" ]
     pub fn xfrsiz(&mut self, value: u32) -> &mut Self {
@@ -5345,6 +5740,19 @@ pub struct FsHctsiz1 {
 }
 
 impl FsHctsiz1 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsHctsiz1R, &'w mut FsHctsiz1W) -> &'w mut FsHctsiz1W
     {
@@ -5402,7 +5810,7 @@ pub struct FsHctsiz1W {
 impl FsHctsiz1W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsHctsiz1W { bits: 0u32 }
+        FsHctsiz1W { bits: 0 }
     }
     # [ doc = "Bits 0:18 - Transfer size" ]
     pub fn xfrsiz(&mut self, value: u32) -> &mut Self {
@@ -5436,6 +5844,19 @@ pub struct FsHctsiz2 {
 }
 
 impl FsHctsiz2 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsHctsiz2R, &'w mut FsHctsiz2W) -> &'w mut FsHctsiz2W
     {
@@ -5493,7 +5914,7 @@ pub struct FsHctsiz2W {
 impl FsHctsiz2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsHctsiz2W { bits: 0u32 }
+        FsHctsiz2W { bits: 0 }
     }
     # [ doc = "Bits 0:18 - Transfer size" ]
     pub fn xfrsiz(&mut self, value: u32) -> &mut Self {
@@ -5527,6 +5948,19 @@ pub struct FsHctsiz3 {
 }
 
 impl FsHctsiz3 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsHctsiz3R, &'w mut FsHctsiz3W) -> &'w mut FsHctsiz3W
     {
@@ -5584,7 +6018,7 @@ pub struct FsHctsiz3W {
 impl FsHctsiz3W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsHctsiz3W { bits: 0u32 }
+        FsHctsiz3W { bits: 0 }
     }
     # [ doc = "Bits 0:18 - Transfer size" ]
     pub fn xfrsiz(&mut self, value: u32) -> &mut Self {
@@ -5618,6 +6052,19 @@ pub struct FsHctsiz4 {
 }
 
 impl FsHctsiz4 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsHctsiz4R, &'w mut FsHctsiz4W) -> &'w mut FsHctsiz4W
     {
@@ -5675,7 +6122,7 @@ pub struct FsHctsiz4W {
 impl FsHctsiz4W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsHctsiz4W { bits: 0u32 }
+        FsHctsiz4W { bits: 0 }
     }
     # [ doc = "Bits 0:18 - Transfer size" ]
     pub fn xfrsiz(&mut self, value: u32) -> &mut Self {
@@ -5709,6 +6156,19 @@ pub struct FsHctsiz5 {
 }
 
 impl FsHctsiz5 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsHctsiz5R, &'w mut FsHctsiz5W) -> &'w mut FsHctsiz5W
     {
@@ -5766,7 +6226,7 @@ pub struct FsHctsiz5W {
 impl FsHctsiz5W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsHctsiz5W { bits: 0u32 }
+        FsHctsiz5W { bits: 0 }
     }
     # [ doc = "Bits 0:18 - Transfer size" ]
     pub fn xfrsiz(&mut self, value: u32) -> &mut Self {
@@ -5800,6 +6260,19 @@ pub struct FsHctsiz6 {
 }
 
 impl FsHctsiz6 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsHctsiz6R, &'w mut FsHctsiz6W) -> &'w mut FsHctsiz6W
     {
@@ -5857,7 +6330,7 @@ pub struct FsHctsiz6W {
 impl FsHctsiz6W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsHctsiz6W { bits: 0u32 }
+        FsHctsiz6W { bits: 0 }
     }
     # [ doc = "Bits 0:18 - Transfer size" ]
     pub fn xfrsiz(&mut self, value: u32) -> &mut Self {
@@ -5891,6 +6364,19 @@ pub struct FsHctsiz7 {
 }
 
 impl FsHctsiz7 {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsHctsiz7R, &'w mut FsHctsiz7W) -> &'w mut FsHctsiz7W
     {
@@ -5948,7 +6434,7 @@ pub struct FsHctsiz7W {
 impl FsHctsiz7W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsHctsiz7W { bits: 0u32 }
+        FsHctsiz7W { bits: 0 }
     }
     # [ doc = "Bits 0:18 - Transfer size" ]
     pub fn xfrsiz(&mut self, value: u32) -> &mut Self {

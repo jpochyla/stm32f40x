@@ -1,7 +1,7 @@
 # [ doc = "USB on the go full speed" ]
 # [ repr ( C ) ]
 pub struct OtgFsPwrclk {
-    # [ doc = "0x00 - OTG_FS power and clock gating control register (OTG_FS_PCGCCTL)" ]
+    # [ doc = "0x00 - OTG_FS power and clock gating control register" ]
     pub fs_pcgcctl: FsPcgcctl,
 }
 
@@ -11,6 +11,19 @@ pub struct FsPcgcctl {
 }
 
 impl FsPcgcctl {
+    pub fn read_bits(&self) -> u32 {
+        self.register.read()
+    }
+    pub unsafe fn modify_bits<F>(&mut self, f: F)
+        where F: FnOnce(&mut u32)
+    {
+        let mut bits = self.register.read();
+        f(&mut bits);
+        self.register.write(bits);
+    }
+    pub unsafe fn write_bits(&mut self, bits: u32) {
+        self.register.write(bits);
+    }
     pub fn modify<F>(&mut self, f: F)
         where for<'w> F: FnOnce(&FsPcgcctlR, &'w mut FsPcgcctlW) -> &'w mut FsPcgcctlW
     {
@@ -65,7 +78,7 @@ pub struct FsPcgcctlW {
 impl FsPcgcctlW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        FsPcgcctlW { bits: 0u32 }
+        FsPcgcctlW { bits: 0 }
     }
     # [ doc = "Bit 0 - Stop PHY clock" ]
     pub fn stppclk(&mut self, value: bool) -> &mut Self {
