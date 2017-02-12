@@ -177,7 +177,7 @@ pub struct ModerW {
 impl ModerW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        ModerW { bits: 2818572288 }
+        ModerW { bits: 0 }
     }
     # [ doc = "Bits 30:31 - Port x configuration bits (y = 0..15)" ]
     pub fn moder15(&mut self, value: u8) -> &mut Self {
@@ -1051,7 +1051,7 @@ pub struct PupdrW {
 impl PupdrW {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
-        PupdrW { bits: 1677721600 }
+        PupdrW { bits: 0 }
     }
     # [ doc = "Bits 30:31 - Port x configuration bits (y = 0..15)" ]
     pub fn pupdr15(&mut self, value: u8) -> &mut Self {

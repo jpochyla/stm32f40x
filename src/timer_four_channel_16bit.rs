@@ -1,6 +1,6 @@
-# [ doc = "Advanced-timers" ]
+# [ doc = "General purpose timers" ]
 # [ repr ( C ) ]
-pub struct AdvancedTimer {
+pub struct TimerFourChannel16bit {
     # [ doc = "0x00 - control register 1" ]
     pub cr1: Cr1,
     # [ doc = "0x04 - control register 2" ]
@@ -25,8 +25,7 @@ pub struct AdvancedTimer {
     pub psc: Psc,
     # [ doc = "0x2c - auto-reload register" ]
     pub arr: Arr,
-    # [ doc = "0x30 - repetition counter register" ]
-    pub rcr: Rcr,
+    _reserved0: [u8; 4usize],
     # [ doc = "0x34 - capture/compare register 1" ]
     pub ccr1: Ccr1,
     # [ doc = "0x38 - capture/compare register 2" ]
@@ -35,8 +34,7 @@ pub struct AdvancedTimer {
     pub ccr3: Ccr3,
     # [ doc = "0x40 - capture/compare register 4" ]
     pub ccr4: Ccr4,
-    # [ doc = "0x44 - break and dead-time register" ]
-    pub bdtr: Bdtr,
+    _reserved1: [u8; 4usize],
     # [ doc = "0x48 - DMA control register" ]
     pub dcr: Dcr,
     # [ doc = "0x4c - DMA address for full transfer" ]
@@ -270,41 +268,6 @@ pub struct Cr2R {
 }
 
 impl Cr2R {
-    # [ doc = "Bit 14 - Output Idle state 4" ]
-    pub fn ois4(&self) -> bool {
-        const OFFSET: u8 = 14u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 13 - Output Idle state 3" ]
-    pub fn ois3n(&self) -> bool {
-        const OFFSET: u8 = 13u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 12 - Output Idle state 3" ]
-    pub fn ois3(&self) -> bool {
-        const OFFSET: u8 = 12u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 11 - Output Idle state 2" ]
-    pub fn ois2n(&self) -> bool {
-        const OFFSET: u8 = 11u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 10 - Output Idle state 2" ]
-    pub fn ois2(&self) -> bool {
-        const OFFSET: u8 = 10u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 9 - Output Idle state 1" ]
-    pub fn ois1n(&self) -> bool {
-        const OFFSET: u8 = 9u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 8 - Output Idle state 1" ]
-    pub fn ois1(&self) -> bool {
-        const OFFSET: u8 = 8u8;
-        self.bits & (1 << OFFSET) != 0
-    }
     # [ doc = "Bit 7 - TI1 selection" ]
     pub fn ti1s(&self) -> bool {
         const OFFSET: u8 = 7u8;
@@ -321,16 +284,6 @@ impl Cr2R {
         const OFFSET: u8 = 3u8;
         self.bits & (1 << OFFSET) != 0
     }
-    # [ doc = "Bit 2 - Capture/compare control update selection" ]
-    pub fn ccus(&self) -> bool {
-        const OFFSET: u8 = 2u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 0 - Capture/compare preloaded control" ]
-    pub fn ccpc(&self) -> bool {
-        const OFFSET: u8 = 0u8;
-        self.bits & (1 << OFFSET) != 0
-    }
 }
 
 # [ derive ( Clone , Copy ) ]
@@ -343,76 +296,6 @@ impl Cr2W {
     # [ doc = r" Reset value" ]
     pub fn reset_value() -> Self {
         Cr2W { bits: 0 }
-    }
-    # [ doc = "Bit 14 - Output Idle state 4" ]
-    pub fn ois4(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 14u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 13 - Output Idle state 3" ]
-    pub fn ois3n(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 13u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 12 - Output Idle state 3" ]
-    pub fn ois3(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 12u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 11 - Output Idle state 2" ]
-    pub fn ois2n(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 11u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 10 - Output Idle state 2" ]
-    pub fn ois2(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 10u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 9 - Output Idle state 1" ]
-    pub fn ois1n(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 9u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 8 - Output Idle state 1" ]
-    pub fn ois1(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 8u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
     }
     # [ doc = "Bit 7 - TI1 selection" ]
     pub fn ti1s(&mut self, value: bool) -> &mut Self {
@@ -435,26 +318,6 @@ impl Cr2W {
     # [ doc = "Bit 3 - Capture/compare DMA selection" ]
     pub fn ccds(&mut self, value: bool) -> &mut Self {
         const OFFSET: u8 = 3u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 2 - Capture/compare control update selection" ]
-    pub fn ccus(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 2u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 0 - Capture/compare preloaded control" ]
-    pub fn ccpc(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 0u8;
         if value {
             self.bits |= 1 << OFFSET;
         } else {
@@ -679,11 +542,6 @@ impl DierR {
         const OFFSET: u8 = 14u8;
         self.bits & (1 << OFFSET) != 0
     }
-    # [ doc = "Bit 13 - COM DMA request enable" ]
-    pub fn comde(&self) -> bool {
-        const OFFSET: u8 = 13u8;
-        self.bits & (1 << OFFSET) != 0
-    }
     # [ doc = "Bit 12 - Capture/Compare 4 DMA request enable" ]
     pub fn cc4de(&self) -> bool {
         const OFFSET: u8 = 12u8;
@@ -739,16 +597,6 @@ impl DierR {
         const OFFSET: u8 = 0u8;
         self.bits & (1 << OFFSET) != 0
     }
-    # [ doc = "Bit 7 - Break interrupt enable" ]
-    pub fn bie(&self) -> bool {
-        const OFFSET: u8 = 7u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 5 - COM interrupt enable" ]
-    pub fn comie(&self) -> bool {
-        const OFFSET: u8 = 5u8;
-        self.bits & (1 << OFFSET) != 0
-    }
 }
 
 # [ derive ( Clone , Copy ) ]
@@ -765,16 +613,6 @@ impl DierW {
     # [ doc = "Bit 14 - Trigger DMA request enable" ]
     pub fn tde(&mut self, value: bool) -> &mut Self {
         const OFFSET: u8 = 14u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 13 - COM DMA request enable" ]
-    pub fn comde(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 13u8;
         if value {
             self.bits |= 1 << OFFSET;
         } else {
@@ -892,26 +730,6 @@ impl DierW {
         }
         self
     }
-    # [ doc = "Bit 7 - Break interrupt enable" ]
-    pub fn bie(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 7u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 5 - COM interrupt enable" ]
-    pub fn comie(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 5u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
 }
 
 # [ repr ( C ) ]
@@ -981,19 +799,9 @@ impl SrR {
         const OFFSET: u8 = 9u8;
         self.bits & (1 << OFFSET) != 0
     }
-    # [ doc = "Bit 7 - Break interrupt flag" ]
-    pub fn bif(&self) -> bool {
-        const OFFSET: u8 = 7u8;
-        self.bits & (1 << OFFSET) != 0
-    }
     # [ doc = "Bit 6 - Trigger interrupt flag" ]
     pub fn tif(&self) -> bool {
         const OFFSET: u8 = 6u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 5 - COM interrupt flag" ]
-    pub fn comif(&self) -> bool {
-        const OFFSET: u8 = 5u8;
         self.bits & (1 << OFFSET) != 0
     }
     # [ doc = "Bit 4 - Capture/Compare 4 interrupt flag" ]
@@ -1074,29 +882,9 @@ impl SrW {
         }
         self
     }
-    # [ doc = "Bit 7 - Break interrupt flag" ]
-    pub fn bif(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 7u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
     # [ doc = "Bit 6 - Trigger interrupt flag" ]
     pub fn tif(&mut self, value: bool) -> &mut Self {
         const OFFSET: u8 = 6u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 5 - COM interrupt flag" ]
-    pub fn comif(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 5u8;
         if value {
             self.bits |= 1 << OFFSET;
         } else {
@@ -1185,29 +973,9 @@ impl EgrW {
     pub fn reset_value() -> Self {
         EgrW { bits: 0 }
     }
-    # [ doc = "Bit 7 - Break generation" ]
-    pub fn bg(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 7u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
     # [ doc = "Bit 6 - Trigger generation" ]
     pub fn tg(&mut self, value: bool) -> &mut Self {
         const OFFSET: u8 = 6u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 5 - Capture/Compare control update generation" ]
-    pub fn comg(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 5u8;
         if value {
             self.bits |= 1 << OFFSET;
         } else {
@@ -1314,55 +1082,55 @@ pub struct Ccmr1OutputR {
 }
 
 impl Ccmr1OutputR {
-    # [ doc = "Bit 15 - Output Compare 2 clear enable" ]
+    # [ doc = "Bit 15 - OC2CE" ]
     pub fn oc2ce(&self) -> bool {
         const OFFSET: u8 = 15u8;
         self.bits & (1 << OFFSET) != 0
     }
-    # [ doc = "Bits 12:14 - Output Compare 2 mode" ]
+    # [ doc = "Bits 12:14 - OC2M" ]
     pub fn oc2m(&self) -> u8 {
         const MASK: u32 = 7;
         const OFFSET: u8 = 12u8;
         ((self.bits >> OFFSET) & MASK) as u8
     }
-    # [ doc = "Bit 11 - Output Compare 2 preload enable" ]
+    # [ doc = "Bit 11 - OC2PE" ]
     pub fn oc2pe(&self) -> bool {
         const OFFSET: u8 = 11u8;
         self.bits & (1 << OFFSET) != 0
     }
-    # [ doc = "Bit 10 - Output Compare 2 fast enable" ]
+    # [ doc = "Bit 10 - OC2FE" ]
     pub fn oc2fe(&self) -> bool {
         const OFFSET: u8 = 10u8;
         self.bits & (1 << OFFSET) != 0
     }
-    # [ doc = "Bits 8:9 - Capture/Compare 2 selection" ]
+    # [ doc = "Bits 8:9 - CC2S" ]
     pub fn cc2s(&self) -> u8 {
         const MASK: u32 = 3;
         const OFFSET: u8 = 8u8;
         ((self.bits >> OFFSET) & MASK) as u8
     }
-    # [ doc = "Bit 7 - Output Compare 1 clear enable" ]
+    # [ doc = "Bit 7 - OC1CE" ]
     pub fn oc1ce(&self) -> bool {
         const OFFSET: u8 = 7u8;
         self.bits & (1 << OFFSET) != 0
     }
-    # [ doc = "Bits 4:6 - Output Compare 1 mode" ]
+    # [ doc = "Bits 4:6 - OC1M" ]
     pub fn oc1m(&self) -> u8 {
         const MASK: u32 = 7;
         const OFFSET: u8 = 4u8;
         ((self.bits >> OFFSET) & MASK) as u8
     }
-    # [ doc = "Bit 3 - Output Compare 1 preload enable" ]
+    # [ doc = "Bit 3 - OC1PE" ]
     pub fn oc1pe(&self) -> bool {
         const OFFSET: u8 = 3u8;
         self.bits & (1 << OFFSET) != 0
     }
-    # [ doc = "Bit 2 - Output Compare 1 fast enable" ]
+    # [ doc = "Bit 2 - OC1FE" ]
     pub fn oc1fe(&self) -> bool {
         const OFFSET: u8 = 2u8;
         self.bits & (1 << OFFSET) != 0
     }
-    # [ doc = "Bits 0:1 - Capture/Compare 1 selection" ]
+    # [ doc = "Bits 0:1 - CC1S" ]
     pub fn cc1s(&self) -> u8 {
         const MASK: u32 = 3;
         const OFFSET: u8 = 0u8;
@@ -1381,7 +1149,7 @@ impl Ccmr1OutputW {
     pub fn reset_value() -> Self {
         Ccmr1OutputW { bits: 0 }
     }
-    # [ doc = "Bit 15 - Output Compare 2 clear enable" ]
+    # [ doc = "Bit 15 - OC2CE" ]
     pub fn oc2ce(&mut self, value: bool) -> &mut Self {
         const OFFSET: u8 = 15u8;
         if value {
@@ -1391,7 +1159,7 @@ impl Ccmr1OutputW {
         }
         self
     }
-    # [ doc = "Bits 12:14 - Output Compare 2 mode" ]
+    # [ doc = "Bits 12:14 - OC2M" ]
     pub fn oc2m(&mut self, value: u8) -> &mut Self {
         const OFFSET: u8 = 12u8;
         const MASK: u8 = 7;
@@ -1399,7 +1167,7 @@ impl Ccmr1OutputW {
         self.bits |= ((value & MASK) as u32) << OFFSET;
         self
     }
-    # [ doc = "Bit 11 - Output Compare 2 preload enable" ]
+    # [ doc = "Bit 11 - OC2PE" ]
     pub fn oc2pe(&mut self, value: bool) -> &mut Self {
         const OFFSET: u8 = 11u8;
         if value {
@@ -1409,7 +1177,7 @@ impl Ccmr1OutputW {
         }
         self
     }
-    # [ doc = "Bit 10 - Output Compare 2 fast enable" ]
+    # [ doc = "Bit 10 - OC2FE" ]
     pub fn oc2fe(&mut self, value: bool) -> &mut Self {
         const OFFSET: u8 = 10u8;
         if value {
@@ -1419,7 +1187,7 @@ impl Ccmr1OutputW {
         }
         self
     }
-    # [ doc = "Bits 8:9 - Capture/Compare 2 selection" ]
+    # [ doc = "Bits 8:9 - CC2S" ]
     pub fn cc2s(&mut self, value: u8) -> &mut Self {
         const OFFSET: u8 = 8u8;
         const MASK: u8 = 3;
@@ -1427,7 +1195,7 @@ impl Ccmr1OutputW {
         self.bits |= ((value & MASK) as u32) << OFFSET;
         self
     }
-    # [ doc = "Bit 7 - Output Compare 1 clear enable" ]
+    # [ doc = "Bit 7 - OC1CE" ]
     pub fn oc1ce(&mut self, value: bool) -> &mut Self {
         const OFFSET: u8 = 7u8;
         if value {
@@ -1437,7 +1205,7 @@ impl Ccmr1OutputW {
         }
         self
     }
-    # [ doc = "Bits 4:6 - Output Compare 1 mode" ]
+    # [ doc = "Bits 4:6 - OC1M" ]
     pub fn oc1m(&mut self, value: u8) -> &mut Self {
         const OFFSET: u8 = 4u8;
         const MASK: u8 = 7;
@@ -1445,7 +1213,7 @@ impl Ccmr1OutputW {
         self.bits |= ((value & MASK) as u32) << OFFSET;
         self
     }
-    # [ doc = "Bit 3 - Output Compare 1 preload enable" ]
+    # [ doc = "Bit 3 - OC1PE" ]
     pub fn oc1pe(&mut self, value: bool) -> &mut Self {
         const OFFSET: u8 = 3u8;
         if value {
@@ -1455,7 +1223,7 @@ impl Ccmr1OutputW {
         }
         self
     }
-    # [ doc = "Bit 2 - Output Compare 1 fast enable" ]
+    # [ doc = "Bit 2 - OC1FE" ]
     pub fn oc1fe(&mut self, value: bool) -> &mut Self {
         const OFFSET: u8 = 2u8;
         if value {
@@ -1465,7 +1233,7 @@ impl Ccmr1OutputW {
         }
         self
     }
-    # [ doc = "Bits 0:1 - Capture/Compare 1 selection" ]
+    # [ doc = "Bits 0:1 - CC1S" ]
     pub fn cc1s(&mut self, value: u8) -> &mut Self {
         const OFFSET: u8 = 0u8;
         const MASK: u8 = 3;
@@ -1668,55 +1436,55 @@ pub struct Ccmr2OutputR {
 }
 
 impl Ccmr2OutputR {
-    # [ doc = "Bit 15 - Output compare 4 clear enable" ]
-    pub fn oc4ce(&self) -> bool {
+    # [ doc = "Bit 15 - O24CE" ]
+    pub fn o24ce(&self) -> bool {
         const OFFSET: u8 = 15u8;
         self.bits & (1 << OFFSET) != 0
     }
-    # [ doc = "Bits 12:14 - Output compare 4 mode" ]
+    # [ doc = "Bits 12:14 - OC4M" ]
     pub fn oc4m(&self) -> u8 {
         const MASK: u32 = 7;
         const OFFSET: u8 = 12u8;
         ((self.bits >> OFFSET) & MASK) as u8
     }
-    # [ doc = "Bit 11 - Output compare 4 preload enable" ]
+    # [ doc = "Bit 11 - OC4PE" ]
     pub fn oc4pe(&self) -> bool {
         const OFFSET: u8 = 11u8;
         self.bits & (1 << OFFSET) != 0
     }
-    # [ doc = "Bit 10 - Output compare 4 fast enable" ]
+    # [ doc = "Bit 10 - OC4FE" ]
     pub fn oc4fe(&self) -> bool {
         const OFFSET: u8 = 10u8;
         self.bits & (1 << OFFSET) != 0
     }
-    # [ doc = "Bits 8:9 - Capture/Compare 4 selection" ]
+    # [ doc = "Bits 8:9 - CC4S" ]
     pub fn cc4s(&self) -> u8 {
         const MASK: u32 = 3;
         const OFFSET: u8 = 8u8;
         ((self.bits >> OFFSET) & MASK) as u8
     }
-    # [ doc = "Bit 7 - Output compare 3 clear enable" ]
+    # [ doc = "Bit 7 - OC3CE" ]
     pub fn oc3ce(&self) -> bool {
         const OFFSET: u8 = 7u8;
         self.bits & (1 << OFFSET) != 0
     }
-    # [ doc = "Bits 4:6 - Output compare 3 mode" ]
+    # [ doc = "Bits 4:6 - OC3M" ]
     pub fn oc3m(&self) -> u8 {
         const MASK: u32 = 7;
         const OFFSET: u8 = 4u8;
         ((self.bits >> OFFSET) & MASK) as u8
     }
-    # [ doc = "Bit 3 - Output compare 3 preload enable" ]
+    # [ doc = "Bit 3 - OC3PE" ]
     pub fn oc3pe(&self) -> bool {
         const OFFSET: u8 = 3u8;
         self.bits & (1 << OFFSET) != 0
     }
-    # [ doc = "Bit 2 - Output compare 3 fast enable" ]
+    # [ doc = "Bit 2 - OC3FE" ]
     pub fn oc3fe(&self) -> bool {
         const OFFSET: u8 = 2u8;
         self.bits & (1 << OFFSET) != 0
     }
-    # [ doc = "Bits 0:1 - Capture/Compare 3 selection" ]
+    # [ doc = "Bits 0:1 - CC3S" ]
     pub fn cc3s(&self) -> u8 {
         const MASK: u32 = 3;
         const OFFSET: u8 = 0u8;
@@ -1735,8 +1503,8 @@ impl Ccmr2OutputW {
     pub fn reset_value() -> Self {
         Ccmr2OutputW { bits: 0 }
     }
-    # [ doc = "Bit 15 - Output compare 4 clear enable" ]
-    pub fn oc4ce(&mut self, value: bool) -> &mut Self {
+    # [ doc = "Bit 15 - O24CE" ]
+    pub fn o24ce(&mut self, value: bool) -> &mut Self {
         const OFFSET: u8 = 15u8;
         if value {
             self.bits |= 1 << OFFSET;
@@ -1745,7 +1513,7 @@ impl Ccmr2OutputW {
         }
         self
     }
-    # [ doc = "Bits 12:14 - Output compare 4 mode" ]
+    # [ doc = "Bits 12:14 - OC4M" ]
     pub fn oc4m(&mut self, value: u8) -> &mut Self {
         const OFFSET: u8 = 12u8;
         const MASK: u8 = 7;
@@ -1753,7 +1521,7 @@ impl Ccmr2OutputW {
         self.bits |= ((value & MASK) as u32) << OFFSET;
         self
     }
-    # [ doc = "Bit 11 - Output compare 4 preload enable" ]
+    # [ doc = "Bit 11 - OC4PE" ]
     pub fn oc4pe(&mut self, value: bool) -> &mut Self {
         const OFFSET: u8 = 11u8;
         if value {
@@ -1763,7 +1531,7 @@ impl Ccmr2OutputW {
         }
         self
     }
-    # [ doc = "Bit 10 - Output compare 4 fast enable" ]
+    # [ doc = "Bit 10 - OC4FE" ]
     pub fn oc4fe(&mut self, value: bool) -> &mut Self {
         const OFFSET: u8 = 10u8;
         if value {
@@ -1773,7 +1541,7 @@ impl Ccmr2OutputW {
         }
         self
     }
-    # [ doc = "Bits 8:9 - Capture/Compare 4 selection" ]
+    # [ doc = "Bits 8:9 - CC4S" ]
     pub fn cc4s(&mut self, value: u8) -> &mut Self {
         const OFFSET: u8 = 8u8;
         const MASK: u8 = 3;
@@ -1781,7 +1549,7 @@ impl Ccmr2OutputW {
         self.bits |= ((value & MASK) as u32) << OFFSET;
         self
     }
-    # [ doc = "Bit 7 - Output compare 3 clear enable" ]
+    # [ doc = "Bit 7 - OC3CE" ]
     pub fn oc3ce(&mut self, value: bool) -> &mut Self {
         const OFFSET: u8 = 7u8;
         if value {
@@ -1791,7 +1559,7 @@ impl Ccmr2OutputW {
         }
         self
     }
-    # [ doc = "Bits 4:6 - Output compare 3 mode" ]
+    # [ doc = "Bits 4:6 - OC3M" ]
     pub fn oc3m(&mut self, value: u8) -> &mut Self {
         const OFFSET: u8 = 4u8;
         const MASK: u8 = 7;
@@ -1799,7 +1567,7 @@ impl Ccmr2OutputW {
         self.bits |= ((value & MASK) as u32) << OFFSET;
         self
     }
-    # [ doc = "Bit 3 - Output compare 3 preload enable" ]
+    # [ doc = "Bit 3 - OC3PE" ]
     pub fn oc3pe(&mut self, value: bool) -> &mut Self {
         const OFFSET: u8 = 3u8;
         if value {
@@ -1809,7 +1577,7 @@ impl Ccmr2OutputW {
         }
         self
     }
-    # [ doc = "Bit 2 - Output compare 3 fast enable" ]
+    # [ doc = "Bit 2 - OC3FE" ]
     pub fn oc3fe(&mut self, value: bool) -> &mut Self {
         const OFFSET: u8 = 2u8;
         if value {
@@ -1819,7 +1587,7 @@ impl Ccmr2OutputW {
         }
         self
     }
-    # [ doc = "Bits 0:1 - Capture/Compare 3 selection" ]
+    # [ doc = "Bits 0:1 - CC3S" ]
     pub fn cc3s(&mut self, value: u8) -> &mut Self {
         const OFFSET: u8 = 0u8;
         const MASK: u8 = 3;
@@ -2022,6 +1790,11 @@ pub struct CcerR {
 }
 
 impl CcerR {
+    # [ doc = "Bit 15 - Capture/Compare 4 output Polarity" ]
+    pub fn cc4np(&self) -> bool {
+        const OFFSET: u8 = 15u8;
+        self.bits & (1 << OFFSET) != 0
+    }
     # [ doc = "Bit 13 - Capture/Compare 3 output Polarity" ]
     pub fn cc4p(&self) -> bool {
         const OFFSET: u8 = 13u8;
@@ -2035,11 +1808,6 @@ impl CcerR {
     # [ doc = "Bit 11 - Capture/Compare 3 output Polarity" ]
     pub fn cc3np(&self) -> bool {
         const OFFSET: u8 = 11u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 10 - Capture/Compare 3 complementary output enable" ]
-    pub fn cc3ne(&self) -> bool {
-        const OFFSET: u8 = 10u8;
         self.bits & (1 << OFFSET) != 0
     }
     # [ doc = "Bit 9 - Capture/Compare 3 output Polarity" ]
@@ -2057,11 +1825,6 @@ impl CcerR {
         const OFFSET: u8 = 7u8;
         self.bits & (1 << OFFSET) != 0
     }
-    # [ doc = "Bit 6 - Capture/Compare 2 complementary output enable" ]
-    pub fn cc2ne(&self) -> bool {
-        const OFFSET: u8 = 6u8;
-        self.bits & (1 << OFFSET) != 0
-    }
     # [ doc = "Bit 5 - Capture/Compare 2 output Polarity" ]
     pub fn cc2p(&self) -> bool {
         const OFFSET: u8 = 5u8;
@@ -2075,11 +1838,6 @@ impl CcerR {
     # [ doc = "Bit 3 - Capture/Compare 1 output Polarity" ]
     pub fn cc1np(&self) -> bool {
         const OFFSET: u8 = 3u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 2 - Capture/Compare 1 complementary output enable" ]
-    pub fn cc1ne(&self) -> bool {
-        const OFFSET: u8 = 2u8;
         self.bits & (1 << OFFSET) != 0
     }
     # [ doc = "Bit 1 - Capture/Compare 1 output Polarity" ]
@@ -2105,6 +1863,16 @@ impl CcerW {
     pub fn reset_value() -> Self {
         CcerW { bits: 0 }
     }
+    # [ doc = "Bit 15 - Capture/Compare 4 output Polarity" ]
+    pub fn cc4np(&mut self, value: bool) -> &mut Self {
+        const OFFSET: u8 = 15u8;
+        if value {
+            self.bits |= 1 << OFFSET;
+        } else {
+            self.bits &= !(1 << OFFSET);
+        }
+        self
+    }
     # [ doc = "Bit 13 - Capture/Compare 3 output Polarity" ]
     pub fn cc4p(&mut self, value: bool) -> &mut Self {
         const OFFSET: u8 = 13u8;
@@ -2128,16 +1896,6 @@ impl CcerW {
     # [ doc = "Bit 11 - Capture/Compare 3 output Polarity" ]
     pub fn cc3np(&mut self, value: bool) -> &mut Self {
         const OFFSET: u8 = 11u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 10 - Capture/Compare 3 complementary output enable" ]
-    pub fn cc3ne(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 10u8;
         if value {
             self.bits |= 1 << OFFSET;
         } else {
@@ -2175,16 +1933,6 @@ impl CcerW {
         }
         self
     }
-    # [ doc = "Bit 6 - Capture/Compare 2 complementary output enable" ]
-    pub fn cc2ne(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 6u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
     # [ doc = "Bit 5 - Capture/Compare 2 output Polarity" ]
     pub fn cc2p(&mut self, value: bool) -> &mut Self {
         const OFFSET: u8 = 5u8;
@@ -2208,16 +1956,6 @@ impl CcerW {
     # [ doc = "Bit 3 - Capture/Compare 1 output Polarity" ]
     pub fn cc1np(&mut self, value: bool) -> &mut Self {
         const OFFSET: u8 = 3u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 2 - Capture/Compare 1 complementary output enable" ]
-    pub fn cc1ne(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 2u8;
         if value {
             self.bits |= 1 << OFFSET;
         } else {
@@ -2294,8 +2032,14 @@ pub struct CntR {
 }
 
 impl CntR {
-    # [ doc = "Bits 0:15 - counter value" ]
-    pub fn cnt(&self) -> u16 {
+    # [ doc = "Bits 16:31 - High counter value" ]
+    pub fn cnt_h(&self) -> u16 {
+        const MASK: u32 = 65535;
+        const OFFSET: u8 = 16u8;
+        ((self.bits >> OFFSET) & MASK) as u16
+    }
+    # [ doc = "Bits 0:15 - Low counter value" ]
+    pub fn cnt_l(&self) -> u16 {
         const MASK: u32 = 65535;
         const OFFSET: u8 = 0u8;
         ((self.bits >> OFFSET) & MASK) as u16
@@ -2313,8 +2057,16 @@ impl CntW {
     pub fn reset_value() -> Self {
         CntW { bits: 0 }
     }
-    # [ doc = "Bits 0:15 - counter value" ]
-    pub fn cnt(&mut self, value: u16) -> &mut Self {
+    # [ doc = "Bits 16:31 - High counter value" ]
+    pub fn cnt_h(&mut self, value: u16) -> &mut Self {
+        const OFFSET: u8 = 16u8;
+        const MASK: u16 = 65535;
+        self.bits &= !((MASK as u32) << OFFSET);
+        self.bits |= ((value & MASK) as u32) << OFFSET;
+        self
+    }
+    # [ doc = "Bits 0:15 - Low counter value" ]
+    pub fn cnt_l(&mut self, value: u16) -> &mut Self {
         const OFFSET: u8 = 0u8;
         const MASK: u16 = 65535;
         self.bits &= !((MASK as u32) << OFFSET);
@@ -2446,8 +2198,14 @@ pub struct ArrR {
 }
 
 impl ArrR {
-    # [ doc = "Bits 0:15 - Auto-reload value" ]
-    pub fn arr(&self) -> u16 {
+    # [ doc = "Bits 16:31 - High Auto-reload value" ]
+    pub fn arr_h(&self) -> u16 {
+        const MASK: u32 = 65535;
+        const OFFSET: u8 = 16u8;
+        ((self.bits >> OFFSET) & MASK) as u16
+    }
+    # [ doc = "Bits 0:15 - Low Auto-reload value" ]
+    pub fn arr_l(&self) -> u16 {
         const MASK: u32 = 65535;
         const OFFSET: u8 = 0u8;
         ((self.bits >> OFFSET) & MASK) as u16
@@ -2465,8 +2223,16 @@ impl ArrW {
     pub fn reset_value() -> Self {
         ArrW { bits: 0 }
     }
-    # [ doc = "Bits 0:15 - Auto-reload value" ]
-    pub fn arr(&mut self, value: u16) -> &mut Self {
+    # [ doc = "Bits 16:31 - High Auto-reload value" ]
+    pub fn arr_h(&mut self, value: u16) -> &mut Self {
+        const OFFSET: u8 = 16u8;
+        const MASK: u16 = 65535;
+        self.bits &= !((MASK as u32) << OFFSET);
+        self.bits |= ((value & MASK) as u32) << OFFSET;
+        self
+    }
+    # [ doc = "Bits 0:15 - Low Auto-reload value" ]
+    pub fn arr_l(&mut self, value: u16) -> &mut Self {
         const OFFSET: u8 = 0u8;
         const MASK: u16 = 65535;
         self.bits &= !((MASK as u32) << OFFSET);
@@ -2522,8 +2288,14 @@ pub struct Ccr1R {
 }
 
 impl Ccr1R {
-    # [ doc = "Bits 0:15 - Capture/Compare 1 value" ]
-    pub fn ccr1(&self) -> u16 {
+    # [ doc = "Bits 16:31 - High Capture/Compare 1 value" ]
+    pub fn ccr1_h(&self) -> u16 {
+        const MASK: u32 = 65535;
+        const OFFSET: u8 = 16u8;
+        ((self.bits >> OFFSET) & MASK) as u16
+    }
+    # [ doc = "Bits 0:15 - Low Capture/Compare 1 value" ]
+    pub fn ccr1_l(&self) -> u16 {
         const MASK: u32 = 65535;
         const OFFSET: u8 = 0u8;
         ((self.bits >> OFFSET) & MASK) as u16
@@ -2541,8 +2313,16 @@ impl Ccr1W {
     pub fn reset_value() -> Self {
         Ccr1W { bits: 0 }
     }
-    # [ doc = "Bits 0:15 - Capture/Compare 1 value" ]
-    pub fn ccr1(&mut self, value: u16) -> &mut Self {
+    # [ doc = "Bits 16:31 - High Capture/Compare 1 value" ]
+    pub fn ccr1_h(&mut self, value: u16) -> &mut Self {
+        const OFFSET: u8 = 16u8;
+        const MASK: u16 = 65535;
+        self.bits &= !((MASK as u32) << OFFSET);
+        self.bits |= ((value & MASK) as u32) << OFFSET;
+        self
+    }
+    # [ doc = "Bits 0:15 - Low Capture/Compare 1 value" ]
+    pub fn ccr1_l(&mut self, value: u16) -> &mut Self {
         const OFFSET: u8 = 0u8;
         const MASK: u16 = 65535;
         self.bits &= !((MASK as u32) << OFFSET);
@@ -2598,8 +2378,14 @@ pub struct Ccr2R {
 }
 
 impl Ccr2R {
-    # [ doc = "Bits 0:15 - Capture/Compare 2 value" ]
-    pub fn ccr2(&self) -> u16 {
+    # [ doc = "Bits 16:31 - High Capture/Compare 2 value" ]
+    pub fn ccr2_h(&self) -> u16 {
+        const MASK: u32 = 65535;
+        const OFFSET: u8 = 16u8;
+        ((self.bits >> OFFSET) & MASK) as u16
+    }
+    # [ doc = "Bits 0:15 - Low Capture/Compare 2 value" ]
+    pub fn ccr2_l(&self) -> u16 {
         const MASK: u32 = 65535;
         const OFFSET: u8 = 0u8;
         ((self.bits >> OFFSET) & MASK) as u16
@@ -2617,8 +2403,16 @@ impl Ccr2W {
     pub fn reset_value() -> Self {
         Ccr2W { bits: 0 }
     }
-    # [ doc = "Bits 0:15 - Capture/Compare 2 value" ]
-    pub fn ccr2(&mut self, value: u16) -> &mut Self {
+    # [ doc = "Bits 16:31 - High Capture/Compare 2 value" ]
+    pub fn ccr2_h(&mut self, value: u16) -> &mut Self {
+        const OFFSET: u8 = 16u8;
+        const MASK: u16 = 65535;
+        self.bits &= !((MASK as u32) << OFFSET);
+        self.bits |= ((value & MASK) as u32) << OFFSET;
+        self
+    }
+    # [ doc = "Bits 0:15 - Low Capture/Compare 2 value" ]
+    pub fn ccr2_l(&mut self, value: u16) -> &mut Self {
         const OFFSET: u8 = 0u8;
         const MASK: u16 = 65535;
         self.bits &= !((MASK as u32) << OFFSET);
@@ -2674,8 +2468,14 @@ pub struct Ccr3R {
 }
 
 impl Ccr3R {
-    # [ doc = "Bits 0:15 - Capture/Compare value" ]
-    pub fn ccr3(&self) -> u16 {
+    # [ doc = "Bits 16:31 - High Capture/Compare value" ]
+    pub fn ccr3_h(&self) -> u16 {
+        const MASK: u32 = 65535;
+        const OFFSET: u8 = 16u8;
+        ((self.bits >> OFFSET) & MASK) as u16
+    }
+    # [ doc = "Bits 0:15 - Low Capture/Compare value" ]
+    pub fn ccr3_l(&self) -> u16 {
         const MASK: u32 = 65535;
         const OFFSET: u8 = 0u8;
         ((self.bits >> OFFSET) & MASK) as u16
@@ -2693,8 +2493,16 @@ impl Ccr3W {
     pub fn reset_value() -> Self {
         Ccr3W { bits: 0 }
     }
-    # [ doc = "Bits 0:15 - Capture/Compare value" ]
-    pub fn ccr3(&mut self, value: u16) -> &mut Self {
+    # [ doc = "Bits 16:31 - High Capture/Compare value" ]
+    pub fn ccr3_h(&mut self, value: u16) -> &mut Self {
+        const OFFSET: u8 = 16u8;
+        const MASK: u16 = 65535;
+        self.bits &= !((MASK as u32) << OFFSET);
+        self.bits |= ((value & MASK) as u32) << OFFSET;
+        self
+    }
+    # [ doc = "Bits 0:15 - Low Capture/Compare value" ]
+    pub fn ccr3_l(&mut self, value: u16) -> &mut Self {
         const OFFSET: u8 = 0u8;
         const MASK: u16 = 65535;
         self.bits &= !((MASK as u32) << OFFSET);
@@ -2750,8 +2558,14 @@ pub struct Ccr4R {
 }
 
 impl Ccr4R {
-    # [ doc = "Bits 0:15 - Capture/Compare value" ]
-    pub fn ccr4(&self) -> u16 {
+    # [ doc = "Bits 16:31 - High Capture/Compare value" ]
+    pub fn ccr4_h(&self) -> u16 {
+        const MASK: u32 = 65535;
+        const OFFSET: u8 = 16u8;
+        ((self.bits >> OFFSET) & MASK) as u16
+    }
+    # [ doc = "Bits 0:15 - Low Capture/Compare value" ]
+    pub fn ccr4_l(&self) -> u16 {
         const MASK: u32 = 65535;
         const OFFSET: u8 = 0u8;
         ((self.bits >> OFFSET) & MASK) as u16
@@ -2769,8 +2583,16 @@ impl Ccr4W {
     pub fn reset_value() -> Self {
         Ccr4W { bits: 0 }
     }
-    # [ doc = "Bits 0:15 - Capture/Compare value" ]
-    pub fn ccr4(&mut self, value: u16) -> &mut Self {
+    # [ doc = "Bits 16:31 - High Capture/Compare value" ]
+    pub fn ccr4_h(&mut self, value: u16) -> &mut Self {
+        const OFFSET: u8 = 16u8;
+        const MASK: u16 = 65535;
+        self.bits &= !((MASK as u32) << OFFSET);
+        self.bits |= ((value & MASK) as u32) << OFFSET;
+        self
+    }
+    # [ doc = "Bits 0:15 - Low Capture/Compare value" ]
+    pub fn ccr4_l(&mut self, value: u16) -> &mut Self {
         const OFFSET: u8 = 0u8;
         const MASK: u16 = 65535;
         self.bits &= !((MASK as u32) << OFFSET);
@@ -2939,262 +2761,6 @@ impl DmarW {
     pub fn dmab(&mut self, value: u16) -> &mut Self {
         const OFFSET: u8 = 0u8;
         const MASK: u16 = 65535;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-}
-
-# [ repr ( C ) ]
-pub struct Rcr {
-    register: ::volatile_register::RW<u32>,
-}
-
-impl Rcr {
-    pub fn read_bits(&self) -> u32 {
-        self.register.read()
-    }
-    pub unsafe fn modify_bits<F>(&mut self, f: F)
-        where F: FnOnce(&mut u32)
-    {
-        let mut bits = self.register.read();
-        f(&mut bits);
-        self.register.write(bits);
-    }
-    pub unsafe fn write_bits(&mut self, bits: u32) {
-        self.register.write(bits);
-    }
-    pub fn modify<F>(&mut self, f: F)
-        where for<'w> F: FnOnce(&RcrR, &'w mut RcrW) -> &'w mut RcrW
-    {
-        let bits = self.register.read();
-        let r = RcrR { bits: bits };
-        let mut w = RcrW { bits: bits };
-        f(&r, &mut w);
-        self.register.write(w.bits);
-    }
-    pub fn read(&self) -> RcrR {
-        RcrR { bits: self.register.read() }
-    }
-    pub fn write<F>(&mut self, f: F)
-        where F: FnOnce(&mut RcrW) -> &mut RcrW
-    {
-        let mut w = RcrW::reset_value();
-        f(&mut w);
-        self.register.write(w.bits);
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct RcrR {
-    bits: u32,
-}
-
-impl RcrR {
-    # [ doc = "Bits 0:7 - Repetition counter value" ]
-    pub fn rep(&self) -> u8 {
-        const MASK: u32 = 255;
-        const OFFSET: u8 = 0u8;
-        ((self.bits >> OFFSET) & MASK) as u8
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct RcrW {
-    bits: u32,
-}
-
-impl RcrW {
-    # [ doc = r" Reset value" ]
-    pub fn reset_value() -> Self {
-        RcrW { bits: 0 }
-    }
-    # [ doc = "Bits 0:7 - Repetition counter value" ]
-    pub fn rep(&mut self, value: u8) -> &mut Self {
-        const OFFSET: u8 = 0u8;
-        const MASK: u8 = 255;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-}
-
-# [ repr ( C ) ]
-pub struct Bdtr {
-    register: ::volatile_register::RW<u32>,
-}
-
-impl Bdtr {
-    pub fn read_bits(&self) -> u32 {
-        self.register.read()
-    }
-    pub unsafe fn modify_bits<F>(&mut self, f: F)
-        where F: FnOnce(&mut u32)
-    {
-        let mut bits = self.register.read();
-        f(&mut bits);
-        self.register.write(bits);
-    }
-    pub unsafe fn write_bits(&mut self, bits: u32) {
-        self.register.write(bits);
-    }
-    pub fn modify<F>(&mut self, f: F)
-        where for<'w> F: FnOnce(&BdtrR, &'w mut BdtrW) -> &'w mut BdtrW
-    {
-        let bits = self.register.read();
-        let r = BdtrR { bits: bits };
-        let mut w = BdtrW { bits: bits };
-        f(&r, &mut w);
-        self.register.write(w.bits);
-    }
-    pub fn read(&self) -> BdtrR {
-        BdtrR { bits: self.register.read() }
-    }
-    pub fn write<F>(&mut self, f: F)
-        where F: FnOnce(&mut BdtrW) -> &mut BdtrW
-    {
-        let mut w = BdtrW::reset_value();
-        f(&mut w);
-        self.register.write(w.bits);
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct BdtrR {
-    bits: u32,
-}
-
-impl BdtrR {
-    # [ doc = "Bit 15 - Main output enable" ]
-    pub fn moe(&self) -> bool {
-        const OFFSET: u8 = 15u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 14 - Automatic output enable" ]
-    pub fn aoe(&self) -> bool {
-        const OFFSET: u8 = 14u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 13 - Break polarity" ]
-    pub fn bkp(&self) -> bool {
-        const OFFSET: u8 = 13u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 12 - Break enable" ]
-    pub fn bke(&self) -> bool {
-        const OFFSET: u8 = 12u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 11 - Off-state selection for Run mode" ]
-    pub fn ossr(&self) -> bool {
-        const OFFSET: u8 = 11u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bit 10 - Off-state selection for Idle mode" ]
-    pub fn ossi(&self) -> bool {
-        const OFFSET: u8 = 10u8;
-        self.bits & (1 << OFFSET) != 0
-    }
-    # [ doc = "Bits 8:9 - Lock configuration" ]
-    pub fn lock(&self) -> u8 {
-        const MASK: u32 = 3;
-        const OFFSET: u8 = 8u8;
-        ((self.bits >> OFFSET) & MASK) as u8
-    }
-    # [ doc = "Bits 0:7 - Dead-time generator setup" ]
-    pub fn dtg(&self) -> u8 {
-        const MASK: u32 = 255;
-        const OFFSET: u8 = 0u8;
-        ((self.bits >> OFFSET) & MASK) as u8
-    }
-}
-
-# [ derive ( Clone , Copy ) ]
-# [ repr ( C ) ]
-pub struct BdtrW {
-    bits: u32,
-}
-
-impl BdtrW {
-    # [ doc = r" Reset value" ]
-    pub fn reset_value() -> Self {
-        BdtrW { bits: 0 }
-    }
-    # [ doc = "Bit 15 - Main output enable" ]
-    pub fn moe(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 15u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 14 - Automatic output enable" ]
-    pub fn aoe(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 14u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 13 - Break polarity" ]
-    pub fn bkp(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 13u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 12 - Break enable" ]
-    pub fn bke(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 12u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 11 - Off-state selection for Run mode" ]
-    pub fn ossr(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 11u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bit 10 - Off-state selection for Idle mode" ]
-    pub fn ossi(&mut self, value: bool) -> &mut Self {
-        const OFFSET: u8 = 10u8;
-        if value {
-            self.bits |= 1 << OFFSET;
-        } else {
-            self.bits &= !(1 << OFFSET);
-        }
-        self
-    }
-    # [ doc = "Bits 8:9 - Lock configuration" ]
-    pub fn lock(&mut self, value: u8) -> &mut Self {
-        const OFFSET: u8 = 8u8;
-        const MASK: u8 = 3;
-        self.bits &= !((MASK as u32) << OFFSET);
-        self.bits |= ((value & MASK) as u32) << OFFSET;
-        self
-    }
-    # [ doc = "Bits 0:7 - Dead-time generator setup" ]
-    pub fn dtg(&mut self, value: u8) -> &mut Self {
-        const OFFSET: u8 = 0u8;
-        const MASK: u8 = 255;
         self.bits &= !((MASK as u32) << OFFSET);
         self.bits |= ((value & MASK) as u32) << OFFSET;
         self

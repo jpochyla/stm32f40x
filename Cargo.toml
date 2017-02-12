@@ -2,7 +2,8 @@
 authors = [
 	"Brandon Edens <brandonedens@gmail.com>",
 	"Jorge Aparicio <japaricious@gmail.com>",
-	"Jan Pochyla <jpochyla@gmail.com>"]
+	"Jan Pochyla <jpochyla@gmail.com>",
+	"Pavol Rusnak <stick@gk2.sk>"]
 description = "Memory map for STM32F40x microcontrollers"
 keywords = ["arm", "cortex-m", "stm32", "stm32f40x"]
 license = "MIT OR Apache-2.0"

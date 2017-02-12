@@ -1,6 +1,6 @@
 # [ doc = "General purpose timers" ]
 # [ repr ( C ) ]
-pub struct GeneralTimer {
+pub struct TimerFourChannel32bit {
     # [ doc = "0x00 - control register 1" ]
     pub cr1: Cr1,
     # [ doc = "0x04 - control register 2" ]
