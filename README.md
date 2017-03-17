@@ -1,22 +1,25 @@
+# `stm32f40x`
 
-# `stm32f40x-memory-map`
+> Peripheral access API for STM32F40X microcontrollers
 
-> Memory map for STM32F40x microcontrollers
+Generated using [svd2rust] v0.4.0 from [STM32F40x.svd]
 
-## [Documentation](https://docs.rs/stm32f40x-memory-map)
+[STM32F40x.svd]: https://github.com/posborne/cmsis-svd/blob/aa4721af946a253d18c8737b01d23e9c88a42e84/data/STMicro/STM32F40x.svd
+[svd2rust]: https://github.com/japaric/svd2rust
 
-## License
+# License
 
-Licensed under either of:
+Licensed under either of
 
 - Apache License, Version 2.0 ([LICENSE-APACHE](LICENSE-APACHE) or
   http://www.apache.org/licenses/LICENSE-2.0)
+
 - MIT license ([LICENSE-MIT](LICENSE-MIT) or http://opensource.org/licenses/MIT)
 
 at your option.
 
-### Contribution
+## Contribution
 
 Unless you explicitly state otherwise, any contribution intentionally submitted
-for inclusion in the work by you, as defined in the Apache-2.0 license, shall
-be dual licensed as above, without any additional terms or conditions.
+for inclusion in the work by you, as defined in the Apache-2.0 license, shall be
+dual licensed as above, without any additional terms or conditions.

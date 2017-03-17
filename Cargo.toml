@@ -1,15 +1,14 @@
 [package]
 authors = [
-	"Brandon Edens <brandonedens@gmail.com>",
-	"Jorge Aparicio <japaricious@gmail.com>",
 	"Jan Pochyla <jpochyla@gmail.com>",
 	"Pavol Rusnak <stick@gk2.sk>"]
 description = "Memory map for STM32F40x microcontrollers"
 keywords = ["arm", "cortex-m", "stm32", "stm32f40x"]
 license = "MIT OR Apache-2.0"
-name = "stm32f40x-memory-map"
-repository = "https://github.com/jpochyla/stm32f40x-memory-map"
+name = "stm32f40x"
+repository = "https://github.com/jpochyla/stm32f40x"
 version = "0.1.0"
 
 [dependencies]
-volatile-register = "0.1.2"
+cortex-m = "0.2.0"
+vcell = "0.1.0"
